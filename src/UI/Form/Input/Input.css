@@ -1,0 +1,17 @@
+.Input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 20px 0;
+}
+
+.Input label{
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.Input input{
+    border: none;
+    height: 40px;
+    padding: 10px;
+}

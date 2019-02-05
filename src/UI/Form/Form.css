@@ -1,0 +1,16 @@
+.Form{
+    display: flex;
+    width: 60%;
+    margin: 0 auto;
+    flex-direction: column;
+    padding: 30px;
+    background: #e9c893;
+}
+
+.Form h4{
+    color: #fff;
+}
+
+.Form button{
+    margin-top: 30px;
+}

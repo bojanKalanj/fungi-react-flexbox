@@ -21,8 +21,8 @@ const Header = () => {
                     <Navlink to="/user">
                         Korisnik
                     </Navlink>
-                    <Navlink to="/observation">
-                        Observation
+                    <Navlink to="/login">
+                        Prijavi se
                     </Navlink>
                 </div>
             </Container>
