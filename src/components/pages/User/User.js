@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { FlexContainer } from '../../../UI/Container/Container';
+import UserInfo from './UserInfo/UserInfo';
+
 const User = () => {
     return (
-        <div >
-            User
-        </div>
+        <FlexContainer >
+            <UserInfo />
+        </FlexContainer>
     )
 }
 

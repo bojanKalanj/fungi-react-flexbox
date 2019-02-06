@@ -1,0 +1,10 @@
+.UserAvatar{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.UserAvatar img{
+    width: 100px;
+    border-radius: 50%;
+}
