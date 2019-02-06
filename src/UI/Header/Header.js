@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Container from '../Container/Container';
+import { Container } from '../Container/Container';
 import './Header.css';
 import Navlink from '../Navlinks/Navlink'
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Container.css';
 
-const Container = (props) => {
+export const Container = (props) => {
     return (
         <div className="Container">
             {props.children}
@@ -10,7 +10,14 @@ const Container = (props) => {
     )
 }
 
-export default Container;
+export const FlexContainer = (props) => {
+    return (
+        <div className="FlexContainer">
+            {props.children}
+        </div>
+    )
+}
+
 
 
 

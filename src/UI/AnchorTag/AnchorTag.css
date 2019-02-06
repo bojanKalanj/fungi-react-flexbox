@@ -1,0 +1,13 @@
+.AnchorTag{
+    text-decoration: none;
+    color: #1e392a;
+    font-weight: bold;
+}
+
+.AnchorTag:hover{
+    color: #3cc47c;
+}
+
+.TitleLinks{
+    font-size: 20px;
+}

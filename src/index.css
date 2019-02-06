@@ -8,11 +8,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+hr {
+  border: 0;
+  width: 100%;               
+  background-color:#eee;
+  height: 1px;
 }
 
 .pull-right{
   float: right;
+}
+
+.text-muted{
+  color: #828081;
 }

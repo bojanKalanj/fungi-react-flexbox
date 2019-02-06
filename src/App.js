@@ -8,7 +8,7 @@ import Species from './components/pages/Species/Species';
 import User from './components/pages/User/User';
 import Login from './components/pages/Login/Login';
 
-import Container from './UI/Container/Container';
+import { Container } from './UI/Container/Container';
 
 class App extends Component {
   render() {
