@@ -4,20 +4,36 @@ import { Card, CardBody } from '../../../../UI/Card/Card';
 import placeholderImg from '../../../../assets/mushroom.jpg';
 import { AnchorTag, TitleLinks } from '../../../../UI/AnchorTag/AnchorTag';
 
-const HomeCard = () => {
+const HomeCard = (props) => {
+    const title = () => {
+        if(props.speciesTitle){
+            return props.speciesTitle
+        }else{
+            return "Fungi " + props.number
+        }
+    }
+
+    const determinator = () => {
+        if(props.determinator){
+            return props.determinator
+        }else{
+            return 'Korisnik'
+        }
+    }
+
     return(
         <Card width='23%'>
             <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>
             <CardBody >
                 <TitleLinks to="/observation">
-                    Vrsta Gljive Ovde 
+                    { title() } 
                 </TitleLinks>
                 <hr />
                 <AnchorTag to="/user">
-                    Bojan Kalanj
+                    { determinator() }
                 </AnchorTag>
                 <p className="text-muted">
-                    02.06.2018
+                    { props.addedAt }
                 </p>
             </CardBody>
         </Card>

@@ -1,11 +1,6 @@
 import { combineReducers } from 'redux';
-
-const demoReducer = () => {
-    return [
-        {}
-    ]
-};
+import observationsReducer from './observationsReducer';
 
 export default combineReducers({
-    demo: demoReducer
-})
+    observations: observationsReducer
+});
