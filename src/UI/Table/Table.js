@@ -4,7 +4,9 @@ import './Table.css';
 const Table = (props) => {
     return (
         <table className="Table">
-            { props.children }
+            <tbody>
+                { props.children }
+            </tbody>
         </table>
     )
 }
