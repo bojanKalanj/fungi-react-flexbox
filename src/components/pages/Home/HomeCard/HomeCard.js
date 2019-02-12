@@ -25,7 +25,7 @@ const HomeCard = (props) => {
         <Card width='23%'>
             <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>
             <CardBody >
-                <TitleLinks to="/observation">
+                <TitleLinks to="/observation/" params={props.id} >
                     { title() } 
                 </TitleLinks>
                 <hr />

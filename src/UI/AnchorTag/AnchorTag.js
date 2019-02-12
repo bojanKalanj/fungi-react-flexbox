@@ -13,7 +13,7 @@ export const AnchorTag = (props) => {
 
 export const TitleLinks = (props) => {
     return (
-        <Link to={props.to} className="AnchorTag TitleLinks">
+        <Link to={props.to + props.params} className="AnchorTag TitleLinks">
             {props.children}
         </Link>
     )

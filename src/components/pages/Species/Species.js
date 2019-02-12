@@ -12,12 +12,11 @@ import Spinner from '../../../UI/Spinner/Spinner';
 class Species extends Component {
     componentDidMount = () => {
         this.props.fetchSpecies();
+        console.log(this.props)
     }
 
     render(){
-        console.log(this.props.state)
-
-        const showSpecies = () => {
+        const loadSpecies = () => {
             if(this.props.state.species.data){
                 return this.props.state.species.data.map(spcs => {
                     return <Tr key={spcs.id}>
@@ -38,25 +37,33 @@ class Species extends Component {
                                 </Td>
                             </Tr>
                 })
+            }
+        }
+
+        const showSpecies = () => {
+            if(this.props.state.species.data){
+                return <Table >
+                            <Tr>
+                                <Th>
+                                    Vrsta
+                                </Th>
+                                <Th>
+                                    Broj nalaza
+                                </Th>
+                                <Th>
+                                    Poslednji nalaz
+                                </Th>
+                            </Tr>
+                        { loadSpecies() }
+                        </Table>
             }else{
                 return <Spinner />
             }
         }
         return(
-            <Table >
-                <Tr>
-                    <Th>
-                        Vrsta
-                    </Th>
-                    <Th>
-                        Broj nalaza
-                    </Th>
-                    <Th>
-                        Poslednji nalaz
-                    </Th>
-                </Tr>
-            { showSpecies() }
-            </Table>
+            <div>
+                { showSpecies() }
+            </div>
         )
     }
 }

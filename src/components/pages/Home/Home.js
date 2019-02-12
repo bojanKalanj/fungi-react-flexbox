@@ -20,6 +20,7 @@ class Home extends React.Component{
                 return observations.map(obs => {
                     return <HomeCard 
                             key={obs.id} 
+                            id={obs.id}
                             number={obs.attributes.number}
                             speciesTitle={obs.relationships.species.data} 
                             determinator={obs.relationships.determinator.data}

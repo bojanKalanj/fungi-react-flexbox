@@ -2,7 +2,7 @@ import fungi from '../apis/fungi';
 
 export const setObervations = observations => {
     return{
-        type: 'FETCH_OBSERVATION',
+        type: 'FETCH_OBSERVATIONS',
         payload: observations
     }
 }
@@ -12,6 +12,23 @@ export const fetchObservations = () => {
        fungi.get('/observations')
         .then(response => {
             dispatch(setObervations(response.data))
+        })
+        .catch(error => console.log(error))
+    )
+};
+//////////////////////////////////////////
+export const setObervation = observations => {
+    return{
+        type: 'FETCH_OBSERVATION',
+        payload: observations
+    }
+}
+
+export const fetchObservation = (observationId) => {
+    return dispatch => (
+       fungi.get(`/observations/${observationId}`)
+        .then(response => {
+            dispatch(setObervation(response.data))
         })
         .catch(error => console.log(error))
     )
