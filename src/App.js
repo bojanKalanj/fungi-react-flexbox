@@ -7,6 +7,7 @@ import Home from './components/pages/Home/Home';
 import Species from './components/pages/Species/Species';
 import User from './components/pages/User/User';
 import Login from './components/pages/Login/Login';
+import Register from './components/pages/Register/Register';
 
 import { Container } from './UI/Container/Container';
 
@@ -23,6 +24,7 @@ class App extends Component {
               <Route path="/species" component={Species} />
               <Route path="/user" component={User} />
               <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
             </div>
           </Container>
         </div>

@@ -24,6 +24,9 @@ const Header = () => {
                     <Navlink to="/login">
                         Prijavi se
                     </Navlink>
+                    <Navlink to="/register">
+                        Registruj se 
+                    </Navlink>
                 </div>
             </Container>
         </div>

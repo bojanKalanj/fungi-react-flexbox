@@ -21,11 +21,13 @@ const HomeCard = (props) => {
         }
     }
 
+    const pathToObervation =`/observation/${props.id}`
+
     return(
         <Card width='23%'>
             <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>
             <CardBody >
-                <TitleLinks to="/observation/" params={props.id} >
+                <TitleLinks to={pathToObervation} >
                     { title() } 
                 </TitleLinks>
                 <hr />

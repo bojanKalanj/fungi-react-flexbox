@@ -4,7 +4,7 @@ import './Card.css';
 
 export const Card = (props) => {
     return (
-        <div style={{ width: props.width }} className="Card">
+        <div style={{ width: props.width, background: props.color }} className="Card">
             { props.children }
         </div>
     )
