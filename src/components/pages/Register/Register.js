@@ -42,19 +42,23 @@ class Register extends Component{
                 },
                 value: '',
                 label: 'Potvrda lozinke'
-            },
-            dropdown: {
-                elementType: 'select',
-                elementConfig: {
-                    options: [
-                        {value: 'value1', displayValue: 'Value1'},
-                        {value: 'value2', displayValue: 'Value2'}
-                    ]
-                },
-                value: '',
-                label: 'Potvrda lozinke'
             }
         }
+    }
+
+    onInputChangedHandler = (event, inputId) => {
+        console.log(event.target.value)
+        const updatedForm = {
+            ...this.state.formFields
+        }
+
+        const updatedFormElement = {
+            ...updatedForm[inputId]
+        }
+
+        updatedFormElement.value = event.target.value;
+        updatedForm[inputId] = updatedFormElement;
+        this.setState({formFields: updatedForm});
     }
 
     render(){
@@ -73,7 +77,8 @@ class Register extends Component{
                             elementType={formElement.config.elementType}  
                             elementConfig={formElement.config.elementConfig}
                             value={formElement.config.value}
-                            label={formElement.config.label}/>
+                            label={formElement.config.label}
+                            onChange={(event) => this.onInputChangedHandler(event, formElement.id)}/>
                 })}
                 {/* <Input label="Ime" placeholder="Vase ime"/>
                 <Input label="Email" placeholder="Vas email"/>
