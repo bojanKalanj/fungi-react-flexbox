@@ -20,7 +20,7 @@ const Input = (props) => {
                 className={invalidCss} />;
             break;
         case ('textarea'):
-            inputElement = <textarea rows="10" cols="50"
+            inputElement = <textarea rows="7" 
                 {...props.elementConfig} 
                 value={props.value}
                 onChange={props.onChange}

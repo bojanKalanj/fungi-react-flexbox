@@ -1,7 +1,7 @@
 .Form{
     display: flex;
-    width: 60%;
-    margin: 0 auto;
+    width: 50%;
+    /* margin: 0 auto; */
     flex-direction: column;
     padding: 30px;
     background: #e9c893;

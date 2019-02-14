@@ -12,12 +12,22 @@
 
 .Input input{
     border: none;
-    height: 40px;
-    padding: 10px;
+    /* height: 40px; */
+    padding: 15px;
+    background: inherit;
+    border: 1px solid #eee;
 }
 
 .Input select{
     padding: 10px;
+}
+
+.Input textarea{
+    padding: 10px;
+}
+
+.Input ::placeholder{
+    color: #eee;
 }
 
 .invalid{
