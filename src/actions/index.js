@@ -51,4 +51,22 @@ export const fetchSpecies = () => {
         .catch(error => console.log(error))
     )
 };
+//////////////////////////////////////////
+// export const saveUser = user => {
+//     return{
+//         type: 'REGISTER_USER',
+//         payload: user
+//     }
+// }
+
+// export const registerUser = (user) => {
+//     return dispatch => (
+//         fungi.post('/register', { user })
+//          .then(response => {
+//              console.log(response)
+//              dispatch(saveUser(response.data))
+//          })
+//          .catch(error => console.log(error))
+//      )
+// }
     

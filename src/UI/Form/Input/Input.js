@@ -5,18 +5,26 @@ import './Input.css';
 const Input = (props) => {
     let inputElement = null;
 
+    let invalidCss = null;
+
+    if(props.invalid && props.touched){
+        invalidCss = "invalid"
+    }
+
     switch(props.elementType){
         case ('input'):
             inputElement = <input 
                 {...props.elementConfig} 
                 value={props.value}
-                onChange={props.onChange} />;
+                onChange={props.onChange}
+                className={invalidCss} />;
             break;
         case ('textarea'):
             inputElement = <textarea 
                 {...props.elementConfig} 
                 value={props.value}
-                onChange={props.onChange} />;
+                onChange={props.onChange}
+                className={invalidCss} />;
             break;
         case ('select'):
             inputElement = (
@@ -35,7 +43,8 @@ const Input = (props) => {
             inputElement = <input 
                 {...props.elementConfig} 
                 value={props.value}
-                onChange={props.onChange} />;
+                onChange={props.onChange}
+                className={invalidCss} />;
     }
 
     return (
