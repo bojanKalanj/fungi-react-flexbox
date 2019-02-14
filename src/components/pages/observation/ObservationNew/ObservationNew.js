@@ -1,72 +1,71 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import fungi from '../../../apis/fungi';
-import Form from '../../../UI/Form/Form';
-import Input from '../../../UI/Form/Input/Input';
-import  Button from '../../../UI/Button/Button';
+import fungi from '../../../../apis/fungi';
 
-class Register extends Component{
+import Form from '../../../../UI/Form/Form';
+import Input from '../../../../UI/Form/Input/Input';
+import Button from '../../../../UI/Button/Button';
+
+class ObservationNew extends Component{
     state = {
         formFields: {
-            username: {
+            area: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Vase ime'
+                    placeholder: 'Area'
                 },
                 value: '',
-                label: 'Ime',
+                label: 'Podrucje na kom je nalaz pronadjen',
                 validation: {
                     valid: false,
                     required: true
                 },
                 touched: false
             },
-            email: {
+            location: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'email',
-                    placeholder: 'Vas email'
+                    type: 'text',
+                    placeholder: 'location'
                 },
                 value: '',
-                label: 'Email',
+                label: 'Lokacija na kojoj je pronadjena obzervacija',
                 validation: {
                     valid: false,
                     required: true
                 },
                 touched: false
             },
-            password: {
-                elementType: 'input',
+            description: {
+                elementType: 'textarea',
                 elementConfig: {
-                    type: 'password',
-                    placeholder: 'Lozinka'
+                    type: 'text',
+                    placeholder: 'opis'
                 },
                 value: '',
-                label: 'Lozinka',
+                label: 'Opis obzervacije',
                 validation: {
                     valid: false,
                     required: true
                 },
                 touched: false
             },
-            password_confirmation: {
+            observed_at: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'password',
-                    placeholder: 'Potvrdite lozinku'
+                    type: 'text',
+                    placeholder: 'observed_at'
                 },
                 value: '',
-                label: 'Potvrda lozinke',
+                label: 'Kada je nalaz uocen',
                 validation: {
                     valid: false,
                     required: true
                 },
                 touched: false
             }
-        },
-        formIsValid: false
+        }
     }
 
     checkValiditiy = (value, rules) => {
@@ -103,14 +102,22 @@ class Register extends Component{
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        let user = {}
+        let observation = {}
         for(let key in this.state.formFields){
-            user[key] = this.state.formFields[key].value;
+            observation[key] = this.state.formFields[key].value;
         }
 
-        console.log(user);
+        console.log(observation);
 
-        fungi.post(`/register`, { user })
+    //     const observation = {
+    //         area: "Pezos", 
+    //         location: "Munjin Trg", 
+    //         description: "Gljiva je nadjena na obodu Bokijevog anusa slucajno od strane macora koji ga je zaskocio", 
+    //         observed_at: "2019-01-25", 
+    //         credentials: 'include'
+    //    }
+
+        fungi.post(`/observations`, { observation })
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -125,28 +132,25 @@ class Register extends Component{
                 config: this.state.formFields[key]
             });
         }
-        return (
-            <Form onSubmit={this.onFormSubmit} title="Registruj se">
+        return(
+            <Form title="Dodaj novu obzervaciju" onSubmit={this.onFormSubmit}>
                 {formElementsArray.map(formElement => {
-                    return <Input 
-                            key={formElement.id}
-                            elementType={formElement.config.elementType}  
-                            elementConfig={formElement.config.elementConfig}
-                            value={formElement.config.value}
-                            label={formElement.config.label}
-                            onChange={(event) => this.inputChangedHandler(event, formElement.id)}
-                            invalid={!formElement.config.valid}
-                            touched={formElement.config.touched}/>
+                        return <Input 
+                                key={formElement.id}
+                                elementType={formElement.config.elementType}  
+                                elementConfig={formElement.config.elementConfig}
+                                value={formElement.config.value}
+                                label={formElement.config.label}
+                                onChange={(event) => this.inputChangedHandler(event, formElement.id)}
+                                invalid={!formElement.config.valid}
+                                touched={formElement.config.touched}/>
                 })}
                 <Button disabled={!this.state.formIsValid}>
-                    Registruj se
+                    Dodaj obzervaciju
                 </Button>
             </Form>
         )
     }
 }
 
-export default Register;
-
-
-
+export default ObservationNew;

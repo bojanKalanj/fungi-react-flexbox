@@ -27,6 +27,9 @@ const Header = () => {
                     <Navlink to="/register">
                         Registruj se 
                     </Navlink>
+                    <Navlink to="/observations/new">
+                        Dodaj observaciju 
+                    </Navlink>
                 </div>
             </Container>
         </div>
