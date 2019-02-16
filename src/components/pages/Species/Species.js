@@ -12,7 +12,6 @@ import Spinner from '../../../UI/Spinner/Spinner';
 class Species extends Component {
     componentDidMount = () => {
         this.props.fetchSpecies();
-        console.log(this.props)
     }
 
     render(){

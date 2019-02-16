@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import fungi from '../../../apis/fungi';
 import Form from '../../../UI/Form/Form';
@@ -107,8 +106,6 @@ class Register extends Component{
         for(let key in this.state.formFields){
             user[key] = this.state.formFields[key].value;
         }
-
-        console.log(user);
 
         fungi.post(`/register`, { user })
         .then(res => {

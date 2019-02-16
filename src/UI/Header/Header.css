@@ -1,6 +1,22 @@
 .Header{
+    position: relative;
     display: flex;
     align-items: center;
     height: 70px;
     background: #3cc47c;
+}
+
+.Header a{
+    margin-left: 20px;
+}
+
+.DropdownBtn{
+    display: inline;
+    margin-left: 20px;
+    color: #f1f1f1;
+    font-weight: bold;
+}
+
+.DropdownBtn:hover{
+    cursor: pointer;
 }

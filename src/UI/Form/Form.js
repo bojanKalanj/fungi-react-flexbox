@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {FlexContainer} from '../../UI/Container/Container'
-
 import './Form.css';
 
 const Form = (props) => {

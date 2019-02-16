@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import fungi from '../../../../apis/fungi';
+import fungi from '../../../apis/fungi';
 
-import Form from '../../../../UI/Form/Form';
-import Input from '../../../../UI/Form/Input/Input';
-import Button from '../../../../UI/Button/Button';
+import Form from '../../../UI/Form/Form';
+import Input from '../../../UI/Form/Input/Input';
+import Button from '../../../UI/Button/Button';
 
 class ObservationNew extends Component{
     state = {

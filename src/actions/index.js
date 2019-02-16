@@ -52,5 +52,20 @@ export const fetchSpecies = () => {
     )
 };
 //////////////////////////////////////////
+export const setUser = user => {
+    return{
+        type: 'FETCH_USER',
+        payload: user
+    }
+}
 
+export const fetchUser = userId => {
+    return dispatch => (
+       fungi.get(`/users/${userId}`)
+        .then(response => {
+            dispatch(setUser(response.data))
+        })
+        .catch(error => console.log(error))
+    )
+};
     

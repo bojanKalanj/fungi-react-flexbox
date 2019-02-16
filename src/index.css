@@ -6,6 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-transition: 4s; /* Safari */
+  transition: 4s;
 }
 
 h1{
