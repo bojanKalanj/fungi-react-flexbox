@@ -53,13 +53,18 @@ class Filters extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
+        let button = {
+            btnTitle: "Filter",
+            disabled: false
+        }
 
         return (
             <Form 
                 formElements={formElements} 
                 title="Filteri" 
                 onSubmit={(event) => this.onFormSubmit(event)}
-                inputChangedHandler={this.inputChangedHandler}>
+                inputChangedHandler={this.inputChangedHandler}
+                button={button}>
             </Form>
         )
     }

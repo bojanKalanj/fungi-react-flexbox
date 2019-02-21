@@ -71,6 +71,8 @@ class ObservationNew extends Component{
         }
     }
 
+    isFormValid = false;
+
     inputChangedHandler = (event, formInput) => {
         let newFormFileds = {...this.state.formFields}
         let newFormInput = newFormFileds[formInput];
@@ -84,15 +86,14 @@ class ObservationNew extends Component{
             validity.push(newFormFileds[key].validation.valid);
         }
 
-        let isValid = false;
         if(validity.includes(false)){
-            isValid = false;
+            this.isFormValid = false;
         }else{
-            isValid = true;
+            this.isFormValid = true;
         }
 
-        this.setState({ formFields: newFormFileds, formIsValid: isValid });
-        console.log(this.state.formIsValid);
+        this.setState({ formFields: newFormFileds });
+        console.log(this.isFormValid);
     }
 
     onFormSubmit = (event) => {
@@ -102,6 +103,8 @@ class ObservationNew extends Component{
             observation[key] = this.state.formFields[key].value;
         }
 
+        console.log("submited")
+        
         // fungi.post(`/observations`, { observation })
         // .then(res => {
         //     console.log(res);
@@ -111,13 +114,18 @@ class ObservationNew extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
+        let button = {
+            btnTitle: "Dodaj obzervaciju",
+            disabled: !this.isFormValid
+        }
 
         return(
             <Form 
                 formElements={formElements} 
-                title="Filteri" 
+                title="Dodaj novu obzervaciju" 
                 onSubmit={(event) => this.onFormSubmit(event)}
-                inputChangedHandler={this.inputChangedHandler}>
+                inputChangedHandler={this.inputChangedHandler}
+                button={button}>
             </Form>
         )
     }

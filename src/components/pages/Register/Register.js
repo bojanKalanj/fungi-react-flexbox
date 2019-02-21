@@ -10,10 +10,8 @@ class Register extends Component{
         formFields: {
             username: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Vase ime'
-                },
+                type: 'text',
+                placeholder: 'Vase ime',
                 value: '',
                 label: 'Ime',
                 validation: {
@@ -24,10 +22,8 @@ class Register extends Component{
             },
             email: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'email',
-                    placeholder: 'Vas email'
-                },
+                type: 'email',
+                placeholder: 'Vas email',
                 value: '',
                 label: 'Email',
                 validation: {
@@ -38,10 +34,8 @@ class Register extends Component{
             },
             password: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Lozinka'
-                },
+                type: 'password',
+                placeholder: 'Lozinka',
                 value: '',
                 label: 'Lozinka',
                 validation: {
@@ -52,10 +46,8 @@ class Register extends Component{
             },
             password_confirmation: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Potvrdite lozinku'
-                },
+                type: 'password',
+                placeholder: 'Potvrdite lozinku',
                 value: '',
                 label: 'Potvrda lozinke',
                 validation: {
@@ -68,36 +60,44 @@ class Register extends Component{
         formIsValid: false
     }
 
-    checkValiditiy = (value, rules) => {
-        let isValid = true;
-
-        if(rules.required){
-            isValid = value.trim() !== '' && isValid;
+    checkvalidity = input => {
+        if(input.validation.required){
+            if(input.value.length >= 1){
+                input.validation.valid = true;
+            }else{
+                input.validation.valid = false;
+            } 
         }
-
-        return isValid;
     }
 
-    inputChangedHandler = (event, inputId) => {
-        const updatedForm = {
-            ...this.state.formFields
+    inputChangedHandler = (event, formInput) => {
+        let newFormFileds = {...this.state.formFields}
+        let newFormInput = newFormFileds[formInput];
+        newFormInput.value = event.target.value;
+        newFormInput.touched = true;
+        this.checkvalidity(newFormInput);
+
+        let validity = [];
+
+        for(let key in newFormFileds){
+            validity.push(newFormFileds[key].validation.valid);
         }
 
-        const updatedFormElement = {
-            ...updatedForm[inputId]
+        let isValid;
+        if(validity.includes(false)){
+            isValid = false;
+        }else{
+            isValid = true;
         }
 
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValiditiy(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedForm[inputId] = updatedFormElement;
+        console.log(validity);
+        console.log(isValid);
 
-        let formIsValid = true;
-        for(let inputIdentifier in updatedForm){
-            formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+        this.setState({ formFields: newFormFileds });
+        if(isValid){
+            this.setState({ formIsValid: isValid });
         }
-
-        this.setState({formFields: updatedForm, formIsValid: formIsValid});
+        console.log(this.state.formIsValid);
     }
 
     onFormSubmit = (event) => {
@@ -107,37 +107,30 @@ class Register extends Component{
             user[key] = this.state.formFields[key].value;
         }
 
-        fungi.post(`/register`, { user })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
+        console.log("register!")
+
+        // fungi.post(`/register`, { user })
+        // .then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        // })
     }
 
     render(){
-        const formElementsArray = [];
-        for(let key in this.state.formFields){
-            formElementsArray.push({
-                id: key,
-                config: this.state.formFields[key]
-            });
+        let formElements = {...this.state.formFields};
+        
+        let button = {
+            btnTitle: "Registruj se",
+            disabled: !this.isFormValid
         }
+
         return (
-            <Form onSubmit={this.onFormSubmit} title="Registruj se">
-                {formElementsArray.map(formElement => {
-                    return <Input 
-                            key={formElement.id}
-                            elementType={formElement.config.elementType}  
-                            elementConfig={formElement.config.elementConfig}
-                            value={formElement.config.value}
-                            label={formElement.config.label}
-                            onChange={(event) => this.inputChangedHandler(event, formElement.id)}
-                            invalid={!formElement.config.valid}
-                            touched={formElement.config.touched}/>
-                })}
-                <Button disabled={!this.state.formIsValid}>
-                    Registruj se
-                </Button>
+            <Form 
+                formElements={formElements} 
+                title="Registruj se" 
+                onSubmit={(event) => this.onFormSubmit(event)}
+                inputChangedHandler={this.inputChangedHandler}
+                button={button}>
             </Form>
         )
     }

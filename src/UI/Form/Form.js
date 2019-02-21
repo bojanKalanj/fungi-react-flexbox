@@ -6,10 +6,17 @@ import './Form.css';
 
 const Form = (props) => {
     let formElements = props.formElements
-    let inputs = [];
     
-    console.log(formElements);
+    let inputs = [];
+
+    let invalid = false;
+    
     for(let key in formElements){
+        if(!formElements[key].validation){
+            invalid = false;
+        }else{
+            invalid = !formElements[key].validation.valid;
+        }
         inputs.push(<Input 
                     key={key}
                     elementType={formElements[key].elementType}
@@ -19,7 +26,7 @@ const Form = (props) => {
                     label={formElements[key].label}
                     options={formElements[key].options}
                     onChange={(event) => props.inputChangedHandler(event, key)}
-                    // invalid={!formElements[key].validation.valid}
+                    invalid={invalid}
                     touched={formElements[key].touched}
                     />)
     }
@@ -28,8 +35,10 @@ const Form = (props) => {
                 <h4>{ props.title }</h4>
                 <hr />
                 { inputs }
-                <Button red>
-                   Filter
+                <Button 
+                    red 
+                    disabled={props.button.disabled}>
+                   { props.button.btnTitle }
                </Button>
             </form>
     )
