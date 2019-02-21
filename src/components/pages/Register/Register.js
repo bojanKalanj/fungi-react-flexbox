@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import fungi from '../../../apis/fungi';
 import Form from '../../../UI/Form/Form';
-import Input from '../../../UI/Form/Input/Input';
-import  Button from '../../../UI/Button/Button';
+import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag';
 
 class Register extends Component{
     state = {
@@ -125,13 +124,16 @@ class Register extends Component{
         }
 
         return (
-            <Form 
-                formElements={formElements} 
-                title="Registruj se" 
-                onSubmit={(event) => this.onFormSubmit(event)}
-                inputChangedHandler={this.inputChangedHandler}
-                button={button}>
-            </Form>
+            <div style={{width: '40%', margin: '0 auto'}}>
+                <Form 
+                    formElements={formElements} 
+                    title="Registruj se" 
+                    onSubmit={(event) => this.onFormSubmit(event)}
+                    inputChangedHandler={this.inputChangedHandler}
+                    button={button}>
+                </Form>
+                <p>Vec imate nalog? <span> <AnchorTag to="/login">Prijavi se</AnchorTag> </span></p>
+            </div>
         )
     }
 }

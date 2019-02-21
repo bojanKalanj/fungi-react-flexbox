@@ -36,7 +36,6 @@ const Form = (props) => {
                 <hr />
                 { inputs }
                 <Button 
-                    red 
                     disabled={props.button.disabled}>
                    { props.button.btnTitle }
                </Button>

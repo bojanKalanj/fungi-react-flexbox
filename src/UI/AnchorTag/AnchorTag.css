@@ -1,11 +1,10 @@
 .AnchorTag{
-    text-decoration: none;
-    color: #1e392a;
+    color: #379683;
     font-weight: bold;
 }
 
 .AnchorTag:hover{
-    color: #3cc47c;
+    color: #05386b;
 }
 
 .TitleLinks{

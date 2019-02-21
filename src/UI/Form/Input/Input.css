@@ -7,21 +7,22 @@
 
 .Input label{
     color: #fff;
-    margin-bottom: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .Input input{
     border: none;
     /* height: 40px; */
     padding: 15px;
-    background: #e6b63f;
-    border: 1px solid #fff;
+    background: #69e2a0;
+    border: 2px solid #fff;
 }
 
 .Input select{
     padding: 10px;
     border: 1px solid #fff;
-    color: #eab126 !important;
+    color: #5cdb95 !important;
 }
 
 .Input textarea{

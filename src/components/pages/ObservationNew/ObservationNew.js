@@ -57,8 +57,7 @@ class ObservationNew extends Component{
                 },
                 touched: false
             }
-        },
-        formIsValid: false
+        }
     }
 
     checkvalidity = input => {
@@ -120,13 +119,15 @@ class ObservationNew extends Component{
         }
 
         return(
-            <Form 
-                formElements={formElements} 
-                title="Dodaj novu obzervaciju" 
-                onSubmit={(event) => this.onFormSubmit(event)}
-                inputChangedHandler={this.inputChangedHandler}
-                button={button}>
-            </Form>
+            <div style={{width: '40%', margin: '0 auto'}}>
+                <Form 
+                    formElements={formElements} 
+                    title="Dodaj novu obzervaciju" 
+                    onSubmit={(event) => this.onFormSubmit(event)}
+                    inputChangedHandler={this.inputChangedHandler}
+                    button={button}>
+                </Form>
+            </div>
         )
     }
 }
