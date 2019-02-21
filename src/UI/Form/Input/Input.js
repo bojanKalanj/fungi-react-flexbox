@@ -5,35 +5,37 @@ import './Input.css';
 const Input = (props) => {
     let inputElement = null;
 
-    let invalidCss = null;
+    let cssClasses = ["Input"]
 
     if(props.invalid && props.touched){
-        invalidCss = "invalid"
+        cssClasses.push("invalid")
     }
 
     switch(props.elementType){
         case ('input'):
             inputElement = <input 
-                {...props.elementConfig} 
                 value={props.value}
                 onChange={props.onChange}
-                className={invalidCss} />;
+                className={cssClasses.join(' ')}
+                placeholder={props.placeholder}
+                />;
             break;
         case ('textarea'):
             inputElement = <textarea rows="7" 
-                {...props.elementConfig} 
                 value={props.value}
                 onChange={props.onChange}
-                className={invalidCss} />;
+                className={cssClasses.join(' ')}
+                placeholder={props.placeholder}
+                />;
             break;
         case ('select'):
             inputElement = (
                 <select
                     value={props.value}
                     onChange={props.onChange}>
-                    {props.elementConfig.options.map(option => (
-                        <option key={option.value} value={option.value}>
-                            { option.displayValue }
+                    {props.options.map(option => (
+                        <option key={option} value={option}>
+                            { option }
                         </option>
                     ))}
                 </select>
@@ -41,10 +43,11 @@ const Input = (props) => {
         break;
         default:
             inputElement = <input 
-                {...props.elementConfig} 
                 value={props.value}
                 onChange={props.onChange}
-                className={invalidCss} />;
+                className={cssClasses.join(' ')}
+                placeholder={props.placeholder}
+                />;
     }
 
     return (

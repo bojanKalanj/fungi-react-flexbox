@@ -11,10 +11,8 @@ class ObservationNew extends Component{
         formFields: {
             area: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Area'
-                },
+                type: 'text',
+                placeholder: 'Area',
                 value: '',
                 label: 'Podrucje na kom je nalaz pronadjen',
                 validation: {
@@ -25,10 +23,8 @@ class ObservationNew extends Component{
             },
             location: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'location'
-                },
+                type: 'text',
+                placeholder: 'location',
                 value: '',
                 label: 'Lokacija na kojoj je pronadjena obzervacija',
                 validation: {
@@ -39,10 +35,8 @@ class ObservationNew extends Component{
             },
             description: {
                 elementType: 'textarea',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'opis'
-                },
+                type: 'text',
+                placeholder: 'opis',
                 value: '',
                 label: 'Opis obzervacije',
                 validation: {
@@ -53,10 +47,8 @@ class ObservationNew extends Component{
             },
             observed_at: {
                 elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'observed_at'
-                },
+                type: 'text',
+                placeholder: 'observed_at',
                 value: '',
                 label: 'Kada je nalaz uocen',
                 validation: {
@@ -65,39 +57,42 @@ class ObservationNew extends Component{
                 },
                 touched: false
             }
+        },
+        formIsValid: false
+    }
+
+    checkvalidity = input => {
+        if(input.validation.required){
+            if(input.value.length >= 1){
+                input.validation.valid = true;
+            }else{
+                input.validation.valid = false;
+            } 
         }
     }
 
-    checkValiditiy = (value, rules) => {
-        let isValid = true;
+    inputChangedHandler = (event, formInput) => {
+        let newFormFileds = {...this.state.formFields}
+        let newFormInput = newFormFileds[formInput];
+        newFormInput.value = event.target.value;
+        newFormInput.touched = true;
+        this.checkvalidity(newFormInput);
 
-        if(rules.required){
-            isValid = value.trim() !== '' && isValid;
+        let validity = [];
+
+        for(let key in newFormFileds){
+            validity.push(newFormFileds[key].validation.valid);
         }
 
-        return isValid;
-    }
-
-    inputChangedHandler = (event, inputId) => {
-        const updatedForm = {
-            ...this.state.formFields
+        let isValid = false;
+        if(validity.includes(false)){
+            isValid = false;
+        }else{
+            isValid = true;
         }
 
-        const updatedFormElement = {
-            ...updatedForm[inputId]
-        }
-
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValiditiy(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedForm[inputId] = updatedFormElement;
-
-        let formIsValid = true;
-        for(let inputIdentifier in updatedForm){
-            formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
-        }
-
-        this.setState({formFields: updatedForm, formIsValid: formIsValid});
+        this.setState({ formFields: newFormFileds, formIsValid: isValid });
+        console.log(this.state.formIsValid);
     }
 
     onFormSubmit = (event) => {
@@ -107,47 +102,22 @@ class ObservationNew extends Component{
             observation[key] = this.state.formFields[key].value;
         }
 
-        console.log(observation);
-
-    //     const observation = {
-    //         area: "Pezos", 
-    //         location: "Munjin Trg", 
-    //         description: "Gljiva je nadjena na obodu Bokijevog anusa slucajno od strane macora koji ga je zaskocio", 
-    //         observed_at: "2019-01-25", 
-    //         credentials: 'include'
-    //    }
-
-        fungi.post(`/observations`, { observation })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
+        // fungi.post(`/observations`, { observation })
+        // .then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        // })
     }
 
     render(){
-        const formElementsArray = [];
-        for(let key in this.state.formFields){
-            formElementsArray.push({
-                id: key,
-                config: this.state.formFields[key]
-            });
-        }
+        let formElements = {...this.state.formFields};
+
         return(
-            <Form title="Dodaj novu obzervaciju" onSubmit={this.onFormSubmit}>
-                {formElementsArray.map(formElement => {
-                        return <Input 
-                                key={formElement.id}
-                                elementType={formElement.config.elementType}  
-                                elementConfig={formElement.config.elementConfig}
-                                value={formElement.config.value}
-                                label={formElement.config.label}
-                                onChange={(event) => this.inputChangedHandler(event, formElement.id)}
-                                invalid={!formElement.config.valid}
-                                touched={formElement.config.touched}/>
-                })}
-                <Button disabled={!this.state.formIsValid}>
-                    Dodaj obzervaciju
-                </Button>
+            <Form 
+                formElements={formElements} 
+                title="Filteri" 
+                onSubmit={(event) => this.onFormSubmit(event)}
+                inputChangedHandler={this.inputChangedHandler}>
             </Form>
         )
     }

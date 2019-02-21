@@ -2,7 +2,7 @@
     border: 3px solid #3cc47c;
     height: 60px;
     width: 100px;
-    background: none;
+    background: #fff;
     font-weight: bold;
     color: #3cc47c;
 }
@@ -23,5 +23,16 @@
     background: #fff;
     color: #828081;
     cursor: not-allowed;
+}
+
+.Red{
+    border: 3px solid #f24c4e;
+    background: #f24c4e;
+    color: #fff;
+}
+
+.Red:hover{
+    border: 3px solid #db2528;
+    background: #db2528;
 }
 

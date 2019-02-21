@@ -1,10 +1,8 @@
 .Form{
     display: flex;
-    width: 50%;
-    /* margin: 0 auto; */
     flex-direction: column;
     padding: 30px;
-    background: #e9c893;
+    background: #eab126;
 }
 
 .Form h4{

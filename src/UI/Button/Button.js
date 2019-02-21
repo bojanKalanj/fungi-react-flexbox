@@ -9,6 +9,10 @@ const Button = (props) => {
         cssClasses.push("Disabled");
     }
 
+    if(props.red){
+        cssClasses.push("Red");
+    }
+
     return (
         <button 
             disabled={props.disabled}

@@ -14,12 +14,14 @@
     border: none;
     /* height: 40px; */
     padding: 15px;
-    background: inherit;
-    border: 1px solid #eee;
+    background: #e6b63f;
+    border: 1px solid #fff;
 }
 
 .Input select{
     padding: 10px;
+    border: 1px solid #fff;
+    color: #eab126 !important;
 }
 
 .Input textarea{
@@ -27,10 +29,10 @@
 }
 
 .Input ::placeholder{
-    color: #eee;
+    color: #fff;
 }
 
 .invalid{
-    border: 1px solid red !important;
+    border: 1px solid #f24c4e !important;
     background-color: rgb(236, 128, 128);
 }

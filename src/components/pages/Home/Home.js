@@ -4,6 +4,7 @@ import { fetchObservations } from '../../../actions';
 
 import { Card, CardBody } from '../../../UI/Card/Card';
 import HomeCard from './HomeCard/HomeCard';
+import Filters from './Filters/Filters';
 import { FlexContainer } from '../../../UI/Container/Container';
 import Spinner from '../../../UI/Spinner/Spinner';
 
@@ -33,11 +34,9 @@ class Home extends React.Component{
 
         return(
             <FlexContainer>
-                <Card width="23%">
-                    <CardBody>
-                        
-                    </CardBody>
-                </Card>
+                <div style={{width: "23%", color: "#3cc47c"}}>
+                        <Filters />
+                </div>
                 <div style={{ width: '75%' }}>
                     <FlexContainer>
                         { showObservations() }
