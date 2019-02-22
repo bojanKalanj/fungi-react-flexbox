@@ -17,14 +17,19 @@
     border: 2px solid #fff;
 }
 
+.Input:focus{
+    border: 2px solid #05386b;
+}
+
 .Input select{
     padding: 10px;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
     color: #5cdb95 !important;
 }
 
 .Input textarea{
     padding: 10px;
+    border: 2px solid #fff;
 }
 
 .Input ::placeholder{
@@ -32,6 +37,5 @@
 }
 
 .invalid{
-    border: 1px solid #f24c4e !important;
-    background-color: rgb(236, 128, 128);
+    border: 2px solid #f24c4e !important;
 }

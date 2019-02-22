@@ -6,6 +6,7 @@ import { FlexContainer } from '../../../UI/Container/Container';
 import { Card, CardBody } from '../../../UI/Card/Card';
 import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
+import Comments from '../../shared/Comments/Comments';
 
 class Observation extends React.Component {
     componentDidMount = () => {
@@ -36,17 +37,20 @@ class Observation extends React.Component {
                 <h1>{ showTitle() }</h1>
                 { showObservation() }
                 <FlexContainer>
-                    <Card width="42%">
-                        <CardBody>
+                    <div style={{width: '40%'}}>
+                        <Card>
+                            <CardBody>
 
-                        </CardBody>
-                    </Card>
+                            </CardBody>
+                        </Card>
+                        <Comments></Comments>
+                    </div>
                     <Card width="32%">
                         <CardBody>
                             
                         </CardBody>
                     </Card>
-                    <Card width="20%" color="#5cdb95">
+                    <Card width="20%">
                         <CardBody>
                             <UserAvatar 
                                 src={uerAvatarPlaceholderImg} 
@@ -59,6 +63,9 @@ class Observation extends React.Component {
                         </CardBody>
                     </Card>
                 </FlexContainer>
+                {/* <FlexContainer>
+                    <Comments></Comments>
+                </FlexContainer> */}
             </div>
         )
     }

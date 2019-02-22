@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import { Container } from '../Container/Container';
+import { Container } from '../../../UI/Container/Container';
 import './Header.css';
-import Navlink from '../Navlinks/Navlink';
-import DropdownMenu from '../DropdownMenu/DropdownMenu';
+import Navlink from '../../../UI/Navlinks/Navlink';
+import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
 
 class Header extends Component{
     state = {

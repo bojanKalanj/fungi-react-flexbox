@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import Header from './UI/Header/Header';
+import Header from './components/shared/Header/Header';
 import Observation from './components/pages/Observation/Observation';
 import Home from './components/pages/Home/Home';
 import Species from './components/pages/Species/Species';
