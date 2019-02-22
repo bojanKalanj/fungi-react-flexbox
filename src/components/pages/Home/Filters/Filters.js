@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 
 import Form from '../../../../UI/Form/Form';
-import Input from '../../../../UI/Form/Input/Input';
-import Button from '../../../../UI/Button/Button';
 
 class Filters extends Component{
     state = {
@@ -38,12 +36,8 @@ class Filters extends Component{
         }
     }
 
-    inputChangedHandler = (event, formInput) => {
-        let newFormFileds = {...this.state.formFields}
-        let newFormInput = newFormFileds[formInput];
-        newFormInput.value = event.target.value;
-        this.setState({ formFields: newFormFileds });
-        console.log(newFormInput.value);
+    onInputChanged = data => {
+        this.setState({ formFields: data })
     }
 
     onFormSubmit = (event) => {
@@ -53,18 +47,14 @@ class Filters extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
-        let button = {
-            btnTitle: "Filter",
-            disabled: false
-        }
 
         return (
             <Form 
                 formElements={formElements} 
                 title="Filteri" 
                 onSubmit={(event) => this.onFormSubmit(event)}
-                inputChangedHandler={this.inputChangedHandler}
-                button={button}>
+                inputChangedHandler={(data) => this.onInputChanged(data)}
+                btnTitle="Filter">
             </Form>
         )
     }

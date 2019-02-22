@@ -46,7 +46,7 @@ class Observation extends React.Component {
                             
                         </CardBody>
                     </Card>
-                    <Card width="20%" color="#e9c893">
+                    <Card width="20%" color="#5cdb95">
                         <CardBody>
                             <UserAvatar 
                                 src={uerAvatarPlaceholderImg} 

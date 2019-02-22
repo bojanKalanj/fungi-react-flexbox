@@ -55,48 +55,11 @@ class Register extends Component{
                 },
                 touched: false
             }
-        },
-        formIsValid: false
-    }
-
-    checkvalidity = input => {
-        if(input.validation.required){
-            if(input.value.length >= 1){
-                input.validation.valid = true;
-            }else{
-                input.validation.valid = false;
-            } 
         }
     }
 
-    inputChangedHandler = (event, formInput) => {
-        let newFormFileds = {...this.state.formFields}
-        let newFormInput = newFormFileds[formInput];
-        newFormInput.value = event.target.value;
-        newFormInput.touched = true;
-        this.checkvalidity(newFormInput);
-
-        let validity = [];
-
-        for(let key in newFormFileds){
-            validity.push(newFormFileds[key].validation.valid);
-        }
-
-        let isValid;
-        if(validity.includes(false)){
-            isValid = false;
-        }else{
-            isValid = true;
-        }
-
-        console.log(validity);
-        console.log(isValid);
-
-        this.setState({ formFields: newFormFileds });
-        if(isValid){
-            this.setState({ formIsValid: isValid });
-        }
-        console.log(this.state.formIsValid);
+    onInputChanged = data => {
+        this.setState({ formFields: data })
     }
 
     onFormSubmit = (event) => {
@@ -118,19 +81,14 @@ class Register extends Component{
     render(){
         let formElements = {...this.state.formFields};
         
-        let button = {
-            btnTitle: "Registruj se",
-            disabled: !this.isFormValid
-        }
-
         return (
             <div style={{width: '40%', margin: '0 auto'}}>
                 <Form 
                     formElements={formElements} 
                     title="Registruj se" 
                     onSubmit={(event) => this.onFormSubmit(event)}
-                    inputChangedHandler={this.inputChangedHandler}
-                    button={button}>
+                    inputChangedHandler={(data) => this.onInputChanged(data)}
+                    btnTitle="Registruj se">
                 </Form>
                 <p>Vec imate nalog? <span> <AnchorTag to="/login">Prijavi se</AnchorTag> </span></p>
             </div>

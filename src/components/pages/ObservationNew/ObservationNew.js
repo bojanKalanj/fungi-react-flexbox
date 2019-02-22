@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import fungi from '../../../apis/fungi';
 
 import Form from '../../../UI/Form/Form';
-import Input from '../../../UI/Form/Input/Input';
-import Button from '../../../UI/Button/Button';
 
 class ObservationNew extends Component{
     state = {
@@ -60,39 +58,8 @@ class ObservationNew extends Component{
         }
     }
 
-    checkvalidity = input => {
-        if(input.validation.required){
-            if(input.value.length >= 1){
-                input.validation.valid = true;
-            }else{
-                input.validation.valid = false;
-            } 
-        }
-    }
-
-    isFormValid = false;
-
-    inputChangedHandler = (event, formInput) => {
-        let newFormFileds = {...this.state.formFields}
-        let newFormInput = newFormFileds[formInput];
-        newFormInput.value = event.target.value;
-        newFormInput.touched = true;
-        this.checkvalidity(newFormInput);
-
-        let validity = [];
-
-        for(let key in newFormFileds){
-            validity.push(newFormFileds[key].validation.valid);
-        }
-
-        if(validity.includes(false)){
-            this.isFormValid = false;
-        }else{
-            this.isFormValid = true;
-        }
-
-        this.setState({ formFields: newFormFileds });
-        console.log(this.isFormValid);
+    onInputChanged = data => {
+        this.setState({ formFields: data })
     }
 
     onFormSubmit = (event) => {
@@ -113,10 +80,6 @@ class ObservationNew extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
-        let button = {
-            btnTitle: "Dodaj obzervaciju",
-            disabled: !this.isFormValid
-        }
 
         return(
             <div style={{width: '40%', margin: '0 auto'}}>
@@ -124,8 +87,8 @@ class ObservationNew extends Component{
                     formElements={formElements} 
                     title="Dodaj novu obzervaciju" 
                     onSubmit={(event) => this.onFormSubmit(event)}
-                    inputChangedHandler={this.inputChangedHandler}
-                    button={button}>
+                    inputChangedHandler={(data) => this.onInputChanged(data)}
+                    btnTitle="Dodaj novi nalaz">
                 </Form>
             </div>
         )

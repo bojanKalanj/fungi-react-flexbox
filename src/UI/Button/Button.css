@@ -1,10 +1,9 @@
 .Button{
-    border: 3px solid #05386b;
+    border: none;
     height: 60px;
     width: 100px;
     font-weight: bold;
-    color: #05386b;
-    background: #05386b;
+    background: #379683;
     color: #edf5e1;
 }
 
@@ -15,7 +14,6 @@
 }
 
 .Disabled{
-    border: 3px solid #eee;
     background: #edf5e1;
     color: #828081;
 }
@@ -27,13 +25,11 @@
 }
 
 .Red{
-    border: 3px solid #f24c4e;
     background: #f24c4e;
     color: #fff;
 }
 
 .Red:hover{
-    border: 3px solid #db2528;
     background: #db2528;
 }
 
