@@ -41,16 +41,14 @@ class Login extends Component{
     
     onFormSubmit = (event) => {
         event.preventDefault();
-        const user = {};
+        let auth = {};
 
         console.log("login submited")
         for(let key in this.state.formFields){
-            user[key] = this.state.formFields[key].value
+            auth[key] = this.state.formFields[key].value
         }
-        
-        JSON.stringify(user)
-        console.log(user)
-        fungi.post("/login", { user })
+
+        fungi.post("/login", { auth })
         .then(res => {
             console.log(res);
             console.log(res.data);
