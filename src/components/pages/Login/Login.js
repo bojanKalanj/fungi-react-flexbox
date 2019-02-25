@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 
 import Form from '../../../UI/Form/Form';
-import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag'
+import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag';
+import fungi from '../../../apis/fungi';
 
 class Login extends Component{
     state = {
         formFields: {
-            username: {
+            email: {
                 elementType: 'input',
                 type: 'text',
-                placeholder: 'Vase ime',
+                placeholder: 'Vas email',
                 value: '',
-                label: 'Ime',
+                label: 'Email',
                 validation: {
                     valid: false,
                     required: true
@@ -40,7 +41,20 @@ class Login extends Component{
     
     onFormSubmit = (event) => {
         event.preventDefault();
+        const user = {};
+
         console.log("login submited")
+        for(let key in this.state.formFields){
+            user[key] = this.state.formFields[key].value
+        }
+        
+        JSON.stringify(user)
+        console.log(user)
+        fungi.post("/login", { user })
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
     }
 
     render(){
@@ -50,7 +64,7 @@ class Login extends Component{
             <div style={{width: '40%', margin: '0 auto'}}>
                 <Form 
                     formElements={formElements} 
-                    title="Registruj se" 
+                    title="Uloguj se" 
                     onSubmit={(event) => this.onFormSubmit(event)}
                     inputChangedHandler={(data) => this.onInputChanged(data)}
                     btnTitle="Prijavi se">

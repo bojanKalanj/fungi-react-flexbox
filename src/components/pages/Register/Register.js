@@ -71,11 +71,11 @@ class Register extends Component{
 
         console.log("register!")
 
-        // fungi.post(`/register`, { user })
-        // .then(res => {
-        //     console.log(res);
-        //     console.log(res.data);
-        // })
+        fungi.post(`/register`, user)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
     }
 
     render(){
