@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Form from '../../../UI/Form/Form';
 import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag';
 import fungi from '../../../apis/fungi';
+import * as actions from '../../../actions';
+
 
 class Login extends Component{
     state = {
@@ -41,18 +44,19 @@ class Login extends Component{
     
     onFormSubmit = (event) => {
         event.preventDefault();
-        let auth = {};
+        // let auth = {};
+        this.props.onAuth(this.state.formFields.email.value, this.state.formFields.password.value);
 
-        console.log("login submited")
-        for(let key in this.state.formFields){
-            auth[key] = this.state.formFields[key].value
-        }
+        // console.log("login submited")
+        // for(let key in this.state.formFields){
+        //     auth[key] = this.state.formFields[key].value
+        // }
 
-        fungi.post("/login", { auth })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
+        // fungi.post("/login", { auth })
+        // .then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        // })
     }
 
     render(){
@@ -73,7 +77,13 @@ class Login extends Component{
     }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+    return{
+        onAuth: (email, password) => dispatch(actions.auth(email, password))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
 
 
 

@@ -68,4 +68,7 @@ export const fetchUser = userId => {
         .catch(error => console.log(error))
     )
 };
-    
+//////////////////////////////////////////
+export{
+    auth
+} from './auth';    
