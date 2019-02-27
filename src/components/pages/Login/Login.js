@@ -45,7 +45,10 @@ class Login extends Component{
     onFormSubmit = (event) => {
         event.preventDefault();
         // let auth = {};
-        this.props.onAuth(this.state.formFields.email.value, this.state.formFields.password.value);
+        const email = this.state.formFields.email.value;
+        const password = this.state.formFields.password.value;
+
+        this.props.onAuth(email, password);
 
         // console.log("login submited")
         // for(let key in this.state.formFields){
@@ -61,7 +64,7 @@ class Login extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
-        
+        console.log(this.props)
         return (
             <div style={{width: '40%', margin: '0 auto'}}>
                 <Form 
@@ -77,13 +80,19 @@ class Login extends Component{
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    };
+};
+
 const mapDispatchToProps = dispatch => {
     return{
         onAuth: (email, password) => dispatch(actions.auth(email, password))
     };
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 
 
