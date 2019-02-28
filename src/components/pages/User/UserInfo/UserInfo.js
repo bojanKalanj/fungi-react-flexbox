@@ -7,7 +7,6 @@ import List from '../../../../UI/List/List';
 
 class UserInfo extends Component{
     render(){
-        console.log(this.props.userInfo)
         let toList = {};
         for(let key in this.props.userInfo){
             if(key === 'username' && this.props.userInfo[key]){
@@ -20,7 +19,6 @@ class UserInfo extends Component{
                 toList["Puno ime"] = this.props.userInfo[key]
             }
         }
-        console.log(toList)
         return(
             <Card width="30%">
                 <CardBody>

@@ -8,14 +8,17 @@ import UserInfo from './UserInfo/UserInfo';
 
 class User extends Component{
     componentDidMount = () => {
-        this.props.fetchUser(this.props.match.params.id)
+        this.props.fetchUser(this.props.match.params.id, this.props.authToken)
     }
 
     render(){
-        let userInfo = 'loading'
-        if(this.props.state.user.data){
-            console.log(this.props.state.user.data.attributes);
-            userInfo = <UserInfo userInfo={this.props.state.user.data.attributes}/>
+        console.log(this.props.state);
+        // console.log(this.props.authToken);
+
+        let userInfo = 'loading';
+        if(this.props.user){
+            console.log(this.props.user.attributes);
+            userInfo = <UserInfo userInfo={this.props.user.attributes}/>
         }
         return(
             <FlexContainer >
@@ -27,7 +30,9 @@ class User extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        state: state,
+        authToken: state.auth.token,
+        user: state.user
     };
 };
 

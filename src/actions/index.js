@@ -59,9 +59,11 @@ export const setUser = user => {
     }
 }
 
-export const fetchUser = userId => {
+export const fetchUser = (userId, token) => {
     return dispatch => (
-       fungi.get(`/users/${userId}`)
+       fungi.get(`/users/${userId}`, { 
+           headers: { "AUTHORIZATION" : `Bearer ${token}`, 'Accept' : 'application/json',
+           'Content-Type': 'application/json'} })
         .then(response => {
             dispatch(setUser(response.data))
         })

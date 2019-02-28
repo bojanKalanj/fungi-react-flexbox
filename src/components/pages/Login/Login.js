@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Form from '../../../UI/Form/Form';
 import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag';
+import Spinner from '../../../UI/Spinner/Spinner';
 import fungi from '../../../apis/fungi';
 import * as actions from '../../../actions';
 
@@ -64,17 +65,27 @@ class Login extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
-        console.log(this.props)
+        const loadForm = () => {
+            if(this.props.loading){
+                return <Spinner />
+            }else{
+                return <div style={{width: '40%', margin: '0 auto'}}>
+                            <Form 
+                                formElements={formElements} 
+                                title="Uloguj se" 
+                                onSubmit={(event) => this.onFormSubmit(event)}
+                                inputChangedHandler={(data) => this.onInputChanged(data)}
+                                btnTitle="Prijavi se">
+                            </Form>
+                            <p>Niste registrovani? <span> <AnchorTag to="/register">Registruj se</AnchorTag> </span></p>
+                        </div>
+            }
+        }
+       
         return (
-            <div style={{width: '40%', margin: '0 auto'}}>
-                <Form 
-                    formElements={formElements} 
-                    title="Uloguj se" 
-                    onSubmit={(event) => this.onFormSubmit(event)}
-                    inputChangedHandler={(data) => this.onInputChanged(data)}
-                    btnTitle="Prijavi se">
-                </Form>
-                <p>Niste registrovani? <span> <AnchorTag to="/register">Registruj se</AnchorTag> </span></p>
+            <div>
+                {console.log(this.props.state)}
+                {loadForm()} 
             </div>
         )
     }
@@ -82,7 +93,9 @@ class Login extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        state: state,
+        loading: state.auth.loading,
+        error: state.auth.error
     };
 };
 
