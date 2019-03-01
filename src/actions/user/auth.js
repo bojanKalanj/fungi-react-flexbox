@@ -1,4 +1,4 @@
-import fungi from '../apis/fungi';
+import fungi from '../../apis/fungi';
 
 export const authStart = () => {
     return{

@@ -15,9 +15,10 @@ class Species extends Component {
     }
 
     render(){
+        console.log(this.props.species)
         const loadSpecies = () => {
-            if(this.props.state.species.data){
-                return this.props.state.species.data.map(spcs => {
+            if(this.props.species){
+                return this.props.species.data.map(spcs => {
                     return <Tr key={spcs.id}>
                                 <Td>
                                     <AnchorTag to="">
@@ -40,7 +41,7 @@ class Species extends Component {
         }
 
         const showSpecies = () => {
-            if(this.props.state.species.data){
+            if(this.props.species){
                 return <Table >
                             <Tr>
                                 <Th>
@@ -69,7 +70,7 @@ class Species extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        species: state.species.data
     };
 };
 

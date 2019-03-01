@@ -14,21 +14,21 @@ class Observation extends React.Component {
     }
 
     render(){
-        const data = this.props.state.observation.data;
-        console.log(data)
+        console.log(this.props.observation);
+
         
         const showObservation = () => {
-            if(this.props.state.observation.data){
-                console.log(this.props.state.observation.data)
+            if(this.props.observation){
+                console.log(this.props.observation)
             }
         }
 
         const showTitle = () => {
-            if(data){
-                if(data.relationships.species.data){
-                    return data.relationships.species.data;
+            if(this.props.observation){
+                if(this.props.observation.data.relationships.species.data){
+                    return this.props.observation.data.relationships.species.data;
                 }else{
-                    return `Observacija #${data.attributes.number}`
+                    return `Observacija #${this.props.observation.data.attributes.number}`
                 }
             }
         }
@@ -63,9 +63,6 @@ class Observation extends React.Component {
                         </CardBody>
                     </Card>
                 </FlexContainer>
-                {/* <FlexContainer>
-                    <Comments></Comments>
-                </FlexContainer> */}
             </div>
         )
     }
@@ -73,7 +70,8 @@ class Observation extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        state: state,
+        observation: state.observation.observation
     };
 };
 

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import fungi from '../../../apis/fungi';
 
 import Form from '../../../UI/Form/Form';
+import * as actions from '../../../actions';
 
 class ObservationNew extends Component{
     state = {
@@ -24,7 +26,7 @@ class ObservationNew extends Component{
                 type: 'text',
                 placeholder: 'location',
                 value: '',
-                label: 'Lokacija na kojoj je pronadjena obzervacija',
+                label: 'Lokacija na kojoj je nalaz pronadjen',
                 validation: {
                     valid: false,
                     required: true
@@ -36,7 +38,7 @@ class ObservationNew extends Component{
                 type: 'text',
                 placeholder: 'opis',
                 value: '',
-                label: 'Opis obzervacije',
+                label: 'Opis nalaza',
                 validation: {
                     valid: false,
                     required: true
@@ -69,7 +71,9 @@ class ObservationNew extends Component{
             observation[key] = this.state.formFields[key].value;
         }
 
-        console.log("submited")
+        console.log("submited");
+        console.log(this.props.token);
+        this.props.onObservationSubmit(observation, this.props.token);
         
         // fungi.post(`/observations`, { observation })
         // .then(res => {
@@ -80,12 +84,11 @@ class ObservationNew extends Component{
 
     render(){
         let formElements = {...this.state.formFields};
-
         return(
             <div style={{width: '40%', margin: '0 auto'}}>
                 <Form 
                     formElements={formElements} 
-                    title="Dodaj novu obzervaciju" 
+                    title="Dodaj novi nalaz" 
                     onSubmit={(event) => this.onFormSubmit(event)}
                     inputChangedHandler={(data) => this.onInputChanged(data)}
                     btnTitle="Dodaj novi nalaz">
@@ -95,4 +98,17 @@ class ObservationNew extends Component{
     }
 }
 
-export default ObservationNew;
+const mapStateToProps = (state) => {
+    return {
+        state: state,
+        token: state.auth.token,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onObservationSubmit: (observation, token) => dispatch(actions.newObservation(observation, token))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ObservationNew);

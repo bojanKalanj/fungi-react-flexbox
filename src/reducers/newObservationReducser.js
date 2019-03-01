@@ -1,25 +1,25 @@
 const initialState = {
-    observations: null,
+    token: null,
     error: null,
     loading: false
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
-        case "FETCH_OBSERVATIONS_START":
+        case "NEW_OBSERVATION_START":
             return {
                 ...state,
                 error: null, 
                 loading: true
             }
-        case "FETCH_OBSERVATIONS_SUCCESS":
+        case "AUTH_SUCCESS":
             return {
                 ...state,
-                observations: action.observations,
+                token: action.token,
                 error: null, 
                 loading: false
             }
-        case "FETCH_OBSERVATIONS_FAIL":
+        case "AUTH_FAIL":
             return {
                 ...state,
                 error: action.error, 

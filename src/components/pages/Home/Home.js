@@ -14,8 +14,9 @@ class Home extends React.Component{
     }
 
     render(){
+        console.log(this.props.state.observations)
          const showObservations = () => {
-            if(this.props.state.observations.length !== 0){
+            if(this.props.state.observations){
                 let observations = this.props.state.observations.data
                 console.log(observations)
                 return observations.map(obs => {
@@ -49,7 +50,7 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        state: state.observations
     };
 };
 
