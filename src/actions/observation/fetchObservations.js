@@ -1,5 +1,3 @@
-
-
 import fungi from '../../apis/fungi';
 
 export const fetchObservationsStart = () => {

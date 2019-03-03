@@ -5,6 +5,7 @@ import speciesReducer from './speciesReducer';
 import userReducer from './userReducer';
 import authReducer from './authReducer';
 import newObservationReducer from './newObservationReducser';
+import habitatsReducer from './habitatsReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     species: speciesReducer,
     user: userReducer,
     auth: authReducer,
-    newObservation: newObservationReducer
+    newObservation: newObservationReducer,
+    habitatCategories: habitatsReducer
 });

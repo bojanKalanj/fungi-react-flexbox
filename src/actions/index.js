@@ -23,3 +23,8 @@ export{
 export{
     fetchSpecies
 } from './species/fetchSpecies';
+// -----------------------------------------
+
+export{
+    fetchHabitats
+} from './habitat/fetchHabitats';

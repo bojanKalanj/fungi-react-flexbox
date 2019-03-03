@@ -1,34 +1,25 @@
-// export default (state = [], action) => {
-//     switch(action.type){
-//         case 'FETCH_user':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// };
-
 const initialState = {
-    data: null,
+    habitatCategories: null,
     error: null,
     loading: false
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
-        case "FETCH_USER_START":
+        case "FETCH_HABITATS_START":
             return {
                 ...state,
                 error: null, 
                 loading: true
             }
-        case "FETCH_USER_SUCCESS":
+        case "FETCH_HABITATS_SUCCESS":
             return {
                 ...state,
-                user: action.user,
+                habitatCategories: action.habitatCategories,
                 error: null, 
                 loading: false
             }
-        case "FETCH_USER_FAIL":
+        case "FETCH_HABITATS_FAIL":
             return {
                 ...state,
                 error: action.error, 

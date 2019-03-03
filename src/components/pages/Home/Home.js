@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchObservations } from '../../../actions';
 
-import { Card, CardBody } from '../../../UI/Card/Card';
 import HomeCard from './HomeCard/HomeCard';
 import Filters from './Filters/Filters';
 import { FlexContainer } from '../../../UI/Container/Container';
@@ -14,11 +13,10 @@ class Home extends React.Component{
     }
 
     render(){
-        console.log(this.props.state.observations)
+        console.log(this.props.state.observations);
          const showObservations = () => {
             if(this.props.state.observations){
                 let observations = this.props.state.observations.data
-                console.log(observations)
                 return observations.map(obs => {
                     return <HomeCard 
                             key={obs.id} 

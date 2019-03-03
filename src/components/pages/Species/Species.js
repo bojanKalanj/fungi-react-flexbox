@@ -16,6 +16,8 @@ class Species extends Component {
 
     render(){
         console.log(this.props.species)
+        let loading = this.props.loading;
+
         const loadSpecies = () => {
             if(this.props.species){
                 return this.props.species.data.map(spcs => {
@@ -41,7 +43,7 @@ class Species extends Component {
         }
 
         const showSpecies = () => {
-            if(this.props.species){
+            if(!loading){
                 return <Table >
                             <Tr>
                                 <Th>
@@ -70,7 +72,8 @@ class Species extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        species: state.species.data
+        species: state.species.data,
+        loading: state.species.loading
     };
 };
 

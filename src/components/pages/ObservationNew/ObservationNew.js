@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fungi from '../../../apis/fungi';
-
 import Form from '../../../UI/Form/Form';
+import Spinner from '../../../UI/Spinner/Spinner';
 import * as actions from '../../../actions';
 
 class ObservationNew extends Component{
+    componentDidMount = () => {
+        this.props.fetchSpecies();
+        this.props.fetchHabitats();
+
+        console.log(this.props.habitatCategories)
+        
+        let newState = {
+            ...this.state.formFields
+        }
+        // console.log(newState);
+        // console.log(this.props.species.data);
+        // newState["habitat_categories"].options = ['ksdjalk', 'djaskd'];
+        // console.log(newState["habitat_categories"])
+        // this.setState({ formFields: newState });
+        // console.log(this.state.formFields["habitat_categories"].options)
+    }
+
     state = {
         formFields: {
             area: {
@@ -48,7 +64,7 @@ class ObservationNew extends Component{
             observed_at: {
                 elementType: 'input',
                 type: 'text',
-                placeholder: 'observed_at',
+                placeholder: 'nalaz uocen',
                 value: '',
                 label: 'Kada je nalaz uocen',
                 validation: {
@@ -56,6 +72,13 @@ class ObservationNew extends Component{
                     required: true
                 },
                 touched: false
+            },
+            habitat_categories: {
+                elementType: 'select',
+                type: 'text',
+                value: 'Vrsta',
+                label: 'Izaberite vrstu kojoj nalaz pripada',
+                options: []
             }
         }
     }
@@ -83,16 +106,33 @@ class ObservationNew extends Component{
     }
 
     render(){
-        let formElements = {...this.state.formFields};
+        const formElements = {...this.state.formFields};
+        // console.log(formElements)
+        // console.log(this.props.habitatCategories)
+
+        const renderForm = () => {
+            if(!this.props.loadingHabitats){
+                // console.log(this.state.formFields["habitat_categories"].options);
+                // let newFormFields = { ...this.state.formFields }
+                // console.log(newFormFields);
+                // newFormFields["habitat_categories"] = this.props.habitatCategories;
+                // console.log(newFormFields["habitat_categories"]);
+                // this.setState({ formFields: newFormFields })
+                // console.log(this.state.formFields["habitat_categories"].options)
+                return <Form 
+                            formElements={formElements} 
+                            title="Dodaj novi nalaz" 
+                            onSubmit={(event) => this.onFormSubmit(event)}
+                            inputChangedHandler={(data) => this.onInputChanged(data)}
+                            btnTitle="Dodaj novi nalaz">
+                        </Form>
+            }else{
+                return <Spinner />
+            }
+        }
         return(
             <div style={{width: '40%', margin: '0 auto'}}>
-                <Form 
-                    formElements={formElements} 
-                    title="Dodaj novi nalaz" 
-                    onSubmit={(event) => this.onFormSubmit(event)}
-                    inputChangedHandler={(data) => this.onInputChanged(data)}
-                    btnTitle="Dodaj novi nalaz">
-                </Form>
+                { renderForm() }
             </div>
         )
     }
@@ -102,12 +142,17 @@ const mapStateToProps = (state) => {
     return {
         state: state,
         token: state.auth.token,
+        species: state.species,
+        habitatCategories: state.habitatCategories.habitatCategories,
+        loadingHabitats: state.habitatCategories.loading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return{
-        onObservationSubmit: (observation, token) => dispatch(actions.newObservation(observation, token))
+        onObservationSubmit: (observation, token) => dispatch(actions.newObservation(observation, token)),
+        fetchSpecies: () => dispatch(actions.fetchSpecies()),
+        fetchHabitats: () => dispatch(actions.fetchHabitats())
     };
 };
 
