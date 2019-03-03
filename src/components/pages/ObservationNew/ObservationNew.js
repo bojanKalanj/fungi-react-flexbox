@@ -9,18 +9,33 @@ class ObservationNew extends Component{
     componentDidMount = () => {
         this.props.fetchSpecies();
         this.props.fetchHabitats();
-
-        console.log(this.props.habitatCategories)
         
-        let newState = {
-            ...this.state.formFields
-        }
+        // let newState = {
+        //     ...this.state.formFields
+        // }
         // console.log(newState);
         // console.log(this.props.species.data);
-        // newState["habitat_categories"].options = ['ksdjalk', 'djaskd'];
-        // console.log(newState["habitat_categories"])
+        // newState["habitat_category_id"].options = [this.props.species.data];
+        // console.log(newState["habitat_category_id"])
         // this.setState({ formFields: newState });
-        // console.log(this.state.formFields["habitat_categories"].options)
+    }
+
+    componentWillReceiveProps = (newProps) => {
+        if(newProps.state.habitatCategories.habitatCategories){
+            let habitatCategoriesNames = newProps.state.habitatCategories.habitatCategories.data;
+            let names = [];
+            for(let key in habitatCategoriesNames){
+                // console.log(habitatCategoriesNames[key].attributes.name)
+                names.push(habitatCategoriesNames[key].attributes.name);
+            }
+            // console.log(names)
+            let newFormFileds = { ...this.state.formFields }
+            newFormFileds["habitat_category_id"].options = names;
+            // console.log(newFormFileds);
+            this.setState({ formFields: newFormFileds })
+            console.log(this.state.formFields)
+            // console.log("componentWillReceiveProps", newProps.state.habitatCategories.habitatCategories.data)
+        }
     }
 
     state = {
@@ -73,7 +88,7 @@ class ObservationNew extends Component{
                 },
                 touched: false
             },
-            habitat_categories: {
+            habitat_category_id: {
                 elementType: 'select',
                 type: 'text',
                 value: 'Vrsta',
@@ -105,34 +120,26 @@ class ObservationNew extends Component{
         // })
     }
 
-    render(){
-        const formElements = {...this.state.formFields};
-        // console.log(formElements)
-        // console.log(this.props.habitatCategories)
+    renderForm = () => {
+        let formElements = {...this.state.formFields};
 
-        const renderForm = () => {
-            if(!this.props.loadingHabitats){
-                // console.log(this.state.formFields["habitat_categories"].options);
-                // let newFormFields = { ...this.state.formFields }
-                // console.log(newFormFields);
-                // newFormFields["habitat_categories"] = this.props.habitatCategories;
-                // console.log(newFormFields["habitat_categories"]);
-                // this.setState({ formFields: newFormFields })
-                // console.log(this.state.formFields["habitat_categories"].options)
-                return <Form 
-                            formElements={formElements} 
-                            title="Dodaj novi nalaz" 
-                            onSubmit={(event) => this.onFormSubmit(event)}
-                            inputChangedHandler={(data) => this.onInputChanged(data)}
-                            btnTitle="Dodaj novi nalaz">
-                        </Form>
-            }else{
-                return <Spinner />
-            }
+        if(!this.props.loadingHabitats){
+            return <Form 
+                        formElements={formElements} 
+                        title="Dodaj novi nalaz" 
+                        onSubmit={(event) => this.onFormSubmit(event)}
+                        inputChangedHandler={(data) => this.onInputChanged(data)}
+                        btnTitle="Dodaj novi nalaz">
+                    </Form>
+        }else{
+            return <Spinner />
         }
+    }
+
+    render(){
         return(
             <div style={{width: '40%', margin: '0 auto'}}>
-                { renderForm() }
+                { this.renderForm() }
             </div>
         )
     }
@@ -143,7 +150,7 @@ const mapStateToProps = (state) => {
         state: state,
         token: state.auth.token,
         species: state.species,
-        habitatCategories: state.habitatCategories.habitatCategories,
+        habitatCategories: state.habitatCategories,
         loadingHabitats: state.habitatCategories.loading
     };
 };

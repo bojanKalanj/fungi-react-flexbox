@@ -49,8 +49,8 @@ class Form extends Component {
     
     render(){
         let inputs = [];
-
         for(let key in this.formElements){
+
             if(!this.formElements[key].validation){
                 this.invalid = false;
                 this.isFormValid = true;
