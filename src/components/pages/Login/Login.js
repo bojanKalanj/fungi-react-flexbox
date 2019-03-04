@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Form from '../../../UI/Form/Form';
 import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag';
 import Spinner from '../../../UI/Spinner/Spinner';
-import fungi from '../../../apis/fungi';
 import * as actions from '../../../actions';
 
 
@@ -45,22 +45,10 @@ class Login extends Component{
     
     onFormSubmit = (event) => {
         event.preventDefault();
-        // let auth = {};
         const email = this.state.formFields.email.value;
         const password = this.state.formFields.password.value;
 
         this.props.onAuth(email, password);
-
-        // console.log("login submited")
-        // for(let key in this.state.formFields){
-        //     auth[key] = this.state.formFields[key].value
-        // }
-
-        // fungi.post("/login", { auth })
-        // .then(res => {
-        //     console.log(res);
-        //     console.log(res.data);
-        // })
     }
 
     render(){

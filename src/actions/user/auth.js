@@ -9,7 +9,7 @@ export const authStart = () => {
 export const authSuccess = (authData) => {
     return{
         type: "AUTH_SUCCESS",
-        token: authData
+        authData: authData
     };
 };
 
@@ -21,6 +21,9 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+
     return{
         type: "LOGOUT",
     };
@@ -37,9 +40,11 @@ export const auth = (email, password) => {
 
         fungi.post("/login", { auth })
         .then(res => {
-            console.log(res);
-            console.log(res.data);
+            console.log(res.data.jwt);
             console.log(res.data.user_id);
+            localStorage.setItem('token', res.data.jwt);
+            localStorage.setItem('userID', res.data.user_id);
+
             dispatch(authSuccess(res.data));
         }).catch(err => {
             console.log(err);
@@ -47,3 +52,16 @@ export const auth = (email, password) => {
         })
     };
 };
+
+export const authCheckState = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+        const userID = localStorage.getItem('userID');
+
+        if(!token){
+            dispatch(logout());
+        }else{
+            dispatch(authSuccess(token, userID))
+        }
+    }
+}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import * as actions from './actions';
 import Header from './components/shared/Header/Header';
 import Observation from './components/pages/Observation/Observation';
 import Home from './components/pages/Home/Home';
@@ -14,6 +16,10 @@ import ObservationNew from './components/pages/ObservationNew/ObservationNew';
 import { Container } from './UI/Container/Container';
 
 class App extends Component {
+  componentDidMount = () => {
+    this.props.onTryAutoSignup();
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -37,4 +43,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return{
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);
