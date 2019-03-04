@@ -7,6 +7,10 @@ export{
 export{
     fetchUser
 } from './user/fetchUser';
+
+export{
+    register
+} from './user/register';
 // -----------------------------------------
 
 export{

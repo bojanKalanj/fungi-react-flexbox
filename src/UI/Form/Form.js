@@ -49,7 +49,6 @@ class Form extends Component {
     
     render(){
         let inputs = [];
-        console.log(this.formElements);
         for(let key in this.formElements){
 
             if(!this.formElements[key].validation){

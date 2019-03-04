@@ -6,6 +6,7 @@ import userReducer from './userReducer';
 import authReducer from './authReducer';
 import newObservationReducer from './newObservationReducser';
 import habitatsReducer from './habitatsReducer';
+import registerUser from './registerReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     user: userReducer,
     auth: authReducer,
     newObservation: newObservationReducer,
-    habitatCategories: habitatsReducer
+    habitatCategories: habitatsReducer,
+    registeredUser: registerUser
 });

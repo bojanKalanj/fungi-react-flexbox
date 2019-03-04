@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as actions from '../../../actions'
 import { Container } from '../../../UI/Container/Container';
 import './Header.css';
 import Navlink from '../../../UI/Navlinks/Navlink';
 import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
 
 class Header extends Component{
+    componentDidMount = () => {
+        this.props.onTryAutoSignup();
+    }
+
     state = {
         dropDownOn: false
     }
@@ -62,7 +67,13 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => {
+    return{
+      onTryAutoSignup: () => dispatch(actions.authCheckState())
+    };
+  };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
 
 

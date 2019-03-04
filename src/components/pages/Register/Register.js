@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import fungi from '../../../apis/fungi';
+import * as actions from '../../../actions';
 import Form from '../../../UI/Form/Form';
 import { AnchorTag } from '../../../UI/AnchorTag/AnchorTag';
 
@@ -69,18 +71,18 @@ class Register extends Component{
             user[key] = this.state.formFields[key].value;
         }
 
-        console.log("register!")
+        this.props.onRegister(user);
+        this.props.history.push("/");
 
-        fungi.post(`/register`, { user })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
+        // fungi.post(`/register`, { user })
+        // .then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        // })
     }
 
     render(){
         let formElements = {...this.state.formFields};
-        
         return (
             <div style={{width: '40%', margin: '0 auto'}}>
                 <Form 
@@ -96,7 +98,19 @@ class Register extends Component{
     }
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onRegister: (user) => dispatch(actions.register(user))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
 
 

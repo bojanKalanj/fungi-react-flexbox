@@ -49,6 +49,7 @@ class Login extends Component{
         const password = this.state.formFields.password.value;
 
         this.props.onAuth(email, password);
+        this.props.history.push("/");
     }
 
     render(){
