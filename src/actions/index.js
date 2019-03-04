@@ -1,5 +1,6 @@
 export{
-    auth
+    auth,
+    logout
 } from './user/auth';
 
 export{

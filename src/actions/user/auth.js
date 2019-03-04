@@ -20,6 +20,12 @@ export const authFail = (error) => {
     };
 };
 
+export const logout = () => {
+    return{
+        type: "LOGOUT",
+    };
+};
+
 export const auth = (email, password) => {
     return dispatch =>{
         dispatch(authStart());
@@ -32,8 +38,9 @@ export const auth = (email, password) => {
         fungi.post("/login", { auth })
         .then(res => {
             console.log(res);
-            console.log(res.data.jwt);
-            dispatch(authSuccess(res.data.jwt));
+            console.log(res.data);
+            console.log(res.data.user_id);
+            dispatch(authSuccess(res.data));
         }).catch(err => {
             console.log(err);
             dispatch(authFail(err));

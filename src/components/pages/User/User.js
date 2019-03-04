@@ -8,13 +8,10 @@ import UserInfo from './UserInfo/UserInfo';
 
 class User extends Component{
     componentDidMount = () => {
-        this.props.fetchUser(this.props.match.params.id, this.props.authToken)
+        this.props.fetchUser(this.props.match.params.id)
     }
 
     render(){
-        console.log(this.props.state);
-        // console.log(this.props.authToken);
-
         let userInfo = 'loading';
         if(this.props.user){
             console.log(this.props.user.attributes);

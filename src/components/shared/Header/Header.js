@@ -24,7 +24,6 @@ class Header extends Component{
     }
 
     render(){
-        console.log(this.props.isAuthenticated)
         return (
             <div className="Header">
                 <Container>
@@ -47,7 +46,7 @@ class Header extends Component{
                         {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
                             DropdownBtn
                         </div>: null}
-                        <DropdownMenu show={this.state.dropDownOn}/>
+                        <DropdownMenu userID={this.props.userID} show={this.state.dropDownOn}/>
                     </div>
                 </Container>
             </div>
@@ -58,6 +57,7 @@ class Header extends Component{
 const mapStateToProps = (state) => {
     return {
         state: state,
+        userID: state.auth.userID,
         isAuthenticated: state.auth.token !== null
     };
 };

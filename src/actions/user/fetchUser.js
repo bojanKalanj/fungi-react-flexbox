@@ -39,7 +39,7 @@ export const fetchUserFail = (error) => {
     };
 };
 
-export const fetchUser = (user, userId) => {
+export const fetchUser = userId => {
     return dispatch =>{
         dispatch(fetchUserStart());
         fungi.get(`/users/${userId}`)

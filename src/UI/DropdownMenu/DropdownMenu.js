@@ -7,32 +7,23 @@ const DropdownMenu = (props) =>  {
     if(props.show){
         cssClasses.push("ShowDropdown")
     }
+    const userID = props.userID;
     return(
         <div className={cssClasses.join(' ')}>
             <ul>
+                <li>
+                    <Navlink to={`/users/${userID}`}>
+                        Moj profil
+                    </Navlink>
+                </li>
                 <li>
                     <Navlink to="/observations/new">
                         Dodaj observaciju 
                     </Navlink>
                 </li>
                 <li>
-                    <Navlink to="/user/2">
-                        Korisnik
-                    </Navlink>
-                </li>
-                <li>
-                    <Navlink to="/">
-                        Pocetna
-                    </Navlink>
-                </li>
-                <li>
-                    <Navlink to="/">
-                        Pocetna
-                    </Navlink>
-                </li>
-                <li>
-                    <Navlink to="/">
-                        Pocetna
+                    <Navlink to="/logout">
+                        Odjavi se 
                     </Navlink>
                 </li>
             </ul>

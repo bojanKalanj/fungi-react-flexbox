@@ -1,5 +1,6 @@
 const initialState = {
     token: null,
+    userID: null,
     error: null,
     loading: false
 }
@@ -13,9 +14,11 @@ const reducer = (state = initialState, action) => {
                 loading: true
             }
         case "AUTH_SUCCESS":
+            console.log(action.token);
             return {
                 ...state,
-                token: action.token,
+                token: action.token.jwt,
+                userID: action.token.user_id,
                 error: null, 
                 loading: false
             }
@@ -24,7 +27,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error, 
                 loading: false
-            }         
+            }
+        case "LOGOUT":
+            return {
+                ...state,
+                token: null,
+                userID: null,
+            }               
         default: return state
     }
 }

@@ -7,6 +7,7 @@ import Home from './components/pages/Home/Home';
 import Species from './components/pages/Species/Species';
 import User from './components/pages/User/User';
 import Login from './components/pages/Login/Login';
+import Logout from './components/pages/Logout/Logout';
 import Register from './components/pages/Register/Register';
 import ObservationNew from './components/pages/ObservationNew/ObservationNew';
 
@@ -22,8 +23,9 @@ class App extends Component {
             <div style={{marginTop: '30px', marginBottom: '30px'}}>
               <Route path="/" exact component={Home} />
               <Route path="/species" component={Species} />
-              <Route path="/user/:id" component={User} />
+              <Route path="/users/:id" component={User} />
               <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
               <Route path="/register" component={Register} />
               <Route path="/observations/new" exact component={ObservationNew} />
               <Route path="/observation/:id" component={Observation} />
