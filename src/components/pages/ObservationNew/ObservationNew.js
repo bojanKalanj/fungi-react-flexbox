@@ -9,13 +9,6 @@ class ObservationNew extends Component{
     componentDidMount = () => {
         this.props.fetchSpecies();
         this.props.fetchHabitats();
-        //     ...this.state.formFields
-        // }
-        // console.log(newState);
-        // console.log(this.props.species.data);
-        // newState["habitat_category_id"].options = [this.props.species.data];
-        // console.log(newState["habitat_category_id"])
-        // this.setState({ formFields: newState });
     }
 
     componentWillReceiveProps = (newProps) => {
@@ -23,15 +16,11 @@ class ObservationNew extends Component{
             let categories = newProps.state.habitatCategories.habitatCategories.data;
             let opts = [];
             for(let key in categories){
-                // console.log(categories[key].attributes.name)
                 opts = [...opts, { id: categories[key].id, name: categories[key].attributes.name }];
             }
-            // console.log(names)
             let newFormFileds = { ...this.state.formFields }
             newFormFileds["habitat_category_id"].options = opts;
-            // console.log(newFormFileds);
             this.setState({ formFields: newFormFileds })
-            // console.log("componentWillReceiveProps", newProps.state.habitatCategories.habitatCategories.data)
         }
     }
 
@@ -75,7 +64,7 @@ class ObservationNew extends Component{
             },
             observed_at: {
                 elementType: 'input',
-                type: 'text',
+                type: 'date',
                 placeholder: 'nalaz uocen',
                 value: '',
                 label: 'Kada je nalaz uocen',

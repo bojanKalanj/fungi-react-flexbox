@@ -13,7 +13,7 @@ class Login extends Component{
         formFields: {
             email: {
                 elementType: 'input',
-                type: 'text',
+                type: 'email',
                 placeholder: 'Vas email',
                 value: '',
                 label: 'Email',

@@ -14,6 +14,7 @@ const Input = (props) => {
     switch(props.elementType){
         case ('input'):
             inputElement = <input 
+                type={props.type}
                 value={props.value}
                 onChange={props.onChange}
                 className={cssClasses.join(' ')}
