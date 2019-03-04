@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import * as actions from './actions';
 import Header from './components/shared/Header/Header';
@@ -21,6 +22,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.isAuthenticated);
     return (
       <BrowserRouter>
         <div className="App">
@@ -30,10 +32,10 @@ class App extends Component {
               <Route path="/" exact component={Home} />
               <Route path="/species" component={Species} />
               <Route path="/users/:id" component={User} />
-              <Route path="/login" component={Login} />
+              {!this.props.isAuthenticated? <Route path="/login" component={Login} />: <Redirect to="/" />}
               <Route path="/logout" component={Logout} />
-              <Route path="/register" component={Register} />
-              <Route path="/observations/new" exact component={ObservationNew} />
+              {!this.props.isAuthenticated? <Route path="/register" component={Register} />: <Redirect to="/" />}
+              {this.props.isAuthenticated? <Route path="/observations/new" exact component={ObservationNew} />: <Redirect to="/" />}
               <Route path="/observation/:id" component={Observation} />
             </div>
           </Container>
@@ -43,10 +45,16 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return{
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
