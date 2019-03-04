@@ -9,8 +9,6 @@ class ObservationNew extends Component{
     componentDidMount = () => {
         this.props.fetchSpecies();
         this.props.fetchHabitats();
-        
-        // let newState = {
         //     ...this.state.formFields
         // }
         // console.log(newState);
@@ -22,18 +20,17 @@ class ObservationNew extends Component{
 
     componentWillReceiveProps = (newProps) => {
         if(newProps.state.habitatCategories.habitatCategories){
-            let habitatCategoriesNames = newProps.state.habitatCategories.habitatCategories.data;
-            let names = [];
-            for(let key in habitatCategoriesNames){
-                // console.log(habitatCategoriesNames[key].attributes.name)
-                names.push(habitatCategoriesNames[key].attributes.name);
+            let categories = newProps.state.habitatCategories.habitatCategories.data;
+            let opts = [];
+            for(let key in categories){
+                // console.log(categories[key].attributes.name)
+                opts = [...opts, { id: categories[key].id, name: categories[key].attributes.name }];
             }
             // console.log(names)
             let newFormFileds = { ...this.state.formFields }
-            newFormFileds["habitat_category_id"].options = names;
+            newFormFileds["habitat_category_id"].options = opts;
             // console.log(newFormFileds);
             this.setState({ formFields: newFormFileds })
-            console.log(this.state.formFields)
             // console.log("componentWillReceiveProps", newProps.state.habitatCategories.habitatCategories.data)
         }
     }
@@ -91,15 +88,24 @@ class ObservationNew extends Component{
             habitat_category_id: {
                 elementType: 'select',
                 type: 'text',
-                value: 'Vrsta',
-                label: 'Izaberite vrstu kojoj nalaz pripada',
-                options: []
+                value: '',
+                label: 'Staniste',
+                options: [],
+                validation: {
+                    valid: false,
+                    required: true
+                },
+                touched: false
             }
         }
     }
 
+
     onInputChanged = data => {
-        this.setState({ formFields: data })
+        if(data.habitat_category_id.value === "32"){
+            console.log(data.habitat_category_id.value)
+        }
+        this.setState({ formFields: data });
     }
 
     onFormSubmit = (event) => {

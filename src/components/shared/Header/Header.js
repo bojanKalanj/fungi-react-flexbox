@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Container } from '../../../UI/Container/Container';
 import './Header.css';
@@ -21,9 +22,9 @@ class Header extends Component{
           document.removeEventListener('click', this.closeMenu);
         });
     }
-    
+
     render(){
-        console.log(this.state.dropDownOn)
+        console.log(this.props.isAuthenticated)
         return (
             <div className="Header">
                 <Container>
@@ -37,21 +38,15 @@ class Header extends Component{
                         <Navlink to="/species">
                             Sve Vrste
                         </Navlink>
-                        <Navlink to="/user/2">
-                            Korisnik
-                        </Navlink>
-                        <Navlink to="/login">
+                        {!this.props.isAuthenticated? <Navlink to="/login">
                             Prijavi se
-                        </Navlink>
-                        <Navlink to="/register">
+                        </Navlink>: null}
+                        {!this.props.isAuthenticated? <Navlink to="/register">
                             Registruj se 
-                        </Navlink>
-                        <Navlink to="/observations/new">
-                            Dodaj observaciju 
-                        </Navlink>
-                        <div className="DropdownBtn" onClick={this.onDropdownClicked}>
+                        </Navlink>: null}
+                        {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
                             DropdownBtn
-                        </div>
+                        </div>: null}
                         <DropdownMenu show={this.state.dropDownOn}/>
                     </div>
                 </Container>
@@ -60,7 +55,14 @@ class Header extends Component{
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        state: state,
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
+export default connect(mapStateToProps)(Header);
 
 
 

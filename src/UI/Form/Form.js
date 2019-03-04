@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import './Form.css';
 
 class Form extends Component {
-    formElements = this.props.formElements
+    formElements = this.props.formElements;
 
     invalid = false;
 
@@ -49,6 +49,7 @@ class Form extends Component {
     
     render(){
         let inputs = [];
+        console.log(this.formElements);
         for(let key in this.formElements){
 
             if(!this.formElements[key].validation){
