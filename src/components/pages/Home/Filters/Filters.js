@@ -26,13 +26,6 @@ class Filters extends Component{
                 value: '',
                 label: 'Lokacija na kojoj je pronadjena obzervacija'
             },
-            formFiledFour: {
-                elementType: 'select',
-                type: 'text',
-                value: '',
-                label: 'Lokacija na kojoj je pronadjena obzervacija',
-                options: ["abcd", "akdjals", "lkjsdl"]
-            }
         }
     }
 

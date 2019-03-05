@@ -1,14 +1,5 @@
-// export default (state = [], action) => {
-//     switch(action.type){
-//         case 'FETCH_user':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// };
-
 const initialState = {
-    data: null,
+    user: null,
     error: null,
     loading: false
 }

@@ -9,11 +9,23 @@ import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
 
 class Header extends Component{
     componentDidMount = () => {
-        this.props.onTryAutoSignup();
+        console.log("Header componentDidMount")
+        let token = localStorage.getItem('userID');
+        if(token){
+            this.props.fetchUser(localStorage.getItem('userID'));
+        }
+    }
+
+    componentWillReceiveProps = newProps => {
+        if(this.props.state.user.user){
+            // console.log(this.props.state.user.user.data.attributes.username);
+            this.setState({ userName: this.props.state.user.user.data.attributes.username })
+        }
     }
 
     state = {
-        dropDownOn: false
+        dropDownOn: false,
+        userName: null
     }
     
     onDropdownClicked = () => {
@@ -49,7 +61,7 @@ class Header extends Component{
                             Registruj se 
                         </Navlink>: null}
                         {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
-                            DropdownBtn
+                            { this.state.userName }
                         </div>: null}
                         <DropdownMenu userID={this.props.userID} show={this.state.dropDownOn}/>
                     </div>
@@ -69,7 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return{
-      onTryAutoSignup: () => dispatch(actions.authCheckState())
+    //   onTryAutoSignup: () => dispatch(actions.authCheckState())
+    fetchUser: (userID) => dispatch(actions.fetchUser(userID))
     };
   };
 
