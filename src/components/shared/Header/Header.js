@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import * as actions from '../../../actions'
 import { Container } from '../../../UI/Container/Container';
@@ -49,7 +50,7 @@ class Header extends Component{
                     </Navlink>
                     <div className="pull-right">
                         <Navlink to="/">
-                            Pocetna
+                            Pocetna 
                         </Navlink>
                         <Navlink to="/species">
                             Sve Vrste
@@ -61,7 +62,7 @@ class Header extends Component{
                             Registruj se 
                         </Navlink>: null}
                         {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
-                            { this.state.userName }
+                            { this.state.userName } 
                         </div>: null}
                         <DropdownMenu userID={this.props.userID} show={this.state.dropDownOn}/>
                     </div>

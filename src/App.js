@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
+
 import * as actions from './actions';
 import Header from './components/shared/Header/Header';
 import Observation from './components/pages/Observation/Observation';
@@ -14,8 +18,9 @@ import Login from './components/pages/Login/Login';
 import Logout from './components/pages/Logout/Logout';
 import Register from './components/pages/Register/Register';
 import ObservationNew from './components/pages/ObservationNew/ObservationNew';
-
 import { Container } from './UI/Container/Container';
+
+library.add(faAngleDown)
 
 class App extends Component {
   componentDidMount = () => {
@@ -23,6 +28,21 @@ class App extends Component {
   }
 
   render() {
+    let renderLinks = [
+      <div key="1">
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+      </div>
+    ]
+
+    if(this.props.isAuthenticated){
+      renderLinks =[
+        <div key="2">
+          <Route path="/observations/new" exact component={ObservationNew} />
+          <Route path="/logout" component={Logout} />
+        </div>
+      ]
+    }
     return (
       <BrowserRouter>
         <div className="App">
@@ -32,11 +52,8 @@ class App extends Component {
                 <Route path="/" exact component={Home} />
                 <Route path="/species" component={Species} />
                 <Route path="/users/:id" component={User} />
-                {!this.props.isAuthenticated? <Route path="/login" component={Login} />: <Redirect to="/" />}
-                <Route path="/logout" component={Logout} />
-                {!this.props.isAuthenticated? <Route path="/register" component={Register} />: <Redirect to="/" />}
-                {this.props.isAuthenticated? <Route path="/observations/new" exact component={ObservationNew} />: <Redirect to="/" />}
                 <Route path="/observation/:id" component={Observation} />
+                { renderLinks }
             </div>
           </Container>
         </div>
