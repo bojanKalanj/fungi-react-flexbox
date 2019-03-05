@@ -33,8 +33,8 @@ export const register = (user) => {
             console.log(res.data.user_id);
             localStorage.setItem('token', res.data.jwt);
             localStorage.setItem('userID', res.data.user_id);
-            dispatch(registerSuccess(res.data));
             dispatch(authSuccess(res.data));
+            dispatch(registerSuccess(res.data));
         }).catch(err => {
             console.log(err);
             dispatch(registerFail(err));
