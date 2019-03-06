@@ -1,24 +1,3 @@
-// import fungi from '../../apis/fungi';
-
-// export const setSpecies = species => {
-//     return{
-//         type: 'FETCH_SPECIES',
-//         payload: species
-//     }
-// }
-
-// export const fetchSpecies = () => {
-//     return dispatch => (
-//        fungi.get('/species')
-//         .then(response => {
-//             dispatch(setSpecies(response.data))
-//         })
-//         .catch(error => console.log(error))
-//     )
-// };
-
-
-
 import fungi from '../../apis/fungi';
 
 export const fetchSpeciesStart = () => {

@@ -123,10 +123,12 @@ class ObservationNew extends Component{
     }
 
     render(){
-        console.log(this.state)
+        // if(this.props.state.species.data){
+        // console.log(this.props.state.species.data.data)
+        // }
         let formElements = {...this.state.formFields};
         for(let key in this.state.formFields){
-            if(this.state.formFields["habitat"]){
+            if(this.state.formFields["habitat_note"]){
                 console.log("Form have habitat field");
                 this.addInput = false;
             }
@@ -135,12 +137,12 @@ class ObservationNew extends Component{
         if(this.addInput){
             formElements = {
                 ...formElements,
-                habitat: {
-                    elementType: 'input',
+                habitat_note: {
+                    elementType: 'textarea',
                     type: 'text',
-                    placeholder: 'Area',
+                    placeholder: 'Napomena',
                     value: '',
-                    label: 'Staniste',
+                    label: 'Unesite naopmenu',
                     validation: {
                         valid: false,
                         required: true
@@ -152,9 +154,8 @@ class ObservationNew extends Component{
         }
 
         if(this.removeField){
-            if(this.state.formFields["habitat"]){
-                delete formElements["habitat"];
-                // console.log("Form have habitat field");
+            if(this.state.formFields["habitat_note"]){
+                delete formElements["habitat_note"];
                 this.addInput = false;
             }
         }
@@ -167,7 +168,6 @@ class ObservationNew extends Component{
                 btnTitle="Dodaj novi nalaz">
             </Form>
         ]
-        console.log(formElements);
 
         return(
             <div style={{width: '40%', margin: '0 auto'}}>
