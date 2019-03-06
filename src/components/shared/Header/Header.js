@@ -10,23 +10,29 @@ import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
 
 class Header extends Component{
     componentDidMount = () => {
-        console.log("Header componentDidMount")
-        let token = localStorage.getItem('userID');
-        if(token){
-            this.props.fetchUser(localStorage.getItem('userID'));
+        let userID =localStorage.getItem('userID');
+        if(userID){
+            this.props.fetchUser(userID);
         }
     }
 
     componentWillReceiveProps = newProps => {
+        let userID = localStorage.getItem('userID');
+        if(userID){
+            this.userID = userID
+        }
+
         if(this.props.state.user.user){
-            // console.log(this.props.state.user.user.data.attributes.username);
-            this.setState({ userName: this.props.state.user.user.data.attributes.username })
+            this.user = this.props.state.user.user.data.attributes.username;
         }
     }
 
+    userID = null;
+    user = null;
+
     state = {
         dropDownOn: false,
-        userName: null
+        // userID: null
     }
     
     onDropdownClicked = () => {
@@ -42,6 +48,10 @@ class Header extends Component{
     }
 
     render(){
+        if(this.props.state.user.user){
+            console.log(this.props.state.user.user.data.attributes.username);
+        }
+        console.log(this.user)
         return (
             <div className="Header">
                 <Container>
@@ -62,9 +72,9 @@ class Header extends Component{
                             Registruj se 
                         </Navlink>: null}
                         {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
-                            { this.state.userName } 
+                            <button className="DropdownMenuBtn">Moj profil</button>  
                         </div>: null}
-                        <DropdownMenu userID={this.props.userID} show={this.state.dropDownOn}/>
+                        <DropdownMenu userID={this.userID} show={this.state.dropDownOn}/>
                     </div>
                 </Container>
             </div>
@@ -75,15 +85,15 @@ class Header extends Component{
 const mapStateToProps = (state) => {
     return {
         state: state,
-        userID: state.auth.userID,
+        // userID: state.auth.userID,
         isAuthenticated: state.auth.token !== null
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return{
-    //   onTryAutoSignup: () => dispatch(actions.authCheckState())
-    fetchUser: (userID) => dispatch(actions.fetchUser(userID))
+        // onTryAutoSignup: () => dispatch(actions.authCheckState()),
+        fetchUser: (userID) => dispatch(actions.fetchUser(userID))
     };
   };
 

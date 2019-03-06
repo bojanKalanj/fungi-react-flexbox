@@ -5,11 +5,56 @@ import Button from '../Button/Button';
 import './Form.css';
 
 class Form extends Component {
-    formElements = this.props.formElements;
+    // formElements = {...this.props.formElements};
 
-    invalid = false;
+    // invalid = false;
 
-    checkvalidity = input => {
+    // checkvalidity = input => {
+    //     if(input.validation){
+    //         if(input.validation.required){
+    //             if(input.value.length >= 1){
+    //                 input.validation.valid = true;
+    //             }else{
+    //                 input.validation.valid = false;
+    //             } 
+    //         }
+    //     }
+    // }
+
+    // isFormValid = false;
+
+    // inputChangedHandler = (event, formInput) => {
+    //     let newFormInput = this.formElements[formInput];
+    //     newFormInput.value = event.target.value;
+    //     newFormInput.touched = true;
+    //     this.checkvalidity(newFormInput);
+
+    //     let validity = [];
+
+    //     for(let key in this.formElements){
+    //         if(this.formElements[key].validation){
+    //             validity.push(this.formElements[key].validation.valid);
+    //         }
+    //     }
+
+    //     if(validity.includes(false)){
+    //         this.isFormValid = false;
+    //     }else{
+    //         this.isFormValid = true;
+    //     }
+
+    //     this.props.inputChangedHandler(this.formElements)
+    // }
+    
+    isFormValid = false;
+    
+    render(){
+
+        let formElements = {...this.props.formElements};
+
+    let invalid = false;
+
+    const checkvalidity = input => {
         if(input.validation){
             if(input.validation.required){
                 if(input.value.length >= 1){
@@ -21,19 +66,18 @@ class Form extends Component {
         }
     }
 
-    isFormValid = false;
+    // let isFormValid = false;
 
-    inputChangedHandler = (event, formInput) => {
-        let newFormInput = this.formElements[formInput];
+    const inputChangedHandler = (event, formInput) => {
+        let newFormInput = formElements[formInput];
         newFormInput.value = event.target.value;
         newFormInput.touched = true;
-        this.checkvalidity(newFormInput);
-
+        checkvalidity(newFormInput);
         let validity = [];
 
-        for(let key in this.formElements){
-            if(this.formElements[key].validation){
-                validity.push(this.formElements[key].validation.valid);
+        for(let key in formElements){
+            if(formElements[key].validation){
+                validity.push(formElements[key].validation.valid);
             }
         }
 
@@ -43,33 +87,36 @@ class Form extends Component {
             this.isFormValid = true;
         }
 
-        this.props.inputChangedHandler(this.formElements)
+        console.log(formElements);
+        this.props.inputChangedHandler(formElements);
+        console.log(formElements);
+        console.log(this.isFormValid);
     }
-    
-    
-    render(){
-        let inputs = [];
-        for(let key in this.formElements){
 
-            if(!this.formElements[key].validation){
-                this.invalid = false;
+        let inputs = [];
+        for(let key in formElements){
+
+            if(!formElements[key].validation){
+                invalid = false;
                 this.isFormValid = true;
             }else{
-                this.invalid = !this.formElements[key].validation.valid;
+                invalid = !formElements[key].validation.valid;
             }
             inputs.push(<Input 
                         key={key}
-                        elementType={this.formElements[key].elementType}
-                        type={this.formElements[key].type}
-                        placeholder={this.formElements[key].placeholder}
-                        value={this.formElements[key].value}
-                        label={this.formElements[key].label}
-                        options={this.formElements[key].options}
-                        onChange={(event) => this.inputChangedHandler(event, key)}
-                        invalid={this.invalid}
-                        touched={this.formElements[key].touched}
+                        elementType={formElements[key].elementType}
+                        type={formElements[key].type}
+                        placeholder={formElements[key].placeholder}
+                        value={formElements[key].value}
+                        label={formElements[key].label}
+                        options={formElements[key].options}
+                        onChange={(event) => inputChangedHandler(event, key)}
+                        invalid={invalid}
+                        touched={formElements[key].touched}
                         />)
         };
+        // console.log(formElements);
+        // console.log(isFormValid);
 
         return (
                 <form onSubmit={this.props.onSubmit} className="Form">

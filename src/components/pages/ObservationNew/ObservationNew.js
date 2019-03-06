@@ -89,12 +89,18 @@ class ObservationNew extends Component{
         }
     }
 
+    addInput = false;
+    removeField = false;
 
     onInputChanged = data => {
         if(data.habitat_category_id.value === "32"){
-            console.log(data.habitat_category_id.value)
+                this.addInput = true;
         }
-        this.setState({ formFields: data });
+        console.log(data.habitat_category_id.value);
+        if(data.habitat_category_id.value !== "32"){
+            this.removeField = true;
+        }
+        this.setState({ formFields: data }) 
     }
 
     onFormSubmit = (event) => {
@@ -106,7 +112,8 @@ class ObservationNew extends Component{
 
         console.log("submited");
         console.log(this.props.token);
-        this.props.onObservationSubmit(observation, this.props.token);
+        console.log(observation);
+        // this.props.onObservationSubmit(observation, this.props.token);
         
         // fungi.post(`/observations`, { observation })
         // .then(res => {
@@ -115,26 +122,56 @@ class ObservationNew extends Component{
         // })
     }
 
-    renderForm = () => {
-        let formElements = {...this.state.formFields};
-
-        if(!this.props.loadingHabitats){
-            return <Form 
-                        formElements={formElements} 
-                        title="Dodaj novi nalaz" 
-                        onSubmit={(event) => this.onFormSubmit(event)}
-                        inputChangedHandler={(data) => this.onInputChanged(data)}
-                        btnTitle="Dodaj novi nalaz">
-                    </Form>
-        }else{
-            return <Spinner />
-        }
-    }
-
     render(){
+        console.log(this.state)
+        let formElements = {...this.state.formFields};
+        for(let key in this.state.formFields){
+            if(this.state.formFields["habitat"]){
+                console.log("Form have habitat field");
+                this.addInput = false;
+            }
+        }
+
+        if(this.addInput){
+            formElements = {
+                ...formElements,
+                habitat: {
+                    elementType: 'input',
+                    type: 'text',
+                    placeholder: 'Area',
+                    value: '',
+                    label: 'Staniste',
+                    validation: {
+                        valid: false,
+                        required: true
+                    },
+                    touched: false
+                }
+            }
+            this.removeField = false;
+        }
+
+        if(this.removeField){
+            if(this.state.formFields["habitat"]){
+                delete formElements["habitat"];
+                // console.log("Form have habitat field");
+                this.addInput = false;
+            }
+        }
+        let renderForm = [
+            <Form 
+                formElements={formElements} 
+                title="Dodaj novi nalaz" 
+                onSubmit={(event) => this.onFormSubmit(event)}
+                inputChangedHandler={(data) => this.onInputChanged(data)}
+                btnTitle="Dodaj novi nalaz">
+            </Form>
+        ]
+        console.log(formElements);
+
         return(
             <div style={{width: '40%', margin: '0 auto'}}>
-                { this.renderForm() }
+                { renderForm }
             </div>
         )
     }
