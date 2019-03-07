@@ -87,10 +87,7 @@ class Form extends Component {
             this.isFormValid = true;
         }
 
-        console.log(formElements);
         this.props.inputChangedHandler(formElements);
-        console.log(formElements);
-        console.log(this.isFormValid);
     }
 
         let inputs = [];
@@ -115,8 +112,6 @@ class Form extends Component {
                         touched={formElements[key].touched}
                         />)
         };
-        // console.log(formElements);
-        // console.log(isFormValid);
 
         return (
                 <form onSubmit={this.props.onSubmit} className="Form">

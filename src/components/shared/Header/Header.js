@@ -48,10 +48,6 @@ class Header extends Component{
     }
 
     render(){
-        if(this.props.state.user.user){
-            console.log(this.props.state.user.user.data.attributes.username);
-        }
-        console.log(this.user)
         return (
             <div className="Header">
                 <Container>

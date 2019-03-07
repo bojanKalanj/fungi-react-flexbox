@@ -29,6 +29,10 @@ export{
 export{
     fetchSpecies
 } from './species/fetchSpecies';
+
+export{
+    floralSpecies
+} from './species/floralSpecies';
 // -----------------------------------------
 
 export{

@@ -2,20 +2,20 @@ import fungi from '../../apis/fungi';
 
 export const floralSpeciesStart = () => {
     return{
-        type: "FLORAL-SPECIES_START"
+        type: "FLORAL_SPECIES_START"
     }
 }
 
 export const floralSpeciesSuccess = (floralSpecies) => {
     return{
-        type: "FLORAL-SPECIES_SUCCESS",
+        type: "FLORAL_SPECIES_SUCCESS",
         floralSpecies: floralSpecies
     };
 };
 
 export const floralSpeciessFails = (error) => {
     return{
-        type: "FLORAL-SPECIES_FAIL",
+        type: "FLORAL_SPECIES_FAIL",
         error: error
     };
 };
