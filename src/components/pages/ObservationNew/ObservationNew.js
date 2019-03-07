@@ -120,23 +120,28 @@ class ObservationNew extends Component{
         }
 
         if(ids.length > 0){
+            this.removeFloralSpeciesInput = false;
             for(let floralSpecimen in floralSpecies){
                 if(ids.includes(Number(floralSpecies[floralSpecimen].id))){
                     includedfloralSpecies.push({name: floralSpecies[floralSpecimen].attributes.name, id: floralSpecies[floralSpecimen].id})
                     this.addFloralSpeciesInput = true;
+                    console.log(includedfloralSpecies)
                 }
             }
         }
 
         if(ids.length === 0){
             this.addFloralSpeciesInput = false;
+            this.removeFloralSpeciesInput = true;
         }
         this.setState({ includedfloralSpecies: includedfloralSpecies })
-        console.log(includedfloralSpecies);
+        // console.log(includedfloralSpecies);
     }
 
     onInputChanged = data => {
-        this.setFloralSpecies(data.habitat_category_id.value)
+        if(data.habitat_category_id.value){
+            this.setFloralSpecies(data.habitat_category_id.value)
+        }
         
         if(data.habitat_category_id.value === "32"){
             this.addHabitatNoteInput = true;
@@ -173,12 +178,20 @@ class ObservationNew extends Component{
         // }
         // console.log(this.state.floralSpecies);
         // console.log(this.state.includedfloralSpecies);
-        console.log(this.addFloralSpeciesInput);
+        // console.log(this.addFloralSpeciesInput);
+        if(this.removeFloralSpeciesInput){
+            console.log("remove motherfucker")
+        }
         let formElements = {...this.state.formFields};
         for(let key in this.state.formFields){
             if(this.state.formFields["habitat_note"]){
                 console.log("Form have habitat field");
                 this.addHabitatNoteInput = false;
+            }
+
+            if(this.state.formFields["habitat_species_ids"]){
+                console.log("Form have habitat field");
+                this.addFloralSpeciesInput = false;
             }
         }
 
@@ -205,6 +218,37 @@ class ObservationNew extends Component{
             if(this.state.formFields["habitat_note"]){
                 delete formElements["habitat_note"];
                 this.addHabitatNoteInput = false;
+            }
+        }
+
+        let options = this.state.includedfloralSpecies 
+        // options.map(option => {
+        //     console.log(option)
+        // })
+        
+        console.log(options);
+        if(this.addFloralSpeciesInput){
+            formElements = {
+                ...formElements,
+                habitat_species_ids: {
+                    elementType: 'select',
+                    type: 'text',
+                    value: '',
+                    label: 'Biljna vrsta',
+                    options: options,
+                    validation: {
+                        valid: false,
+                        required: true
+                    },
+                    touched: false
+                }
+            }
+        }
+
+        if(this.removeFloralSpeciesInput){
+            if(this.state.formFields["habitat_species_ids"]){
+                delete formElements["habitat_species_ids"];
+                this.addFloralSpeciesInput = false;
             }
         }
         let renderForm = [
