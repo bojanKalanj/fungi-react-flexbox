@@ -5,6 +5,30 @@
     background: #5cdb95;
 }
 
+.Form.col-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 20px;
+    flex-direction: column;
+    padding: 30px;
+    background: #5cdb95;
+}
+
+.Form-title.col-2 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.two-col-wide {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.one-col-wide {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
 .Form h4{
     color: #fff;
 }

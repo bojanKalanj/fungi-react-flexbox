@@ -49,9 +49,12 @@ class Form extends Component {
     isFormValid = false;
     
     render(){
-
+        console.log("FORM RENDER");
         let formElements = {...this.props.formElements};
-
+        console.log(formElements);
+        if(this.props.formElements.habitat_species_ids){
+            console.log(this.props.formElements.habitat_species_ids.options)
+        }
     let invalid = false;
 
     const checkvalidity = input => {
@@ -99,29 +102,36 @@ class Form extends Component {
             }else{
                 invalid = !formElements[key].validation.valid;
             }
-            inputs.push(<Input 
-                        key={key}
-                        elementType={formElements[key].elementType}
-                        type={formElements[key].type}
-                        placeholder={formElements[key].placeholder}
-                        value={formElements[key].value}
-                        label={formElements[key].label}
-                        options={formElements[key].options}
-                        onChange={(event) => inputChangedHandler(event, key)}
-                        invalid={invalid}
-                        touched={formElements[key].touched}
-                        />)
+            inputs.push(<div className={ formElements[key].size }>
+                            <Input 
+                                key={key}
+                                elementType={formElements[key].elementType}
+                                type={formElements[key].type}
+                                placeholder={formElements[key].placeholder}
+                                value={formElements[key].value}
+                                label={formElements[key].label}
+                                options={formElements[key].options}
+                                onChange={(event) => inputChangedHandler(event, key)}
+                                invalid={invalid}
+                                touched={formElements[key].touched}
+                            />
+                        </div>)
         };
 
         return (
-                <form onSubmit={this.props.onSubmit} className="Form">
-                    <h4>{ this.props.title }</h4>
-                    <hr />
+                <form onSubmit={this.props.onSubmit} className={ 'Form ' + this.props.columns }>
+                    <div className={ 'Form-title ' + this.props.columns }>
+                        <h4>{ this.props.title }</h4>
+                        <hr />
+                    </div>
                     { inputs }
-                    <Button 
-                        disabled={!this.isFormValid}>
-                        { this.props.btnTitle }
-                    </Button>
+                    <div className="one-col-wide">
+                        <Button 
+                            border={true}
+                            wide={true}>
+                            { this.props.btnTitle }
+                        </Button>
+                    </div>
                 </form>
             )
         }

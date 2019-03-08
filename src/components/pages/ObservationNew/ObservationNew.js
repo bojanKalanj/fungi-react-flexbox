@@ -37,9 +37,9 @@ class ObservationNew extends Component{
             area: {
                 elementType: 'input',
                 type: 'text',
-                placeholder: 'Area',
+                placeholder: 'Petrovaradin',
                 value: '',
-                label: 'Podrucje na kom je nalaz pronadjen',
+                label: 'Područje na kojem je nalaz pronadjen *',
                 validation: {
                     valid: false,
                     required: true
@@ -49,9 +49,9 @@ class ObservationNew extends Component{
             location: {
                 elementType: 'input',
                 type: 'text',
-                placeholder: 'location',
+                placeholder: 'Tvrdjava',
                 value: '',
-                label: 'Lokacija na kojoj je nalaz pronadjen',
+                label: 'Lokacija na kojoj je nalaz pronadjen *',
                 validation: {
                     valid: false,
                     required: true
@@ -63,46 +63,51 @@ class ObservationNew extends Component{
                 type: 'text',
                 placeholder: 'opis',
                 value: '',
-                label: 'Opis nalaza',
+                label: 'Opis nalaza *',
                 validation: {
                     valid: false,
                     required: true
                 },
-                touched: false
+                touched: false,
+                size: 'two-col-wide'
             },
             observed_at: {
                 elementType: 'input',
                 type: 'date',
                 placeholder: 'nalaz uocen',
                 value: '',
-                label: 'Kada je nalaz uocen',
+                label: 'Kada je nalaz uočen',
                 validation: {
                     valid: false,
                     required: true
                 },
-                touched: false
+                touched: false,
+                size: 'one-col-wide'
             },
             habitat_category_id: {
                 elementType: 'select',
                 type: 'text',
-                value: '',
-                label: 'Staniste',
+                value: 'Izaberite stanište',
+                label: 'Stanište',
                 options: [],
                 validation: {
                     valid: false,
                     required: true
                 },
-                touched: false
+                touched: false,
+                size: 'one-col-wide'
             }
         },
         floralSpecies: null,
-        includedfloralSpecies: null
+        // includedfloralSpecies: null
     }
 
     addHabitatNoteInput = false;
     removeHabitatNoteInput = false;
     addFloralSpeciesInput = false;
     removeFloralSpeciesInput = false;
+
+    includedfloralSpecies = [];
 
     setFloralSpecies = (habitatCategorieValue) => {
         let habitatCategories = this.props.habitatCategories.habitatCategories.data;
@@ -125,7 +130,9 @@ class ObservationNew extends Component{
                 if(ids.includes(Number(floralSpecies[floralSpecimen].id))){
                     includedfloralSpecies.push({name: floralSpecies[floralSpecimen].attributes.name, id: floralSpecies[floralSpecimen].id})
                     this.addFloralSpeciesInput = true;
-                    console.log(includedfloralSpecies)
+                    // console.log(includedfloralSpecies);
+                    this.includedfloralSpecies = includedfloralSpecies;
+                    console.log(this.includedfloralSpecies);
                 }
             }
         }
@@ -134,8 +141,6 @@ class ObservationNew extends Component{
             this.addFloralSpeciesInput = false;
             this.removeFloralSpeciesInput = true;
         }
-        this.setState({ includedfloralSpecies: includedfloralSpecies })
-        // console.log(includedfloralSpecies);
     }
 
     onInputChanged = data => {
@@ -221,7 +226,7 @@ class ObservationNew extends Component{
             }
         }
 
-        let options = this.state.includedfloralSpecies 
+        let options = this.includedfloralSpecies; 
         // options.map(option => {
         //     console.log(option)
         // })
@@ -257,12 +262,13 @@ class ObservationNew extends Component{
                 title="Dodaj novi nalaz" 
                 onSubmit={(event) => this.onFormSubmit(event)}
                 inputChangedHandler={(data) => this.onInputChanged(data)}
-                btnTitle="Dodaj novi nalaz">
+                btnTitle="Kreiraj nalaz"
+                columns="col-2">
             </Form>
         ]
 
         return(
-            <div style={{width: '40%', margin: '0 auto'}}>
+            <div style={{width: '60%', margin: '0 auto'}}>
                 { renderForm }
             </div>
         )

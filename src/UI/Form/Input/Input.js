@@ -34,6 +34,9 @@ const Input = (props) => {
                 <select
                     value={props.value}
                     onChange={props.onChange}>
+                    <option key="0">
+                        { props.value }
+                    </option>
                     {props.options.map(option => (
                         <option key={option.id} value={option.id}>
                             { option.name }

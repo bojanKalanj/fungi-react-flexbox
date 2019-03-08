@@ -13,6 +13,14 @@ const Button = (props) => {
         cssClasses.push("Red");
     }
 
+    if(props.wide){
+        cssClasses.push("Wide");
+    }
+
+    if(props.border){
+        cssClasses.push("Bordered");
+    }
+
     return (
         <button 
             disabled={props.disabled}
