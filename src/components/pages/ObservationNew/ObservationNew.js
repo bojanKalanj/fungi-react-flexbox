@@ -10,9 +10,6 @@ class ObservationNew extends Component{
         this.props.fetchSpecies();
         this.props.fetchHabitats();
         this.props.floralSpecies();
-        // if(this.props.floralspecies.floralSpecies){
-        //     this.setState({ floralSpecies: this.props.floralspecies.floralSpecies.data })
-        // }
     }
 
     componentWillReceiveProps = (newProps) => {
@@ -99,7 +96,6 @@ class ObservationNew extends Component{
             }
         },
         floralSpecies: null,
-        // includedfloralSpecies: null
     }
 
     addHabitatNoteInput = false;
@@ -130,11 +126,11 @@ class ObservationNew extends Component{
                 if(ids.includes(Number(floralSpecies[floralSpecimen].id))){
                     includedfloralSpecies.push({name: floralSpecies[floralSpecimen].attributes.name, id: floralSpecies[floralSpecimen].id})
                     this.addFloralSpeciesInput = true;
-                    // console.log(includedfloralSpecies);
                     this.includedfloralSpecies = includedfloralSpecies;
                     console.log(this.includedfloralSpecies);
                 }
             }
+            this.removeFloralSpeciesInput = false;
         }
 
         if(ids.length === 0){
@@ -178,25 +174,11 @@ class ObservationNew extends Component{
     }
 
     render(){
-        // if(this.props.floralspecies.floralSpecies){
-        //     console.log(this.props.floralspecies.floralSpecies.data)
-        // }
-        // console.log(this.state.floralSpecies);
-        // console.log(this.state.includedfloralSpecies);
-        // console.log(this.addFloralSpeciesInput);
-        if(this.removeFloralSpeciesInput){
-            console.log("remove motherfucker")
-        }
         let formElements = {...this.state.formFields};
         for(let key in this.state.formFields){
             if(this.state.formFields["habitat_note"]){
                 console.log("Form have habitat field");
                 this.addHabitatNoteInput = false;
-            }
-
-            if(this.state.formFields["habitat_species_ids"]){
-                console.log("Form have habitat field");
-                this.addFloralSpeciesInput = false;
             }
         }
 
@@ -227,9 +209,6 @@ class ObservationNew extends Component{
         }
 
         let options = this.includedfloralSpecies; 
-        // options.map(option => {
-        //     console.log(option)
-        // })
         
         console.log(options);
         if(this.addFloralSpeciesInput){

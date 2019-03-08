@@ -5,47 +5,6 @@ import Button from '../Button/Button';
 import './Form.css';
 
 class Form extends Component {
-    // formElements = {...this.props.formElements};
-
-    // invalid = false;
-
-    // checkvalidity = input => {
-    //     if(input.validation){
-    //         if(input.validation.required){
-    //             if(input.value.length >= 1){
-    //                 input.validation.valid = true;
-    //             }else{
-    //                 input.validation.valid = false;
-    //             } 
-    //         }
-    //     }
-    // }
-
-    // isFormValid = false;
-
-    // inputChangedHandler = (event, formInput) => {
-    //     let newFormInput = this.formElements[formInput];
-    //     newFormInput.value = event.target.value;
-    //     newFormInput.touched = true;
-    //     this.checkvalidity(newFormInput);
-
-    //     let validity = [];
-
-    //     for(let key in this.formElements){
-    //         if(this.formElements[key].validation){
-    //             validity.push(this.formElements[key].validation.valid);
-    //         }
-    //     }
-
-    //     if(validity.includes(false)){
-    //         this.isFormValid = false;
-    //     }else{
-    //         this.isFormValid = true;
-    //     }
-
-    //     this.props.inputChangedHandler(this.formElements)
-    // }
-    
     isFormValid = false;
     
     render(){
@@ -55,43 +14,42 @@ class Form extends Component {
         if(this.props.formElements.habitat_species_ids){
             console.log(this.props.formElements.habitat_species_ids.options)
         }
-    let invalid = false;
+        
+        let invalid = false;
 
-    const checkvalidity = input => {
-        if(input.validation){
-            if(input.validation.required){
-                if(input.value.length >= 1){
-                    input.validation.valid = true;
-                }else{
-                    input.validation.valid = false;
-                } 
-            }
-        }
-    }
-
-    // let isFormValid = false;
-
-    const inputChangedHandler = (event, formInput) => {
-        let newFormInput = formElements[formInput];
-        newFormInput.value = event.target.value;
-        newFormInput.touched = true;
-        checkvalidity(newFormInput);
-        let validity = [];
-
-        for(let key in formElements){
-            if(formElements[key].validation){
-                validity.push(formElements[key].validation.valid);
+        const checkvalidity = input => {
+            if(input.validation){
+                if(input.validation.required){
+                    if(input.value.length >= 1){
+                        input.validation.valid = true;
+                    }else{
+                        input.validation.valid = false;
+                    } 
+                }
             }
         }
 
-        if(validity.includes(false)){
-            this.isFormValid = false;
-        }else{
-            this.isFormValid = true;
-        }
+        const inputChangedHandler = (event, formInput) => {
+            let newFormInput = formElements[formInput];
+            newFormInput.value = event.target.value;
+            newFormInput.touched = true;
+            checkvalidity(newFormInput);
+            let validity = [];
 
-        this.props.inputChangedHandler(formElements);
-    }
+            for(let key in formElements){
+                if(formElements[key].validation){
+                    validity.push(formElements[key].validation.valid);
+                }
+            }
+
+            if(validity.includes(false)){
+                this.isFormValid = false;
+            }else{
+                this.isFormValid = true;
+            }
+
+            this.props.inputChangedHandler(formElements);
+        }
 
         let inputs = [];
         for(let key in formElements){
@@ -116,9 +74,9 @@ class Form extends Component {
                                 touched={formElements[key].touched}
                             />
                         </div>)
-        };
+            };
 
-        return (
+            return (
                 <form onSubmit={this.props.onSubmit} className={ 'Form ' + this.props.columns }>
                     <div className={ 'Form-title ' + this.props.columns }>
                         <h4>{ this.props.title }</h4>
@@ -133,8 +91,8 @@ class Form extends Component {
                         </Button>
                     </div>
                 </form>
-            )
-        }
+                )
+            }
 }
 
 export default Form;
