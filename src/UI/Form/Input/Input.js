@@ -10,7 +10,7 @@ const Input = (props) => {
     if(props.invalid && props.touched){
         cssClasses.push("invalid")
     }
-
+    console.log(props.options);
     switch(props.elementType){
         case ('input'):
             inputElement = <input 
@@ -35,7 +35,7 @@ const Input = (props) => {
                     value={props.value}
                     onChange={props.onChange}>
                     <option key="0">
-                        { props.value }
+                        test
                     </option>
                     {props.options.map(option => (
                         <option key={option.id} value={option.id}>

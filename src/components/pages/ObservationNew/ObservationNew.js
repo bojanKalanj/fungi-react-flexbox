@@ -130,7 +130,6 @@ class ObservationNew extends Component{
                     console.log(this.includedfloralSpecies);
                 }
             }
-            this.removeFloralSpeciesInput = false;
         }
 
         if(ids.length === 0){
@@ -151,6 +150,7 @@ class ObservationNew extends Component{
         if(data.habitat_category_id.value !== "32"){
             this.removeHabitatNoteInput = true;
         }
+        console.log(data);
         this.setState({ formFields: data }) 
     }
 
@@ -177,10 +177,15 @@ class ObservationNew extends Component{
         let formElements = {...this.state.formFields};
         for(let key in this.state.formFields){
             if(this.state.formFields["habitat_note"]){
-                console.log("Form have habitat field");
                 this.addHabitatNoteInput = false;
             }
-        }
+        }    
+
+        //     if(this.state.formFields["habitat_species_ids"]){
+        //         console.log(formElements["habitat_species_ids"].options);
+        //         console.log(this.includedfloralSpecies);
+        //     }
+        // }
 
         if(this.addHabitatNoteInput){
             formElements = {
@@ -195,7 +200,8 @@ class ObservationNew extends Component{
                         valid: false,
                         required: true
                     },
-                    touched: false
+                    touched: false,
+                    startingName: "Staniste"
                 }
             }
             this.removeHabitatNoteInput = false;
@@ -208,7 +214,12 @@ class ObservationNew extends Component{
             }
         }
 
-        let options = this.includedfloralSpecies; 
+        let options = this.includedfloralSpecies;
+        let value = 'moj kurac'
+        if(this.state.formFields.habitat_species_ids){
+            console.log(this.state.formFields.habitat_species_ids.value)
+            value = this.state.formFields.habitat_species_ids.value;
+        } 
         
         console.log(options);
         if(this.addFloralSpeciesInput){
@@ -217,7 +228,7 @@ class ObservationNew extends Component{
                 habitat_species_ids: {
                     elementType: 'select',
                     type: 'text',
-                    value: '',
+                    value: value,
                     label: 'Biljna vrsta',
                     options: options,
                     validation: {
