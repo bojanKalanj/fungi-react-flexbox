@@ -113,6 +113,19 @@ class ObservationNew extends Component{
             }
         },
         floralSpecies: null,
+        habitat_note: {
+            elementType: 'textarea',
+            type: 'text',
+            placeholder: 'Napomena',
+            value: '',
+            label: 'Unesite naopmenu',
+            validation: {
+                valid: false,
+                required: true
+            },
+            touched: false,
+            startingName: "Staniste"
+        }
     }
 
     // addHabitatNoteInput = false;
@@ -196,14 +209,34 @@ class ObservationNew extends Component{
         // })
     }
 
+    addInputToFileds = input => {
+        let formFields = { 
+            ...this.state.formFields,
+            input
+         };
+         this.setState({ formFields: formFields });
+    }
+
+    removeInputFromFields = input => {
+        let formFields = { ...this.state.formFields };
+        delete formFields.input;
+        this.setState({ formFields: formFields });
+    } 
+
     onInputChanged = (event, input) => {
         let formFields = { ...this.state.formFields };
         formFields[input].value = event.target.value;
         this.setState({ formFields: formFields });
+        if(event.target.value === "32"){
+            console.log(event.target.value);
+            this.addInputToFileds(this.state.habitat_note)
+        }else{
+            this.removeInputFromFields(this.state.habitat_note);
+        }
     }
 
-    renderForm = (fileds) => {
-        let formFields = fileds || { ...this.state.formFields };
+    renderForm = () => {
+        let formFields = { ...this.state.formFields };
         let inputs = [];
         for(let key in formFields){
             inputs.push( <Input elementType={formFields[key].elementType}
@@ -212,7 +245,8 @@ class ObservationNew extends Component{
                                 onChange={event => this.onInputChanged(event, key)}
                                 placeholder={formFields[key].placeholder}
                                 options={formFields[key].options}
-                                label={formFields[key].label}/>
+                                label={formFields[key].label}
+                                size={formFields[key].size}/>
             )
         }
         return inputs;

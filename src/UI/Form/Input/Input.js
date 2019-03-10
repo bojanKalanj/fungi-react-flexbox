@@ -5,7 +5,7 @@ import './Input.css';
 const Input = (props) => {
     let inputElement = null;
 
-    let cssClasses = ["Input"]
+    let cssClasses = ["Input"];
 
     if(props.invalid && props.touched){
         cssClasses.push("invalid")
