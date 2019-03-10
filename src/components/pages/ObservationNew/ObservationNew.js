@@ -210,16 +210,21 @@ class ObservationNew extends Component{
     }
 
     addInputToFileds = input => {
-        let formFields = { 
-            ...this.state.formFields,
-            input
-         };
-         this.setState({ formFields: formFields });
+        let formFields = null;
+        if(input === "habitat_note"){
+            let habitat_note = { ...this.state.habitat_note };
+            formFields = {
+                ...this.state.formFields,
+                habitat_note
+            }
+        }
+        
+        this.setState({ formFields: formFields });
     }
 
     removeInputFromFields = input => {
         let formFields = { ...this.state.formFields };
-        delete formFields.input;
+        delete formFields[input];
         this.setState({ formFields: formFields });
     } 
 
@@ -227,11 +232,14 @@ class ObservationNew extends Component{
         let formFields = { ...this.state.formFields };
         formFields[input].value = event.target.value;
         this.setState({ formFields: formFields });
-        if(event.target.value === "32"){
-            console.log(event.target.value);
-            this.addInputToFileds(this.state.habitat_note)
-        }else{
-            this.removeInputFromFields(this.state.habitat_note);
+        let habitatNoteAdded = true;
+        if(event.target.value === "32" && habitatNoteAdded && input === "habitat_category_id"){
+            this.addInputToFileds("habitat_note")
+            habitatNoteAdded = true;
+        }else if(event.target.value !== "32" && input === "habitat_category_id"){
+            // console.log("should remove")
+            habitatNoteAdded = false;
+            this.removeInputFromFields("habitat_note");
         }
     }
 
