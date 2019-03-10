@@ -7,6 +7,7 @@ import Button from '../../../UI/Button/Button';
 import * as actions from '../../../actions';
 import Input from '../../../UI/Form/Input/Input';
 import './ObservationNew.css';
+import MultiselectDropdown from '../../../UI/Form/Multiselect/Multiselect';
 
 class ObservationNew extends Component{
     componentDidMount = () => {
@@ -237,9 +238,13 @@ class ObservationNew extends Component{
             this.addInputToFileds("habitat_note")
             habitatNoteAdded = true;
         }else if(event.target.value !== "32" && input === "habitat_category_id"){
-            // console.log("should remove")
             habitatNoteAdded = false;
             this.removeInputFromFields("habitat_note");
+        }
+
+        console.log(formFields[input]);
+        if(formFields[input].options.length > 0){
+            console.log(formFields[input].options.length);
         }
     }
 
@@ -260,7 +265,14 @@ class ObservationNew extends Component{
         return inputs;
     }
 
+    onSelectOptions = params => {
+        console.log(params);
+    }
+
     render(){
+        // if(this.props.floralspecies.floralSpecies){
+        //     console.log(this.props.floralspecies.floralSpecies.data);
+        // }
         // console.log(this.addFloralSpeciesInput)
         // let formElements = {...this.state.formFields};
         // for(let key in this.state.formFields){
@@ -348,6 +360,7 @@ class ObservationNew extends Component{
         return(
             <form onSubmit={this.onFormSubmit} className="ObservationNew">
                 {this.renderForm()}
+                <MultiselectDropdown options={[1,2,3,4]} onSelectOptions={this.onSelectOptions}/>
                 <Button>
                     Dodaj nalaz
                 </Button>
