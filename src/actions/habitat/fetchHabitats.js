@@ -26,11 +26,9 @@ export const fetchHabitats = (observationId) => {
         
         fungi.get("/habitat_categories")
         .then(response => {
-            console.log(response.data);
             dispatch(fetchHabitatsuccess(response.data));
         })
         .catch(error => {
-            console.log(error);
             dispatch(fetchHabitatsFails(error));
         })
     };

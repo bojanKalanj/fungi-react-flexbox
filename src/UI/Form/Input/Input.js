@@ -10,7 +10,7 @@ const Input = (props) => {
     if(props.invalid && props.touched){
         cssClasses.push("invalid")
     }
-    console.log(props.options);
+
     switch(props.elementType){
         case ('input'):
             inputElement = <input 

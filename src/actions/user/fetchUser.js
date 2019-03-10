@@ -13,7 +13,6 @@
 //         .then(response => {
 //             dispatch(setUser(response.data))
 //         })
-//         .catch(error => console.log(error))
 //     )
 // };
 
@@ -44,7 +43,6 @@ export const fetchUser = userId => {
         dispatch(fetchUserStart());
         fungi.get(`/users/${userId}`)
         .then(res => {
-            console.log(res.data)
             dispatch(fetchUserSuccess(res.data));
         }).catch(err => {
             dispatch(fetchUserFail(err));

@@ -26,11 +26,9 @@ export const floralSpecies = () => {
         
         fungi.get("/floral_species")
         .then(response => {
-            console.log(response.data);
             dispatch(floralSpeciesSuccess(response.data));
         })
         .catch(error => {
-            console.log(error);
             dispatch(floralSpeciessFails(error));
         })
     };
