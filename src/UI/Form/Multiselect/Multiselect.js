@@ -3,43 +3,42 @@ import Multiselect from 'multiselect-dropdown-react';
 
 
 class MultiselectDropdown extends Component {
-    componentWillReceiveProps = () => {
+    componentDidMount = () => {
+      if(this.props.options){
+        this.setState({ data: this.props.options })
+      }
+      // this.setState({ data: this.props.options })
+      // console.log(this.props.options);
+    }
+
+    componentWillReceiveProps = newProps => {
+      if(this.props.options){
+        this.setState({ data: this.props.options })
+      }
+        // console.log(newProps.options);
         // console.log(this.props.options);
     }
     state = {
-        data: [{
-            name: 'One',
-            value: 'kurac'
-          },
-          {
-              name: 'two',
-              value: 'two'
-            },
-            {
-              name: 'three',
-              value: 'three'
-            },
-            {
-              name: 'four',
-              value: 'four'
-            },
-            {
-              name: 'five',
-              value: 'five'
-            },
-            {
-              name: 'six',
-              value: 'six'
-            }]
+        data: []
+    }
+  
+    renderMultiselect = () => {
+      if(this.state.data.length > 0){
+        return <Multiselect options={this.state.data} onSelectOptions={this.props.onSelectOptions} />
+      }else{
+        return null;
+      }
     }
     
   result(params) {
     console.log(params);
   }
   render() {
+    console.log(this.state.data)
     return (
       <div className="MultiselectDropdown">
-        <Multiselect options={this.state.data} onSelectOptions={this.props.onSelectOptions} />
+        { this.renderMultiselect() }
+        {/* <Multiselect options={this.state.data} onSelectOptions={this.props.onSelectOptions} /> */}
       </div>
     );
   }

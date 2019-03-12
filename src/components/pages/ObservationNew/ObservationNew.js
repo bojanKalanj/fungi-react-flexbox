@@ -17,7 +17,6 @@ class ObservationNew extends Component{
     }
 
     componentWillReceiveProps = newProps => {
-        console.log(this.props.habitatCategories);
         if(newProps.state.habitatCategories.habitatCategories){
             let categories = newProps.state.habitatCategories.habitatCategories.data;
             let opts = [];
@@ -26,27 +25,14 @@ class ObservationNew extends Component{
             }
             let newFormFileds = { ...this.state.formFields }
             newFormFileds["habitat_category_id"].options = opts;
-            this.setState({ formFields: newFormFileds })
+            this.setState({ formFields: newFormFileds, habitatCategories: categories })
+        }
+
+        if(newProps.floralspecies.floralSpecies){
+            let floralSpecies = newProps.floralspecies.floralSpecies.data;
+            this.setState({ floralSpecies: floralSpecies });
         }
     }
-
-    // componentWillReceiveProps = (newProps) => {
-    //     if(newProps.state.habitatCategories.habitatCategories){
-    //         let categories = newProps.state.habitatCategories.habitatCategories.data;
-    //         let opts = [];
-    //         for(let key in categories){
-    //             opts = [...opts, { id: categories[key].id, name: categories[key].attributes.name }];
-    //         }
-    //         let newFormFileds = { ...this.state.formFields }
-    //         newFormFileds["habitat_category_id"].options = opts;
-    //         this.setState({ formFields: newFormFileds })
-    //     }
-
-    //     if(this.props.floralspecies.floralSpecies){
-    //         this.setState({ floralSpecies: this.props.floralspecies.floralSpecies.data })
-    //     }
-    // }
-
     state = {
         formFields: {
             area: {
@@ -114,6 +100,8 @@ class ObservationNew extends Component{
             }
         },
         floralSpecies: null,
+        habitatCategories: null,
+        selectedFloralSpecies: null,
         habitat_note: {
             elementType: 'textarea',
             type: 'text',
@@ -126,70 +114,13 @@ class ObservationNew extends Component{
             },
             touched: false,
             startingName: "Staniste"
+        },
+        habitatSpeciesIds: {
+            show: false,
+            value: null,
+            options: null
         }
     }
-
-    // addHabitatNoteInput = false;
-    // removeHabitatNoteInput = false;
-    // addFloralSpeciesInput = false;
-    // removeFloralSpeciesInput = false;
-
-    // includedfloralSpecies = [];
-
-    // setFloralSpecies = (habitatCategorieValue) => {
-    //     let habitatCategories = this.props.habitatCategories.habitatCategories.data;
-    //     let selectedHabitatCategorie = null;
-    //     let floralSpecies = { ...this.state.floralSpecies };
-    //     let includedfloralSpecies = [];
-    //     for(let habitatCategorie in habitatCategories){
-    //         if(habitatCategories[habitatCategorie].id === habitatCategorieValue){
-    //             selectedHabitatCategorie = habitatCategories[habitatCategorie];
-    //         }
-    //     }
-        
-    //     let ids = selectedHabitatCategorie.attributes.floral_species_ids;
-    //     for(let id in ids){
-    //         ids[id] = Number(ids[id])
-    //     }
-
-    //     console.log(ids.length);
-    //                 this.addFloralSpeciesInput = true;
-
-    //     if(ids.length !== 0){
-    //         console.log("STA SE DESAVA!!??")
-    //         this.removeFloralSpeciesInput = false;
-    //         for(let floralSpecimen in floralSpecies){
-    //             console.log("KJLKJDLKJ")
-    //             console.log(floralSpecies[floralSpecimen].id);
-    //             if(ids.includes(Number(floralSpecies[floralSpecimen].id))){
-    //                 includedfloralSpecies.push({name: floralSpecies[floralSpecimen].attributes.name, id: floralSpecies[floralSpecimen].id})
-    //                 // this.addFloralSpeciesInput = true;
-    //                 this.includedfloralSpecies = includedfloralSpecies;
-    //             }
-    //         }
-    //     }
-
-    //     if(ids.length === 0){
-    //         this.addFloralSpeciesInput = false;
-    //         this.removeFloralSpeciesInput = true;
-    //     }
-    // }
-
-    // onInputChanged = data => {
-    //     if(data.habitat_category_id.value){
-    //         this.setFloralSpecies(data.habitat_category_id.value)
-    //     }
-        
-    //     if(data.habitat_category_id.value === "32"){
-    //         this.addHabitatNoteInput = true;
-    //     }
-
-    //     if(data.habitat_category_id.value !== "32"){
-    //         this.removeHabitatNoteInput = true;
-    //     }
-    //     console.log(data);
-    //     this.setState({ formFields: data }) 
-    // }
 
     onFormSubmit = (event) => {
         event.preventDefault();
@@ -198,6 +129,10 @@ class ObservationNew extends Component{
             observation[key] = this.state.formFields[key].value;
         }
 
+        if(this.state.habitatSpeciesIds.show){
+            console.log(this.state.habitatSpeciesIds.value);
+            observation["habitat_species_ids"] = this.state.habitatSpeciesIds.value; 
+        }
         console.log("submited");
         console.log(this.props.token);
         console.log(observation);
@@ -240,127 +175,94 @@ class ObservationNew extends Component{
         }else if(event.target.value !== "32" && input === "habitat_category_id"){
             habitatNoteAdded = false;
             this.removeInputFromFields("habitat_note");
-        }
-
-        console.log(formFields[input]);
-        if(formFields[input].options.length > 0){
-            console.log(formFields[input].options.length);
+            this.setFloralSpecies(event.target.value);
         }
     }
 
-    renderForm = () => {
+    setFloralSpecies = habitatID => {
+        let habitats = { ...this.state.habitatCategories };
+        let floralSpecies = { ...this.state.floralSpecies };
+        let selectedHabitat = [];
+        let selectedFloralIds = null;
+        let selectedFloral = [];
+        for(let key in habitats){
+            if(habitats[key].id === habitatID){
+                selectedHabitat = habitats[key];
+            }
+        }
+
+        let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
         let formFields = { ...this.state.formFields };
-        let inputs = [];
-        for(let key in formFields){
-            inputs.push( <Input elementType={formFields[key].elementType}
-                                type={formFields[key].type}
-                                value={formFields[key].value}
-                                onChange={event => this.onInputChanged(event, key)}
-                                placeholder={formFields[key].placeholder}
-                                options={formFields[key].options}
-                                label={formFields[key].label}
-                                size={formFields[key].size}/>
-            )
+
+        if(selectedHabitat.attributes.floral_species_ids.length > 0){
+            let habitat_species_ids = { ...this.state.habitatSpeciesIds };
+            formFields = {
+                ...formFields,
+                habitat_species_ids
+            }
+            selectedFloralIds = selectedHabitat.attributes.floral_species_ids;
+            for(let floralSpecimen in floralSpecies){
+                for(let id in selectedFloralIds){
+                    if(floralSpecies[floralSpecimen].id.includes(selectedFloralIds[id])){
+                        selectedFloral.push(floralSpecies[floralSpecimen]); 
+                    }
+                }
+            }
+            let options = [];
+            for(let key in selectedFloral){
+                options.push(
+                    { name: selectedFloral[key].attributes.name, value: selectedFloral[key].id }
+                )
+            }
+            habitatSpeciesIds.options = options;
+            habitatSpeciesIds.show = true;
+            this.setState({ habitatSpeciesIds: habitatSpeciesIds });
+        }else{
+            habitatSpeciesIds.show = false;
+            this.setState({ habitatSpeciesIds: habitatSpeciesIds });
         }
-        return inputs;
     }
 
-    onSelectOptions = params => {
-        console.log(params);
+    onSelectOptions = value => {
+        let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+        habitatSpeciesIds.value = value;
+        this.setState({ habitatSpeciesIds: habitatSpeciesIds })
+    }
+
+    habitatSpeciesIds = () => {
+        if(this.state.habitatSpeciesIds.show){
+
+            return <MultiselectDropdown options={this.state.habitatSpeciesIds.options} onSelectOptions={this.onSelectOptions}/>
+        }else{
+            return null;
+        }
+    }
+
+    generateInput = (input, inputName) => {
+        return (
+            <Input
+                elementType={input.elementType}
+                type={input.type}
+                placeholder={input.placeholder}
+                value={input.value}
+                label={input.label}
+                options={input.options}
+                onChange={(event) => this.onInputChanged(event, inputName)}
+                // invalid={invalid}
+                touched={input.touched} 
+                />
+        )
     }
 
     render(){
-        // if(this.props.floralspecies.floralSpecies){
-        //     console.log(this.props.floralspecies.floralSpecies.data);
-        // }
-        // console.log(this.addFloralSpeciesInput)
-        // let formElements = {...this.state.formFields};
-        // for(let key in this.state.formFields){
-        //     if(this.state.formFields["habitat_note"]){
-        //         this.addHabitatNoteInput = false;
-        //     }
-        // }    
-
-        //     if(this.state.formFields["habitat_species_ids"]){
-        //         console.log(formElements["habitat_species_ids"].options);
-        //         console.log(this.includedfloralSpecies);
-        //     }
-        // }
-
-        // if(this.addHabitatNoteInput){
-        //     formElements = {
-        //         ...formElements,
-        //         habitat_note: {
-        //             elementType: 'textarea',
-        //             type: 'text',
-        //             placeholder: 'Napomena',
-        //             value: '',
-        //             label: 'Unesite naopmenu',
-        //             validation: {
-        //                 valid: false,
-        //                 required: true
-        //             },
-        //             touched: false,
-        //             startingName: "Staniste"
-        //         }
-        //     }
-        //     this.removeHabitatNoteInput = false;
-        // }
-
-        // if(this.removeHabitatNoteInput){
-        //     if(this.state.formFields["habitat_note"]){
-        //         delete formElements["habitat_note"];
-        //         this.addHabitatNoteInput = false;
-        //     }
-        // }
-
-        // let options = this.includedfloralSpecies;
-        // let value = 'moj kurac'
-        // if(this.state.formFields.habitat_species_ids){
-        //     console.log(this.state.formFields.habitat_species_ids.value)
-        //     value = this.state.formFields.habitat_species_ids.value;
-        // } 
-        
-        // console.log(options);
-        // if(this.addFloralSpeciesInput){
-        //     formElements = {
-        //         ...formElements,
-        //         habitat_species_ids: {
-        //             elementType: 'select',
-        //             type: 'text',
-        //             value: value,
-        //             label: 'Biljna vrsta',
-        //             options: options,
-        //             validation: {
-        //                 valid: false,
-        //                 required: true
-        //             },
-        //             touched: false
-        //         }
-        //     }
-        // }
-
-        // if(this.removeFloralSpeciesInput){
-        //     if(this.state.formFields["habitat_species_ids"]){
-        //         delete formElements["habitat_species_ids"];
-        //         this.addFloralSpeciesInput = false;
-        //     }
-        // }
-        // let renderForm = [
-        //     <Form 
-        //         formElements={formElements} 
-        //         title="Dodaj novi nalaz" 
-        //         onSubmit={(event) => this.onFormSubmit(event)}
-        //         inputChangedHandler={(data) => this.onInputChanged(data)}
-        //         btnTitle="Kreiraj nalaz"
-        //         columns="col-2">
-        //     </Form>
-        // ]
-
         return(
             <form onSubmit={this.onFormSubmit} className="ObservationNew">
-                {this.renderForm()}
-                <MultiselectDropdown options={[1,2,3,4]} onSelectOptions={this.onSelectOptions}/>
+                { this.generateInput(this.state.formFields.area, "area") }
+                { this.generateInput(this.state.formFields.description, "description") }
+                { this.generateInput(this.state.formFields.location, "location") }
+                { this.generateInput(this.state.formFields.observed_at, "observed_at") }
+                { this.generateInput(this.state.formFields.habitat_category_id, "habitat_category_id") }
+                { this.habitatSpeciesIds() }
                 <Button>
                     Dodaj nalaz
                 </Button>
