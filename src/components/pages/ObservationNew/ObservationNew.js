@@ -257,12 +257,30 @@ class ObservationNew extends Component{
     render(){
         return(
             <form onSubmit={this.onFormSubmit} className="ObservationNew">
-                { this.generateInput(this.state.formFields.area, "area") }
-                { this.generateInput(this.state.formFields.description, "description") }
-                { this.generateInput(this.state.formFields.location, "location") }
-                { this.generateInput(this.state.formFields.observed_at, "observed_at") }
-                { this.generateInput(this.state.formFields.habitat_category_id, "habitat_category_id") }
-                { this.habitatSpeciesIds() }
+                <div className="form-row">
+                    <div className="half-width">
+                        { this.generateInput(this.state.formFields.area, "area") }
+                    </div>
+                    <div className="half-width">
+                        { this.generateInput(this.state.formFields.location, "location") }
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="half-width">
+                        { this.generateInput(this.state.formFields.description, "description") }
+                    </div>
+                    <div className="half-width">
+                        { this.generateInput(this.state.formFields.observed_at, "observed_at") }
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="half-width">
+                        { this.generateInput(this.state.formFields.habitat_category_id, "habitat_category_id") }
+                    </div>
+                    <div className="half-width">
+                        { this.habitatSpeciesIds() }
+                    </div>
+                </div>
                 <Button>
                     Dodaj nalaz
                 </Button>

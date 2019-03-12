@@ -1,7 +1,14 @@
 .ObservationNew{
     background: #5cdb95;
-    padding: 10px;
+    padding: 20px;
 }
 
+.form-row{
+    display: flex;
+    justify-content: space-between;
+}
 
+.half-width{
+    width: 49%;
+}
 

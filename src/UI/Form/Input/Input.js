@@ -35,7 +35,7 @@ const Input = (props) => {
                     value={props.value}
                     onChange={props.onChange}>
                     <option key="0">
-                        test
+                        Izaberite...
                     </option>
                     {props.options.map(option => (
                         <option key={option.id} value={option.id}>
