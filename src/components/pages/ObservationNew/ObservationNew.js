@@ -158,7 +158,10 @@ class ObservationNew extends Component{
             }
         }
         this.includedFloralSpecies = includedFloralSpecies;
-
+        for(let includedSpecimen in this.includedFloralSpecies){
+            this.includedFloralSpecies[includedSpecimen]["selected"] = false
+        }
+        console.log(this.includedFloralSpecies);
         if(this.includedFloralSpecies.length > 0){
             let formFields = { ...this.state.formFields };
             formFields["habitatSpeciesIds"].options = includedFloralSpecies;
@@ -213,6 +216,11 @@ class ObservationNew extends Component{
         )
     }
 
+    toggleSelected = (id, isSelected) => {
+        console.log(id);
+        console.log(isSelected);
+    }
+
     render(){
         console.log(this.showFloralSpecies)
         return(
@@ -240,9 +248,10 @@ class ObservationNew extends Component{
                     <div className="half-width">
                         { this.showHabitatNote? this.generateInput(this.state.formFields.habitat_note, "habitat_note"): null }
                     {this.showFloralSpecies? <MultiSelectDropdown
-                        title="Select location"
-                        list={this.state.formFields.habitatSpeciesIds.options}
-                        />: null}
+                                                title="Izaberi biljnu vrstu"
+                                                list={this.state.formFields.habitatSpeciesIds.options}
+                                                toggleItem={this.toggleSelected}
+                                                />: null}
                     </div>
                 </div>
                 <Button>

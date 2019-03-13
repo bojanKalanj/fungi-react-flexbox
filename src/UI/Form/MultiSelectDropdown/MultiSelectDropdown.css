@@ -1,21 +1,36 @@
-.MultiSelectDropdownBtn{
-    border: 1px solid red;
-}
-
-.MultiSelectDropdown{
+.dd-wrapper{
     position: relative;
 }
 
-.MultiselectDropdownMenu{
-    position: absolute;
-    height: 0;
-    overflow: hidden;
-    left: 0;
-    top: 100%;
-    border: 1px solid orange;
+.dd-header{
+    /* border: 1px solid red; */
+    background: #fff;
+    padding: 10px;
 }
 
-.ShowDropdown{
-    display: block;
-    height: auto;
+.dd-header:hover{
+    cursor: pointer;
+}
+
+.dd-list{
+    position: absolute;
+    top: 70%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow: auto;
+    background: #379683;
+    list-style: none;
+    color: #fff;
+    padding: 0;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0);
+}
+
+.dd-list li{
+    padding: 10px;
+}
+
+.dd-list li:hover{
+    cursor: pointer;
+    background: #05386b;
 }
