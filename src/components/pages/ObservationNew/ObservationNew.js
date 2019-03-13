@@ -216,9 +216,8 @@ class ObservationNew extends Component{
         )
     }
 
-    toggleSelected = (id, isSelected) => {
+    toggleSelected = (id) => {
         console.log(id);
-        console.log(isSelected);
     }
 
     render(){
