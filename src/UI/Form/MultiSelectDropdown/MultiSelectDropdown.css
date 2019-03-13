@@ -1,0 +1,21 @@
+.MultiSelectDropdownBtn{
+    border: 1px solid red;
+}
+
+.MultiSelectDropdown{
+    position: relative;
+}
+
+.MultiselectDropdownMenu{
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+    left: 0;
+    top: 100%;
+    border: 1px solid orange;
+}
+
+.ShowDropdown{
+    display: block;
+    height: auto;
+}
