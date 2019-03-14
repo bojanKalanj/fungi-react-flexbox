@@ -34,12 +34,14 @@ const ObservationFormFirstPage = props => {
         </div>
         <div className="form-row">
           <div className="half-width">
-            <Field
-              name="observed_at"
-              type="date"
-              component={FormField}
-              label="Kada je nalaz uočen"
-            />
+            <div className="Input">
+              <label style={{ margin: '10px 0', color: '#fff', fontWeight: 'bold' }}>Kada je nalaz uočen</label>
+              <Field
+                name="observed_at"
+                type="date"
+                component="input"
+              />
+            </div>
           </div>
         </div>
         <div className="form-row">

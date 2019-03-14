@@ -25,11 +25,7 @@ const renderError = ({ meta: { touched, error } }) =>
 const ObservationFormSecondPage = props => {
   const { handleSubmit, previousPage } = props
   return (
-    <form onSubmit={handleSubmit} className="ObservationNew">
-      <div className="Form-title">
-        <h4>Dodaj Nalaz</h4>
-        <hr />
-      </div>
+    <form onSubmit={handleSubmit}>
       {/* <div>
         <label>Stanište</label>
         <Field name="habitat_category_id" component={renderHabitatSelector} />
