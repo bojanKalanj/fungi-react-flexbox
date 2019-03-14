@@ -15,7 +15,8 @@
 }
 
 .DropdownMenuBtn{
-    border: 2px solid #fff;
+    /* border: 2px solid #fff; */
+    border: none;
     padding: 10px;
     color: #fff;
     font-weight: bold;
@@ -24,7 +25,7 @@
 
 .DropdownMenuBtn:hover{
     cursor: pointer;
-    background: #5cdb95;
+    /* background: #5cdb95; */
 }
 
 .ShowDropdown{
