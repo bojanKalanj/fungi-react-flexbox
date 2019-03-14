@@ -48,9 +48,7 @@ class Header extends Component{
     render(){
         if(this.props.state.user.user){
             this.user = this.props.state.user.user.data.attributes.full_name;
-            console.log(this.user)
         }
-        console.log(this.user)
         return (
             <div className="Header">
                 <Container>
@@ -59,7 +57,7 @@ class Header extends Component{
                     </Navlink>
                     <div className="pull-right">
                         <Navlink to="/">
-                            Pocetna 
+                            Početna 
                         </Navlink>
                         <Navlink to="/species">
                             Sve vrste
