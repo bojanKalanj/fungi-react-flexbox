@@ -8,6 +8,7 @@ import newObservationReducer from './newObservationReducser';
 import habitatsReducer from './habitatsReducer';
 import registerUser from './registerReducer';
 import floralSpeciesReducer from './floralSpeciesReducer';
+import { reducer as formReducer } from 'redux-form';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     newObservation: newObservationReducer,
     habitatCategories: habitatsReducer,
     registeredUser: registerUser,
-    floralspecies: floralSpeciesReducer
+    floralspecies: floralSpeciesReducer,
+    form: formReducer
 });
