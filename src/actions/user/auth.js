@@ -57,11 +57,12 @@ export const authCheckState = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
         const userID = localStorage.getItem('userID');
+        const authData = { "jwt": token, "user_id": userID };
 
         if(!token){
             dispatch(logout());
         }else{
-            dispatch(authSuccess(token, userID))
+            dispatch(authSuccess(authData));
         }
     }
 }
