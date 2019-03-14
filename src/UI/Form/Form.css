@@ -46,10 +46,6 @@
     margin: 3px 0 3px 0;
 }
 
-.input-error {
-    font-size: 10px;
-}
-
 /* Removes the clear button from date inputs */
 input[type="date"]::-webkit-clear-button {
     display: none;

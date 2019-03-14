@@ -2,38 +2,55 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import FormField from '../../../UI/Form/FormField';
+import Button from '../../../UI/Button/Button';
 
 const ObservationFormFirstPage = props => {
-  const { handleSubmit } = props
-  return (
-    <form onSubmit={handleSubmit}>
-      <Field
-        name="area"
-        type="text"
-        component={FormField}
-        label="Područje na kojem je nalaz pronadjen *"
-        placeholder="Petrovaradin"
-      />
-      <Field
-        name="location"
-        type="text"
-        component={FormField}
-        label="Lokacija na kojoj je nalaz pronadjen *"
-        placeholder="Tvrdjava"
-      />
-      <Field
-        name="observed_at"
-        type="date"
-        component={FormField}
-        label="Kada je nalaz uočen"
-      />
-      <div>
-        <button type="submit" className="next">
-          Nastavi
-        </button>
-      </div>
-    </form>
-  )
+    const { handleSubmit } = props
+    return (
+      <form onSubmit={handleSubmit} className="ObservationNew">
+        <div className="Form-title">
+            <h4>Dodaj Nalaz</h4>
+            <hr />
+        </div>
+        <div className="form-row">
+          <div className="half-width">
+            <Field
+              name="area"
+              type="text"
+              component={FormField}
+              label="Područje na kojem je nalaz pronadjen *"
+              placeholder="Petrovaradin"
+            />
+          </div>
+          <div className="half-width">
+            <Field
+              name="location"
+              type="text"
+              component={FormField}
+              label="Lokacija na kojoj je nalaz pronadjen *"
+              placeholder="Tvrdjava"
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="half-width">
+            <Field
+              name="observed_at"
+              type="date"
+              component={FormField}
+              label="Kada je nalaz uočen"
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="half-width">
+            <Button wide={true}>
+              Nastavi
+            </Button>
+          </div>
+        </div>  
+      </form>
+    )
 };
 
 export default reduxForm({
