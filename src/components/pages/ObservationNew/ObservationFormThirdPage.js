@@ -4,7 +4,11 @@ import { Field, reduxForm } from 'redux-form';
 const ObservationFormThirdPage = props => {
   const { handleSubmit, pristine, previousPage, submitting } = props
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="ObservationNew">
+      <div className="Form-title">
+        <h4>Dodaj Nalaz</h4>
+        <hr />
+      </div>
       <div>
         <label htmlFor="images">Slike</label>
         <div>
