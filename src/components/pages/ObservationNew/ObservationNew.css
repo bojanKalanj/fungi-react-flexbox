@@ -6,9 +6,15 @@
 .form-row{
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 10px;
 }
 
 .half-width{
     width: 49%;
+}
+
+.ObservationNew button{
+    margin-top: 40px;
 }
 
