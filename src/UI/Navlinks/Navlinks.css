@@ -1,7 +1,8 @@
 .Navlinks{
     text-decoration: none;
     color: #f1f1f1;
-    font-weight: bold;
+    display: inline-block;
+    padding: 20px;
 }
 
 .Navlinks:hover{

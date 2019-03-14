@@ -57,7 +57,7 @@ class Header extends Component{
                     </Navlink>
                     <div className="pull-right">
                         <Navlink to="/">
-                            Pocetna 
+                            Početna 
                         </Navlink>
                         <Navlink to="/species">
                             Sve vrste

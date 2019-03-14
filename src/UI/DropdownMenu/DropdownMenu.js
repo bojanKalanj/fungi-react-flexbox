@@ -12,13 +12,13 @@ const DropdownMenu = (props) =>  {
         <div className={cssClasses.join(' ')}>
             <ul>
                 <li>
-                    <Navlink to={`/users/${userID}`}>
-                        Moj profil
+                    <Navlink to="/observations/new">
+                        Dodaj nalaz 
                     </Navlink>
                 </li>
                 <li>
-                    <Navlink to="/observations/new">
-                        Dodaj observaciju 
+                    <Navlink to={`/users/${userID}`}>
+                        Moj profil
                     </Navlink>
                 </li>
                 <li>

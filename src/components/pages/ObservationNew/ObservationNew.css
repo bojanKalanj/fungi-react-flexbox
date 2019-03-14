@@ -1,13 +1,15 @@
 .ObservationNew{
     background: #5cdb95;
-    padding: 20px;
+    padding: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .form-row{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .half-width{
