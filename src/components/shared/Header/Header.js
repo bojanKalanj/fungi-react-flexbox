@@ -48,9 +48,7 @@ class Header extends Component{
     render(){
         if(this.props.state.user.user){
             this.user = this.props.state.user.user.data.attributes.full_name;
-            console.log(this.user)
         }
-        console.log(this.user)
         return (
             <div className="Header">
                 <Container>
