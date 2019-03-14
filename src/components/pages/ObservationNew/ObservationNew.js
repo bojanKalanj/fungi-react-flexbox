@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { newObservation, authCheckState } from '../../../actions';
+import * as actions from '../../../actions';
 import ObservationForm from './ObservationForm';
 
 import Form from '../../../UI/Form/Form';
@@ -12,7 +12,9 @@ import './ObservationNew.css';
 import MultiselectDropdown from '../../../UI/Form/Multiselect/Multiselect';
 
 class ObservationNew extends Component {
+
     onFormSubmit = (formValues) => { 
+        console.log(formValues);
         this.props.newObservation(formValues, this.props.currentUserToken);
     }
 
@@ -34,7 +36,7 @@ const mapStateToProps = (state) => {
   
 export default connect(
     mapStateToProps,
-    { newObservation, authCheckState }
+    { newObservation: actions.newObservation }
 )(ObservationNew);
 
 // class ObservationNew extends Component{

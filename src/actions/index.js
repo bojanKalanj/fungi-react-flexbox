@@ -1,14 +1,8 @@
-import fungi from '../apis/fungi';
-
 export{
     auth,
-    logout
+    logout,
+    authCheckState
 } from './user/auth';
-
-export const authCheckState = () => dispatch => {
-    const token = localStorage.getItem('token');
-    const userID = localStorage.getItem('userID');
-};
 
 export{
     fetchUser
@@ -19,14 +13,9 @@ export{
 } from './user/register';
 // -----------------------------------------
 
-export const newObservation = (formValues, token) => async dispatch => {
-    fungi.post("/observations", formValues, { 
-        headers: { "AUTHORIZATION" : `Bearer ${token}`, 
-                   "Accept" : 'application/json',
-                   "Content-Type": 'application/json'}
-        }
-    )
-};
+export{
+    newObservation
+} from './observation/newObservation';
 
 export{
     fetchObservation

@@ -26,10 +26,10 @@ const ObservationFormSecondPage = props => {
   const { handleSubmit, previousPage } = props
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      {/* <div>
         <label>Stanište</label>
         <Field name="habitat_category_id" component={renderHabitatSelector} />
-      </div>
+      </div> */}
       <div>
         <label>Opis nalaza *</label>
         <div>

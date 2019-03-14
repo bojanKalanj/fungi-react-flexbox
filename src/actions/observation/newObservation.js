@@ -1,4 +1,4 @@
-// import fungi from '../../apis/fungi';
+import fungi from '../../apis/fungi';
 
 // export const newObservationStart = () => {
 //     return{
@@ -35,3 +35,12 @@
 //         dispatch(newObservationFail(err));
 //     })
 // };
+
+export const newObservation = (formValues, token) => async dispatch => {
+    fungi.post("/observations", formValues, { 
+        headers: { "AUTHORIZATION" : `Bearer ${token}`, 
+                   "Accept" : 'application/json',
+                   "Content-Type": 'application/json'}
+        }
+    )
+};
