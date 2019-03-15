@@ -1,6 +1,7 @@
 .AnchorTag{
     color: #379683;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .AnchorTag:hover{
@@ -8,5 +9,5 @@
 }
 
 .TitleLinks{
-    font-size: 20px;
+    font-size: 18px;
 }

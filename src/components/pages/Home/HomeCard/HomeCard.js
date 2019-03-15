@@ -21,6 +21,15 @@ const HomeCard = (props) => {
         }
     }
 
+    // GET /api/v1/users/:id where id is id 
+    const legator = () => {
+        if(props.legator_id){
+            return `Legator ID: ${props.legator_id}`
+        }else{
+            return 'Korisnik'
+        }
+    }
+
     const pathToObervation =`/observation/${props.id}`
 
     return(
@@ -32,11 +41,11 @@ const HomeCard = (props) => {
                 </TitleLinks>
                 <hr />
                 <AnchorTag to="/user">
-                    { determinator() }
+                    { legator() }
                 </AnchorTag>
-                <p className="text-muted">
+                <span className="text-muted text-small margin-top-tiny">
                     { props.addedAt }
-                </p>
+                </span>
             </CardBody>
         </Card>
     )

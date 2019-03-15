@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchObservations } from '../../../actions';
+import moment from 'moment';
 
 import HomeCard from './HomeCard/HomeCard';
 import Filters from './Filters/Filters';
@@ -19,12 +20,14 @@ class Home extends React.Component{
                 let observations = this.props.state.observations.data
                 return observations.map(obs => {
                     return <HomeCard 
-                            key={obs.id} 
-                            id={obs.id}
-                            number={obs.attributes.number}
-                            speciesTitle={obs.relationships.species.data} 
-                            determinator={obs.relationships.determinator.data}
-                            addedAt={obs.attributes.observed_at.slice(0, 10)} />
+                                key={obs.id} 
+                                id={obs.id}
+                                number={obs.attributes.number}
+                                speciesTitle={obs.relationships.species.data} 
+                                determinator={obs.relationships.determinator.data}
+                                legator_id={obs.relationships.legator.data.id}
+                                addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}
+                            />
                 })
             }else{
                 return <Spinner />

@@ -51,10 +51,10 @@ class ObservationFormFirstPage extends Component {
                 <label style={{ margin: '10px 0', color: '#fff', fontWeight: 'bold' }}>Kada je nalaz uočen</label>
                 <Field
                   name="observed_at"
-                  dateFormat="dd/MM/yyyy"
-                  inputValueFormat="dd/MM/yyyy"
+                  dateFormat="dd-MMM-YYYY"
+                  inputValueFormat="dd-MMM-YYYY"
                   dropdownMode="select"
-                  normalize={value => (value ? moment(value).format("dd/MM/yyyy") : null)}
+                  normalize={value => (value ? moment(value).format("dd-MMM-YYYY") : null)}
                   component={renderDatePicker}
                 />
               </div>

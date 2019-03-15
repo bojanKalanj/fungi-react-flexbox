@@ -26,3 +26,11 @@ hr {
 .text-muted{
   color: #828081;
 }
+
+.text-small {
+  font-size: 0.8em;
+}
+
+.margin-top-tiny {
+  margin-top: 3px;
+}
