@@ -6,57 +6,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import MultiSelectDropdown from '../../../UI/Form/MultiSelectDropdown/MultiSelectDropdown';
 
-// import FormField from '../../../UI/Form/FormField';
-
-// let habitats = ['Antropogena šuma', 'Livada', 'Park', 'Vinograd'];
-
-// const renderHabitatSelector = ({ input, meta: { touched, error } }) => (
-//   <div>
-//     <select {...input}>
-//       <option value="">Izaberite opciju</option>
-//       {habitats.map(val => (
-//         <option value={val} key={val}>
-//           {val}
-//         </option>
-//       ))}
-//     </select>
-//     {touched && error && <span>{error}</span>}
-//   </div>
-// );
-
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <div className="input-error"><span>{error}</span></div> : false
-
-// const ObservationFormSecondPage = props => {
-//   const { handleSubmit, previousPage } = props
-//   return (
-//     <form onSubmit={handleSubmit} className="ObservationNew">
-//       <div className="Form-title">
-//         <h4>Dodaj Nalaz</h4>
-//         <hr />
-//       </div>
-//       {/* <div>
-//         <label>Stanište</label>
-//         <Field name="habitat_category_id" component={renderHabitatSelector} />
-//       </div> */}
-//       <div>
-//         <label>Opis nalaza *</label>
-//         <div>
-//           <Field name="description" component="textarea" />
-//         </div>
-//         <Field name="description" component={renderError} />
-//       </div>
-//       <div>
-//         <button type="button" className="previous" onClick={previousPage}>
-//           Vrati se
-//         </button>
-//         <button type="submit" className="next">
-//           Nastavi
-//         </button>
-//       </div>
-//     </form>
-//   )
-// };
 
 class ObservationFormSecondPage extends Component{
   state = {
@@ -178,44 +129,65 @@ class ObservationFormSecondPage extends Component{
 
     const { handleSubmit, previousPage } = this.props;
       return (
-        <form onSubmit={handleSubmit} className="ObservationNew">
+        <form onSubmit={handleSubmit} className="ObservationNew form-small">
           <div className="Form-title">
             <h4>Dodaj Nalaz</h4>
             <hr />
           </div>
+          <div className="form-row">
+
+          </div>
           <div>
             <label>Stanište</label>
-            <Field  onChange={(event) => this.onSelected(event)}
-                    name="habitat_category_id"
-                    component={this.renderHabitatSelector} />
+            <Field 
+              onChange={(event) => this.onSelected(event)}
+              name="habitat_category_id"
+              component={this.renderHabitatSelector} />
           </div>
           {this.state.showHabitatNote? <div>
             <label>Napomena *</label>
             <div>
-              <Field name="habitat_note" component="textarea" />
+              <Field 
+                name="habitat_note" 
+                component="textarea" />
             </div>
-              <Field name="habitat_note" component={renderError} />
+              <Field 
+                name="habitat_note" 
+                component={renderError} />
           </div>: null}
           {this.showFloralSpecies? <div>
             <label>Biljna vrsta</label>
             <div>
-              <Field name="habitat_species_ids" component={this.renderFloralSpecies} />
+              <Field 
+                name="habitat_species_ids" 
+                component={this.renderFloralSpecies} />
             </div>
-            <Field name="description" component={renderError} />
+            <Field 
+              name="description" 
+              component={renderError} />
           </div>: null}
           <div>
             <label>Opis nalaza *</label>
             <div>
-              <Field name="description" component="textarea" />
+              <Field 
+                name="description" 
+                component="textarea" />
             </div>
-            <Field name="description" component={renderError} />
+            <Field 
+              name="description" 
+              component={renderError} />
           </div>
           <div>
-            <button type="button" className="previous" onClick={previousPage}>
-              Vrati se
+            <button 
+              type="button" 
+              className="previous" 
+              onClick={previousPage}>
+                Vrati se
             </button>
-            <button type="submit" className="next">
-              Nastavi
+            <button 
+              type="submit" 
+              className="next">
+                sNastavi
             </button>
           </div>
         </form>

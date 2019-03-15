@@ -1,4 +1,5 @@
 .ObservationNew{
+    color: #fff;
     background: #5cdb95;
     padding: 30px;
     margin-left: 100px;
@@ -19,4 +20,11 @@
 .ObservationNew button{
     margin-top: 40px;
 }
+
+.form-small{
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+
 

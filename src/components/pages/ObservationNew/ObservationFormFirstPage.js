@@ -20,13 +20,12 @@ class ObservationFormFirstPage extends Component {
     render() {
       const { handleSubmit } = this.props;
       return (
-        <form onSubmit={handleSubmit} className="ObservationNew">
+        <form onSubmit={handleSubmit} className="ObservationNew form-small">
           <div className="Form-title">
               <h4>Dodaj Nalaz</h4>
               <hr />
           </div>
-          <div className="form-row">
-            <div className="half-width">
+            <div >
               <Field
                 name="area"
                 type="text"
@@ -35,7 +34,7 @@ class ObservationFormFirstPage extends Component {
                 placeholder="Petrovaradin"
               />
             </div>
-            <div className="half-width">
+            <div >
               <Field
                 name="location"
                 type="text"
@@ -44,11 +43,10 @@ class ObservationFormFirstPage extends Component {
                 placeholder="Tvrdjava"
               />
             </div>
-          </div>
           <div className="form-row">
-            <div className="half-width">
+            <div >
               <div className="Input">
-                <label style={{ margin: '10px 0', color: '#fff', fontWeight: 'bold' }}>Kada je nalaz uočen</label>
+                <label >Kada je nalaz uočen</label>
                 <Field
                   name="observed_at"
                   dateFormat="dd-MMM-YYYY"

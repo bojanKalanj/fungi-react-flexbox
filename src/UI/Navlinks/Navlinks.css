@@ -2,7 +2,12 @@
     text-decoration: none;
     color: #f1f1f1;
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
+    line-height: 73px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 400;
+    /* font-family: "apercu",sans-serif; */
 }
 
 .Navlinks:hover{
