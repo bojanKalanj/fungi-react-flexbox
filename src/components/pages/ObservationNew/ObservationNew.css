@@ -12,6 +12,11 @@
     margin-bottom: 20px;
 }
 
+.map-wrapper {
+    position: relative;
+    height: 400px;
+}
+
 .half-width{
     width: 49%;
 }
