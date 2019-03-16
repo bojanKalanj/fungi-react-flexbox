@@ -1,5 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import '../../../UI/Button/Button';
+import '../../../UI/Form/Input/Input';
+import FaFileImageO from 'react-icons/lib/fa/file-image-o';
 
 const ObservationFormThirdPage = props => {
   const { handleSubmit, pristine, previousPage, submitting } = props
@@ -9,8 +12,8 @@ const ObservationFormThirdPage = props => {
         <h4>Dodaj Nalaz</h4>
         <hr />
       </div>
-      <div>
-        <label htmlFor="images">Slike</label>
+      <div className="Input">
+        <label htmlFor="images">Slike { <FaFileImageO /> }</label>
         <div>
           <Field
             name="images"
@@ -21,10 +24,10 @@ const ObservationFormThirdPage = props => {
         </div>
       </div>
       <div>
-        <button type="button" className="previous" onClick={previousPage}>
+        <button type="button" className="previous Button" onClick={previousPage}>
           Vrati se
         </button>
-        <button type="submit" disabled={pristine || submitting}>
+        <button type="submit" className="Button" disabled={pristine || submitting}>
           Kreiraj nalaz
         </button>
       </div>

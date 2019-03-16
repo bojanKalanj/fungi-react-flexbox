@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 

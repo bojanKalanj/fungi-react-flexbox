@@ -123,21 +123,13 @@ class ObservationFormSecondPage extends Component{
 
   toggleSelected = (selectedValues) => {
       let selected = [];
-      // let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
       for(let value in selectedValues){
         selected.push(selectedValues[value].id);
       }
-      // habitatSpeciesIds.value = selected;
       this.props.change("habitat_species_ids", selected)
-      // console.log(this.props)
-      // this.setState({ habitatSpeciesIds: habitatSpeciesIds })
-      // console.log(this.state.habitatSpeciesIds);
   }
 
   render(){
-    // console.log(this.state.showHabitatNote);
-        console.log(this.state.habitatSpeciesIds);
-
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
