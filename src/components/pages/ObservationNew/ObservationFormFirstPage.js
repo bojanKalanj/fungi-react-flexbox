@@ -22,13 +22,13 @@ class ObservationFormFirstPage extends Component {
     render() {
       const { handleSubmit } = this.props;
       return (
-        <form onSubmit={handleSubmit} className="ObservationNew form-small">
+        <form onSubmit={handleSubmit} className="ObservationNew form-wide">
           <div className="Form-title">
               <h4>Dodaj Nalaz</h4>
               <hr />
           </div>
           <div className="form-row">
-            <div className="half-width" style={{ height: '441.6px' }}>
+            <div className="half-width" style={{ height: '446.6px' }}>
               <Field
                 name="area"
                 type="text"
@@ -44,7 +44,14 @@ class ObservationFormFirstPage extends Component {
                 placeholder="Tvrdjava"
               />
               <div className="Input">
-                <label style={{ margin: '15px 0 5px 0', color: '#fff', fontWeight: 'bold' }}>Kada je nalaz uočen</label>
+                <label style={{ color: '#645047',
+                                fontFamily: 'Helvetica, Arial',
+                                fontSize: '11px',
+                                letterSpacing: '0.12em',
+                                lineHeight: '2em',
+                                textTransform: 'uppercase',
+                                fontWeight: '400'
+                              }}>Kada je nalaz uočen</label>
                 <Field
                   name="observed_at"
                   dateFormat="dd-MMM-YYYY"
@@ -56,33 +63,41 @@ class ObservationFormFirstPage extends Component {
               </div>
             </div>
             <div className="half-width">
-              <label style={{ display: 'block', margin: '15px 0 5px 0', color: '#fff', fontWeight: 'bold' }}>Označi lokaciju na mapi (opciono)</label>
-              <div className="map-wrapper">
-                  <Map
-                      google={this.props.google}
-                      zoom={10}
-                      style={{ width: '100%',
-                              height: '100%',
-                              position: 'relative'
-                      }}
-                      className={'map'}
-                      initialCenter={{
-                          lat: 45.2678024,
-                          lng: 19.7552953
-                      }}
-                      scrollwheel={false}
-                      keyboardShortcuts={false}
-                      mapTypeControl={false}
-                      streetViewControl={false}
-                      fullscreenControl={false}
-                  >
-              
-                      <Marker
-                          onClick={this.onMarkerClick}
-                          name={'Trenutna lokacija'}
-                      />
+              <div style={{ marginTop: '20px' }}>
+                <label style={{ color: '#645047',
+                                fontFamily: 'Helvetica, Arial',
+                                fontSize: '11px',
+                                letterSpacing: '0.12em',
+                                lineHeight: '2em',
+                                textTransform: 'uppercase',
+                                fontWeight: '400' }}>Označi lokaciju nalaza na mapi</label>
+                <div className="map-wrapper">
+                    <Map
+                        google={this.props.google}
+                        zoom={10}
+                        style={{ width: '100%',
+                                height: '100%',
+                                position: 'relative'
+                        }}
+                        className={'map'}
+                        initialCenter={{
+                            lat: 45.2678024,
+                            lng: 19.7552953
+                        }}
+                        scrollwheel={false}
+                        keyboardShortcuts={false}
+                        mapTypeControl={false}
+                        streetViewControl={false}
+                        fullscreenControl={false}
+                    >
                 
-                  </Map>
+                        <Marker
+                            onClick={this.onMarkerClick}
+                            name={'Trenutna lokacija'}
+                        />
+                  
+                    </Map>
+                </div>
               </div>
             </div>
           </div>

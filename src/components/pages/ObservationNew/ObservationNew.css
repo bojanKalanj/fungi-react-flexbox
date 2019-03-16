@@ -18,6 +18,7 @@
 .map-wrapper {
     position: relative;
     height: 400px;
+    margin-top: 5px;
 }
 
 .half-width{
@@ -30,6 +31,11 @@
 
 .form-small{
     max-width: 40%;
+    margin: 0 auto;
+}
+
+.form-wide{
+    max-width: 70%;
     margin: 0 auto;
 }
 
