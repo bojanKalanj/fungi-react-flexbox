@@ -1,6 +1,8 @@
 import React from 'react';
 import './DropdownMenu.css';
-import Navlink from '../Navlinks/Navlink';
+// import Link from '../Links/Navlink';
+import { Link } from 'react-router-dom';
+
 
 const DropdownMenu = (props) =>  {
     let cssClasses = ["DropdownMenu"]
@@ -12,19 +14,19 @@ const DropdownMenu = (props) =>  {
         <div className={cssClasses.join(' ')}>
             <ul>
                 <li>
-                    <Navlink to="/observations/new">
+                    <Link to="/observations/new">
                         Dodaj nalaz 
-                    </Navlink>
+                    </Link>
                 </li>
                 <li>
-                    <Navlink to={`/users/${userID}`}>
+                    <Link to={`/users/${userID}`}>
                         Moj profil
-                    </Navlink>
+                    </Link>
                 </li>
                 <li>
-                    <Navlink to="/logout">
+                    <Link to="/logout">
                         Odjavi se 
-                    </Navlink>
+                    </Link>
                 </li>
             </ul>
         </div>

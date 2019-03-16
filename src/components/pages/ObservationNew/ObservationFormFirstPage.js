@@ -22,7 +22,7 @@ class ObservationFormFirstPage extends Component {
     render() {
       const { handleSubmit } = this.props;
       return (
-        <form onSubmit={handleSubmit} className="ObservationNew">
+        <form onSubmit={handleSubmit} className="ObservationNew form-small">
           <div className="Form-title">
               <h4>Dodaj Nalaz</h4>
               <hr />

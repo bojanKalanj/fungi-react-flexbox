@@ -1,12 +1,18 @@
 .dd-wrapper{
     position: relative;
+    font-family: Helvetica, Arial;
+    font-size: 14px;
+    line-height: 1.57;
+    letter-spacing: 0.2px;
+    font-weight: lighter;
 }
 
 .dd-header{
     /* border: 1px solid red; */
     background: #fff;
-    padding: 10px;
+    padding: 15px;
 }
+
 
 .dd-header:hover{
     cursor: pointer;
@@ -19,7 +25,7 @@
     right: 0;
     max-height: 300px;
     overflow: auto;
-    background: #379683;
+    background: #513629;
     list-style: none;
     color: #fff;
     padding: 0;
@@ -32,5 +38,5 @@
 
 .dd-list li:hover{
     cursor: pointer;
-    background: #05386b;
+    background: #392b24;
 }

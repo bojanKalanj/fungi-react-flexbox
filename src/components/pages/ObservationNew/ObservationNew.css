@@ -1,8 +1,11 @@
 .ObservationNew{
-    background: #5cdb95;
+    color: #645047;
+    background: #ebe8e1;
     padding: 30px;
     margin-left: 100px;
     margin-right: 100px;
+    font-family: Helvetica, Arial;
+    font-weight: 600;
 }
 
 .form-row{
@@ -24,4 +27,11 @@
 .ObservationNew button{
     margin-top: 40px;
 }
+
+.form-small{
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+
 

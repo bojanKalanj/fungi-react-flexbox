@@ -1,10 +1,14 @@
 .Navlinks{
     text-decoration: none;
-    color: #f1f1f1;
+    color: #513629;
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
+    font-family: Helvetica, Arial;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+    font-size: 16px;
 }
 
 .Navlinks:hover{
-    color: #fff;
+    color: rgb(162, 43, 42);
 }

@@ -6,21 +6,22 @@
     position: absolute;
     top: 100%;
     right: 10%;
-    background: #3cc47c;
-    color: #f1f1f1;
+    background: #fff;
+    color: #513629;
     -webkit-box-shadow: 0 3px 8px rgba(0,0,0,.3);
     box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .DropdownMenuBtn{
     /* border: 2px solid #fff; */
     border: none;
     padding: 10px;
-    color: #fff;
+    color: #513629;
     font-weight: bold;
     background: inherit;
+    font-size: 16px;
 }
 
 .DropdownMenuBtn:hover{
@@ -40,15 +41,21 @@
 
 .DropdownMenu li{
     list-style: none;
-    padding: 0px;
+    padding: 15px;
     /* border-bottom: 1px solid #f1f1f1; */
 }
 
 .DropdownMenu li:hover{
     cursor: pointer;
-    background-color: #27a05f;
+    background-color: #eee;
 }
 
 .DropdownMenu li:last-child{
     border: none;
+}
+
+.DropdownMenu a{
+    font-size: 12px;
+    text-decoration: none;
+    color: #513629;
 }

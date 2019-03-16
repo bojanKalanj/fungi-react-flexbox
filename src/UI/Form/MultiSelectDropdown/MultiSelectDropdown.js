@@ -58,7 +58,7 @@ class MultiSelectDropdown extends Component{
         return(
             <div className="dd-wrapper">
                 <div className="dd-header" onClick={() => this.toggleList()}>
-                    <div className="dd-header-title">{headerTitle } {listOpen? <FaAngleUp />: <FaAngleDown />} </div>
+                    <div className="dd-header-title">{headerTitle } <span className="pull-right">{listOpen? <FaAngleUp />: <FaAngleDown />}</span> </div>
                 </div>
                 {listOpen && <ul className="dd-list">
                     {list.map((item) => (

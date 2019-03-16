@@ -4,60 +4,20 @@ import validate from './validate';
 import { connect } from 'react-redux';
 // import fetchHabitats from '../../../actions';
 import * as actions from '../../../actions';
-
-// import FormField from '../../../UI/Form/FormField';
-
-// let habitats = ['Antropogena šuma', 'Livada', 'Park', 'Vinograd'];
-
-// const renderHabitatSelector = ({ input, meta: { touched, error } }) => (
-//   <div>
-//     <select {...input}>
-//       <option value="">Izaberite opciju</option>
-//       {habitats.map(val => (
-//         <option value={val} key={val}>
-//           {val}
-//         </option>
-//       ))}
-//     </select>
-//     {touched && error && <span>{error}</span>}
-//   </div>
-// );
+import MultiSelectDropdown from '../../../UI/Form/MultiSelectDropdown/MultiSelectDropdown';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <div className="input-error"><span>{error}</span></div> : false
 
-// const ObservationFormSecondPage = props => {
-//   const { handleSubmit, previousPage } = props
-//   return (
-//     <form onSubmit={handleSubmit} className="ObservationNew">
-//       <div className="Form-title">
-//         <h4>Dodaj Nalaz</h4>
-//         <hr />
-//       </div>
-//       {/* <div>
-//         <label>Stanište</label>
-//         <Field name="habitat_category_id" component={renderHabitatSelector} />
-//       </div> */}
-//       <div>
-//         <label>Opis nalaza *</label>
-//         <div>
-//           <Field name="description" component="textarea" />
-//         </div>
-//         <Field name="description" component={renderError} />
-//       </div>
-//       <div>
-//         <button type="button" className="previous" onClick={previousPage}>
-//           Vrati se
-//         </button>
-//         <button type="submit" className="next">
-//           Nastavi
-//         </button>
-//       </div>
-//     </form>
-//   )
-// };
-
 class ObservationFormSecondPage extends Component{
+  state = {
+    showHabitatNote: false,
+    habitatSpeciesIds: {
+        value: null,
+        options: null,
+        selected: false
+    }
+  }
   componentDidMount = () => {
     this.props.fetchHabitats();
     this.props.floralSpecies();
@@ -73,27 +33,60 @@ class ObservationFormSecondPage extends Component{
     }
   }
 
-  showHabitatNote = false;
+  // showHabitatNote = false;
   onSelected = (event) => {
     const value = event.target.value;
     if(value === "32"){
-      this.showHabitatNote = true;
+      // this.showHabitatNote = true;
+      this.setState({ showHabitatNote: true });
     }else if(value !== "32"){
-      this.showHabitatNote = false;
+      // this.showHabitatNote = false;
+      this.setState({ showHabitatNote: false });
       this.setFloralSpecies(value);
     }
   }
 
+  includedFloralSpecies = null;
+  showFloralSpecies = false;
   setFloralSpecies = value => {
     let allHabitats = this.props.habitatCategories.habitatCategories.data;
     let selectedHabitat = null;
     let allFloralSpecies = this.props.floralspecies.floralSpecies.data;
     let includedFloralSpecies = [];
-      for(let habitat in allHabitats){
-          if(allHabitats[habitat].id === value){
-              selectedHabitat = allHabitats[habitat];
-          }
-      }
+    for(let habitat in allHabitats){
+        if(allHabitats[habitat].id === value){
+            selectedHabitat = allHabitats[habitat];
+        }
+    }
+
+    for(let floralSpecimen in selectedHabitat.attributes.floral_species_ids){
+        for(let id in allFloralSpecies){
+            if(selectedHabitat.attributes.floral_species_ids[floralSpecimen] === allFloralSpecies[id].id){
+                includedFloralSpecies.push(allFloralSpecies[id]);
+            }
+        }
+    }
+    this.includedFloralSpecies = includedFloralSpecies;
+
+    for(let includedSpecimen in this.includedFloralSpecies){
+        this.includedFloralSpecies[includedSpecimen]["selected"] = false
+    }
+    // console.log(this.includedFloralSpecies);
+    if(this.includedFloralSpecies.length > 0){
+        let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+        console.log(this.state.habitatSpeciesIds);
+        habitatSpeciesIds.options = includedFloralSpecies;
+        // console.log(formFields["habitatSpeciesIds"].options);
+        this.setState({ habitatSpeciesIds: habitatSpeciesIds });
+        // console.log(this.state.habitatSpeciesIds.options);
+        // console.log(this.state.habitatSpeciesIds);
+        this.showFloralSpecies = true;
+        this.showHabitatNote = false;
+    }
+
+    if(this.includedFloralSpecies.length === 0){
+        this.showFloralSpecies = false;
+    }
   }
 
   renderHabitatSelector = ({ input, meta: { touched, error } }) => (
@@ -110,40 +103,91 @@ class ObservationFormSecondPage extends Component{
     </div>
   );
 
+  renderFloralSpecies = () => {
+    let list;
+    if(this.state.habitatSpeciesIds.options){
+      list = this.state.habitatSpeciesIds.options;
+    }
+    return(
+      <div>
+        <MultiSelectDropdown
+          title="Izaberi biljnu vrstu"
+          list={list}
+          toggleItem={this.toggleSelected}
+        />
+      </div>
+    )
+  }
+
+  toggleSelected = (id) => {
+      console.log(id);
+  }
+
   render(){
+    // console.log(this.state.showHabitatNote);
+        console.log(this.state.habitatSpeciesIds);
+
     const { handleSubmit, previousPage } = this.props;
       return (
-        <form onSubmit={handleSubmit} className="ObservationNew">
+        <form onSubmit={handleSubmit} className="ObservationNew form-small">
           <div className="Form-title">
             <h4>Dodaj Nalaz</h4>
             <hr />
           </div>
+          <div className="form-row">
+
+          </div>
           <div>
             <label>Stanište</label>
-            <Field  onChange={(event) => this.onSelected(event)}
-                    name="habitat_category_id"
-                    component={this.renderHabitatSelector} />
+            <Field 
+              onChange={(event) => this.onSelected(event)}
+              name="habitat_category_id"
+              component={this.renderHabitatSelector} />
           </div>
-          {this.showHabitatNote? <div>
+          {this.state.showHabitatNote? <div>
             <label>Napomena *</label>
             <div>
-              <Field name="habitat_note" component="textarea" />
+              <Field 
+                name="habitat_note" 
+                component="textarea" />
             </div>
-              <Field name="habitat_note" component={renderError} />
+              <Field 
+                name="habitat_note" 
+                component={renderError} />
+          </div>: null}
+          {this.showFloralSpecies? <div>
+            <label>Biljna vrsta</label>
+            <div>
+              <Field 
+                name="habitat_species_ids" 
+                component={this.renderFloralSpecies} />
+            </div>
+            <Field 
+              name="description" 
+              component={renderError} />
           </div>: null}
           <div>
             <label>Opis nalaza *</label>
             <div>
-              <Field name="description" component="textarea" />
+              <Field 
+                name="description" 
+                component="textarea" />
             </div>
-            <Field name="description" component={renderError} />
+            <Field 
+              name="description" 
+              component={renderError} />
           </div>
           <div>
-            <button type="button" className="previous" onClick={previousPage}>
-              Vrati se
+            <button 
+              type="button" 
+              className="previous" 
+              onClick={previousPage}>
+                Vrati se
             </button>
-            <button type="submit" className="next">
-              Nastavi
+            <button 
+              type="submit" 
+              className="next">
+                sNastavi
             </button>
           </div>
         </form>

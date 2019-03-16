@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 30px;
-    background: #5cdb95;
+    background: #ebe8e1
 }
 
 .Form.col-2 {
@@ -11,7 +11,7 @@
     grid-column-gap: 20px;
     flex-direction: column;
     padding: 30px;
-    background: #5cdb95;
+    background: #ebe8e1
 }
 
 .Form-title.col-2 {
@@ -30,7 +30,7 @@
 }
 
 .Form h4{
-    color: #fff;
+    color: #645047;
 }
 
 .Form button{
