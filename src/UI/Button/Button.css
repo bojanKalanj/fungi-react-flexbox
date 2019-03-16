@@ -3,14 +3,14 @@
     height: 60px;
     width: 100px;
     font-weight: bold;
-    background: #379683;
-    color: #edf5e1;
+    background: #513629;
+    color: #fff;
 }
 
 .Button:hover{
     cursor: pointer;
-    background: #05386b;
-    color: #edf5e1;
+    background: #392b24;
+    color: #fff;
 }
 
 .Disabled{
