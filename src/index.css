@@ -17,7 +17,7 @@ h1{
 hr {
   border: 0;
   width: 100%;               
-  background-color:#eee;
+  background-color:#ada197;
   height: 1px;
 }
 
@@ -35,4 +35,8 @@ hr {
 
 .margin-top-tiny {
   margin-top: 3px;
+}
+
+.input-error{
+  color: rgb(162, 43, 42);
 }

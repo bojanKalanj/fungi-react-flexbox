@@ -19,7 +19,6 @@
     margin-top: 5px;
     font-weight: lighter;
     color: #645047;
-    /* width: 100%; */
     border: 1px solid #ada197;
     padding: 17px 25px;
     font-family: Helvetica, Arial;
@@ -29,14 +28,6 @@
     transition: 0.3s;
     background: none;
     box-shadow: none;
-
-    /* border: none;
-    padding: 15px;
-    background: #69e2a0;
-    border: 2px solid #fff;
-    height: 60px;
-    padding: 0 15px; */
-    /* margin-bottom: 30px; */
 }
 
 .Input:focus{
@@ -44,20 +35,25 @@
 }
 
 .Input select{
-    padding: 10px;
-    border: 2px solid #fff;
     color: #fff !important;
-    background: #69e2a0;
+    border: 1px solid #ada197;
+    background: #645047;
+    padding: 16px;
+    width: 230px;
+    transition: background-color 0.2s ease;
 }
 
 .Input select:hover{
     cursor: pointer;
+    background: #392b24;
 }
 
 .Input textarea{
     padding: 10px;
-    border: 2px solid #fff;
-    background: #69e2a0;
+    border: 1px solid #ada197;
+    background: none;
+    width: 90%;
+    height: 150px;
 }
 
 .Input ::placeholder{

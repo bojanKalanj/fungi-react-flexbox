@@ -1,10 +1,11 @@
 .Button{
     border: none;
     height: 60px;
-    width: 100px;
+    padding: 10px 50px;
     font-weight: bold;
     background: #513629;
     color: #fff;
+    margin-right: 50px;
 }
 
 .Button:hover{

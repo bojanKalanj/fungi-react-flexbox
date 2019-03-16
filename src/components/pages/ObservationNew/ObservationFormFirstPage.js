@@ -101,15 +101,9 @@ class ObservationFormFirstPage extends Component {
               </div>
             </div>
           </div>
-          <div className="form-row">
-            <div className="half-width">
-            </div>
-            <div className="half-width">
-              <Button wide={true}>
+              <Button>
                 Nastavi
               </Button>
-            </div>
-          </div>  
         </form>
       );
     }

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 // import fetchHabitats from '../../../actions';
 import * as actions from '../../../actions';
 import MultiSelectDropdown from '../../../UI/Form/MultiSelectDropdown/MultiSelectDropdown';
+import '../../../UI/Form/Input/Input';
+import '../../../UI/Button/Button';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <div className="input-error"><span>{error}</span></div> : false
@@ -137,14 +139,14 @@ class ObservationFormSecondPage extends Component{
           <div className="form-row">
 
           </div>
-          <div>
+          <div className="Input">
             <label>Stanište</label>
             <Field 
               onChange={(event) => this.onSelected(event)}
               name="habitat_category_id"
               component={this.renderHabitatSelector} />
           </div>
-          {this.state.showHabitatNote? <div>
+          {this.state.showHabitatNote? <div className="Input">
             <label>Napomena *</label>
             <div>
               <Field 
@@ -155,7 +157,7 @@ class ObservationFormSecondPage extends Component{
                 name="habitat_note" 
                 component={renderError} />
           </div>: null}
-          {this.showFloralSpecies? <div>
+          {this.showFloralSpecies? <div className="Input">
             <label>Biljna vrsta</label>
             <div>
               <Field 
@@ -166,7 +168,7 @@ class ObservationFormSecondPage extends Component{
               name="description" 
               component={renderError} />
           </div>: null}
-          <div>
+          <div className="Input">
             <label>Opis nalaza *</label>
             <div>
               <Field 
@@ -180,14 +182,14 @@ class ObservationFormSecondPage extends Component{
           <div>
             <button 
               type="button" 
-              className="previous" 
+              className="previous Button" 
               onClick={previousPage}>
                 Vrati se
             </button>
             <button 
               type="submit" 
-              className="next">
-                sNastavi
+              className="next Button">
+                Nastavi
             </button>
           </div>
         </form>
