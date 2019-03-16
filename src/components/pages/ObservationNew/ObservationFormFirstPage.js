@@ -3,7 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import validate from './validate';
 import moment from 'moment';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import CurrentLocation from './CurrentLocation';
+import { InfoWindow, Marker } from 'google-maps-react';
 
 import FormField from '../../../UI/Form/FormField';
 import Button from '../../../UI/Button/Button';
@@ -14,10 +15,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 class ObservationFormFirstPage extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { date: new Date() };
-    }
+    onMarkerClick = (props, marker, e) =>
+      this.setState({
+          selectedPlace: props,
+          activeMarker: marker,
+          showingInfoWindow: true
+      });
 
     render() {
       const { handleSubmit } = this.props;
@@ -72,7 +75,7 @@ class ObservationFormFirstPage extends Component {
                                 textTransform: 'uppercase',
                                 fontWeight: '400' }}>Označi lokaciju nalaza na mapi</label>
                 <div className="map-wrapper">
-                    <Map
+                    {/* <Map
                         google={this.props.google}
                         zoom={10}
                         style={{ width: '100%',
@@ -96,7 +99,32 @@ class ObservationFormFirstPage extends Component {
                             name={'Trenutna lokacija'}
                         />
                   
-                    </Map>
+                    </Map> */}
+
+                    <CurrentLocation
+                      centerAroundCurrentLocation
+                      google={this.props.google}
+                      zoom={14}
+                      style={{ width: '100%',
+                              height: '400px',
+                              position: 'relative'
+                      }}
+                      keyboardShortcuts={false}
+                      mapTypeControl={false}
+                      streetViewControl={false}
+                      fullscreenControl={false}
+                    >
+                      <Marker onClick={this.onMarkerClick} name={'current location'} />
+                      {/* <InfoWindow
+                        marker={this.state.activeMarker}
+                        visible={this.state.showingInfoWindow}
+                        onClose={this.onClose}
+                      >
+                        <div>
+                          <h4>{this.state.selectedPlace.name}</h4>
+                        </div>
+                      </InfoWindow> */}
+                    </CurrentLocation>
                 </div>
               </div>
             </div>
@@ -115,6 +143,17 @@ class ObservationFormFirstPage extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        // initialValues: {
+        //   observed_at: moment("03-05-2019").format("dd-MMM-YYYY"),
+        // },
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {}
+    };
+};
+
 const wrappedForm = reduxForm({
   form: 'observationForm', // <------ same form name
   destroyOnUnmount: false, // <------ preserve form data
@@ -122,8 +161,4 @@ const wrappedForm = reduxForm({
   validate
 })(ObservationFormFirstPage);
 
-const wrappedMap = GoogleApiWrapper({
-  apiKey: "AIzaSyA-6n8DEeL1ff9oPSbXS2GbyWsrri53Mo0"
-})(wrappedForm);
-
-export default connect(null)(wrappedMap);
+export default connect(mapStateToProps)(wrappedForm);
