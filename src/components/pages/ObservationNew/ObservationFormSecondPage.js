@@ -121,8 +121,17 @@ class ObservationFormSecondPage extends Component{
     )
   }
 
-  toggleSelected = (id) => {
-      console.log(id);
+  toggleSelected = (selectedValues) => {
+      let selected = [];
+      // let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+      for(let value in selectedValues){
+        selected.push(selectedValues[value].id);
+      }
+      // habitatSpeciesIds.value = selected;
+      this.props.change("habitat_species_ids", selected)
+      // console.log(this.props)
+      // this.setState({ habitatSpeciesIds: habitatSpeciesIds })
+      // console.log(this.state.habitatSpeciesIds);
   }
 
   render(){
@@ -141,8 +150,10 @@ class ObservationFormSecondPage extends Component{
           </div>
           <div className="Input">
             <label>Stanište</label>
+            { console.log(this.state.habitatSpeciesIds.value) }
             <Field 
               onChange={(event) => this.onSelected(event)}
+              // value={this.state.habitatSpeciesIds.value}
               name="habitat_category_id"
               component={this.renderHabitatSelector} />
           </div>

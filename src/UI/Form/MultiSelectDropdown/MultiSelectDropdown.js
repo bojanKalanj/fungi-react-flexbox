@@ -39,7 +39,7 @@ class MultiSelectDropdown extends Component{
         selectedItem.selected = !selectedItem.selected;
         if(selectedItem.selected){
             selectedValues.push(selectedItem);
-            this.props.toggleItem(id)
+            // this.props.toggleItem(id)
         }else{
             const index = selectedValues.indexOf(selectedItem);
 
@@ -48,7 +48,7 @@ class MultiSelectDropdown extends Component{
             }
         }
         this.setState({ selectedValues: selectedValues });
-        // this.props.toggleItem(id)
+        this.props.toggleItem(selectedValues);
     }
 
     render(){
