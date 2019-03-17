@@ -54,7 +54,8 @@ class MultiSelectDropdown extends Component{
     render(){
         const list = this.props.list;
         const{listOpen, headerTitle} = this.state
-        // console.log(this.props.list);
+        console.log(this.props.list);
+        console.log("MultiSelectDropdown")
         return(
             <div className="dd-wrapper">
                 <div className="dd-header" onClick={() => this.toggleList()}>

@@ -73,15 +73,11 @@ class ObservationFormSecondPage extends Component{
     for(let includedSpecimen in this.includedFloralSpecies){
         this.includedFloralSpecies[includedSpecimen]["selected"] = false
     }
-    // console.log(this.includedFloralSpecies);
+
     if(this.includedFloralSpecies.length > 0){
         let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
-        console.log(this.state.habitatSpeciesIds);
         habitatSpeciesIds.options = includedFloralSpecies;
-        // console.log(formFields["habitatSpeciesIds"].options);
         this.setState({ habitatSpeciesIds: habitatSpeciesIds });
-        // console.log(this.state.habitatSpeciesIds.options);
-        // console.log(this.state.habitatSpeciesIds);
         this.showFloralSpecies = true;
         this.showHabitatNote = false;
     }
@@ -105,21 +101,7 @@ class ObservationFormSecondPage extends Component{
     </div>
   );
 
-  renderFloralSpecies = () => {
-    let list;
-    if(this.state.habitatSpeciesIds.options){
-      list = this.state.habitatSpeciesIds.options;
-    }
-    return(
-      <div>
-        <MultiSelectDropdown
-          title="Izaberi biljnu vrstu"
-          list={list}
-          toggleItem={this.toggleSelected}
-        />
-      </div>
-    )
-  }
+  
 
   toggleSelected = (selectedValues) => {
       let selected = [];
@@ -130,6 +112,24 @@ class ObservationFormSecondPage extends Component{
   }
 
   render(){
+    console.log(this.showFloralSpecies);
+    let renderFloralSpecies = () => {
+      // let list;
+      // if(this.state.habitatSpeciesIds.options){
+      let list = this.state.habitatSpeciesIds.options;
+      // }
+      console.log(list)
+      return(
+        <div>
+          <MultiSelectDropdown
+            title="Izaberi biljnu vrstu"
+            list={list}
+            toggleItem={this.toggleSelected}
+          />
+        </div>
+      )
+    }
+    console.log("ObservationFormSecondPage");
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -142,7 +142,6 @@ class ObservationFormSecondPage extends Component{
           </div>
           <div className="Input">
             <label>Stanište</label>
-            { console.log(this.state.habitatSpeciesIds.value) }
             <Field 
               onChange={(event) => this.onSelected(event)}
               // value={this.state.habitatSpeciesIds.value}
@@ -165,7 +164,7 @@ class ObservationFormSecondPage extends Component{
             <div>
               <Field 
                 name="habitat_species_ids" 
-                component={this.renderFloralSpecies} />
+                component={renderFloralSpecies} />
             </div>
             <Field 
               name="description" 

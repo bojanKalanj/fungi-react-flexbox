@@ -9,7 +9,7 @@ const ObservationFormThirdPage = props => {
   return (
     <form onSubmit={handleSubmit} className="ObservationNew">
       <div className="Form-title">
-        <h4>Dodaj Nalaz</h4>
+        <h4>Dodaj nalaz</h4>
         <hr />
       </div>
       <div className="Input">
@@ -27,7 +27,7 @@ const ObservationFormThirdPage = props => {
         <button type="button" className="previous Button" onClick={previousPage}>
           Vrati se
         </button>
-        <button type="submit" className="Button" disabled={pristine || submitting}>
+        <button type="submit" className="Button Red" disabled={pristine || submitting}>
           Kreiraj nalaz
         </button>
       </div>
