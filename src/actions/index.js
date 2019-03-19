@@ -38,3 +38,8 @@ export{
 export{
     fetchHabitats
 } from './habitat/fetchHabitats';
+// -----------------------------------------
+
+export{
+    fetchSubstrate
+} from './substrate/fetchSubstrate';

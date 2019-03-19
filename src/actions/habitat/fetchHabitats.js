@@ -20,7 +20,7 @@ export const fetchHabitatsFails = (error) => {
     };
 };
 
-export const fetchHabitats = (observationId) => {
+export const fetchHabitats = () => {
     return dispatch =>{
         dispatch(fetchHabitatsStart());
         

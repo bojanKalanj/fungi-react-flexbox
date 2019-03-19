@@ -10,6 +10,10 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaCheck from 'react-icons/lib/fa/check';
 
 class MultiSelectDropdown extends Component{
+    componentWillReceiveProps = newProps => {
+        console.log(newProps);
+    }
+
     constructor(props){
         super(props)
         this.state = {

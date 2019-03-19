@@ -23,6 +23,7 @@ class ObservationFormSecondPage extends Component{
   componentDidMount = () => {
     this.props.fetchHabitats();
     this.props.floralSpecies();
+    this.props.fetchSubstrate();
   }
 
   habitats = [];
@@ -73,7 +74,6 @@ class ObservationFormSecondPage extends Component{
     for(let includedSpecimen in this.includedFloralSpecies){
         this.includedFloralSpecies[includedSpecimen]["selected"] = false
     }
-
     if(this.includedFloralSpecies.length > 0){
         let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
         habitatSpeciesIds.options = includedFloralSpecies;
@@ -101,7 +101,21 @@ class ObservationFormSecondPage extends Component{
     </div>
   );
 
-  
+  renderFloralSpecies = () => {
+    let list;
+    if(this.state.habitatSpeciesIds.options){
+      list = this.state.habitatSpeciesIds.options;
+    }
+    return(
+      <div>
+        <MultiSelectDropdown
+          title="Izaberi biljnu vrstu"
+          list={list}
+          toggleItem={this.toggleSelected}
+        />
+      </div>
+    )
+  }
 
   toggleSelected = (selectedValues) => {
       let selected = [];
@@ -112,24 +126,7 @@ class ObservationFormSecondPage extends Component{
   }
 
   render(){
-    console.log(this.showFloralSpecies);
-    let renderFloralSpecies = () => {
-      // let list;
-      // if(this.state.habitatSpeciesIds.options){
-      let list = this.state.habitatSpeciesIds.options;
-      // }
-      console.log(list)
-      return(
-        <div>
-          <MultiSelectDropdown
-            title="Izaberi biljnu vrstu"
-            list={list}
-            toggleItem={this.toggleSelected}
-          />
-        </div>
-      )
-    }
-    console.log("ObservationFormSecondPage");
+    console.log(this.props.substrate)
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -142,9 +139,9 @@ class ObservationFormSecondPage extends Component{
           </div>
           <div className="Input">
             <label>Stanište</label>
+            { console.log(this.state.habitatSpeciesIds.value) }
             <Field 
               onChange={(event) => this.onSelected(event)}
-              // value={this.state.habitatSpeciesIds.value}
               name="habitat_category_id"
               component={this.renderHabitatSelector} />
           </div>
@@ -164,11 +161,11 @@ class ObservationFormSecondPage extends Component{
             <div>
               <Field 
                 name="habitat_species_ids" 
-                component={renderFloralSpecies} />
+                component={this.renderFloralSpecies} />
             </div>
-            <Field 
+            {/* <Field 
               name="description" 
-              component={renderError} />
+              component={renderError} /> */}
           </div>: null}
           <div className="Input">
             <label>Opis nalaza *</label>
@@ -204,6 +201,7 @@ const mapStateToProps = (state) => {
     state: state,
     habitatCategories: state.habitatCategories,
     floralspecies: state.floralspecies,
+    substrate: state.substrate
   }
 }
 
@@ -212,7 +210,8 @@ const mapDispatchToProps = dispatch => {
           onObservationSubmit: (observation, token) => dispatch(actions.newObservation(observation, token)),
           // fetchSpecies: () => dispatch(actions.fetchSpecies()),
           fetchHabitats: () => dispatch(actions.fetchHabitats()),
-          floralSpecies: () => dispatch(actions.floralSpecies())
+          floralSpecies: () => dispatch(actions.floralSpecies()),
+          fetchSubstrate: () => dispatch(actions.fetchSubstrate())
       };
   };
   
