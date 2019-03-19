@@ -40,6 +40,7 @@
     background: #645047;
     padding: 16px;
     transition: background-color 0.2s ease;
+    min-width: 240px;
 }
 
 .Input select:hover{

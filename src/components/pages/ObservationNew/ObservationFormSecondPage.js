@@ -14,6 +14,7 @@ const renderError = ({ meta: { touched, error } }) =>
 class ObservationFormSecondPage extends Component{
   state = {
     showHabitatNote: false,
+    showSubstrateNote: false,
     habitatSpeciesIds: {
         value: null,
         options: null,
@@ -27,25 +28,40 @@ class ObservationFormSecondPage extends Component{
   }
 
   habitats = [];
+  substrates = [];
   componentWillReceiveProps = newProps => {
-    if(newProps.state.habitatCategories.habitatCategories){
+    if(newProps.state.habitatCategories.habitatCategories && this.habitats.length === 0){
       const habitatCategories = newProps.state.habitatCategories.habitatCategories.data;
       for(let habitatCategorie in habitatCategories ){
         this.habitats.push(habitatCategories[habitatCategorie]); 
       }
     }
+
+    if(newProps.state.substrate.substrate && this.substrates.length === 0){
+      const substrate = newProps.state.substrate.substrate.data;
+      for(let sub in substrate ){
+        this.substrates.push(substrate[sub]); 
+      }
+    }
+    
   }
 
-  // showHabitatNote = false;
-  onSelected = (event) => {
+  onSelectedHabitat = (event) => {
     const value = event.target.value;
     if(value === "32"){
-      // this.showHabitatNote = true;
       this.setState({ showHabitatNote: true });
     }else if(value !== "32"){
-      // this.showHabitatNote = false;
       this.setState({ showHabitatNote: false });
       this.setFloralSpecies(value);
+    }
+  }
+
+  onSelectedSubstrate = (event) => {
+    console.log(event.target.value);
+    if(event.target.value === "22"){
+      this.setState({ showSubstrateNote: true });
+    }else{
+      this.setState({ showSubstrateNote: false });
     }
   }
 
@@ -101,6 +117,20 @@ class ObservationFormSecondPage extends Component{
     </div>
   );
 
+  renderSubstrateSelector = ({ input, meta: { touched, error } }) => (
+    <div>
+      <select {...input}>
+        <option value="">Izaberite opciju</option>
+        {this.substrates.map((substrate, index) => (
+          <option value={substrate.id} key={index}>
+            {substrate.attributes.name}
+          </option>
+        ))}
+      </select>
+      {touched && error && <span>{error}</span>}
+    </div>
+  );
+
   renderFloralSpecies = () => {
     let list;
     if(this.state.habitatSpeciesIds.options){
@@ -126,7 +156,7 @@ class ObservationFormSecondPage extends Component{
   }
 
   render(){
-    console.log(this.props.substrate)
+    // console.log(this.state.showSubstrateNote)
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -139,9 +169,8 @@ class ObservationFormSecondPage extends Component{
           </div>
           <div className="Input">
             <label>Stanište</label>
-            { console.log(this.state.habitatSpeciesIds.value) }
             <Field 
-              onChange={(event) => this.onSelected(event)}
+              onChange={(event) => this.onSelectedHabitat(event)}
               name="habitat_category_id"
               component={this.renderHabitatSelector} />
           </div>
@@ -166,6 +195,24 @@ class ObservationFormSecondPage extends Component{
             {/* <Field 
               name="description" 
               component={renderError} /> */}
+          </div>: null}
+          <div className="Input">
+            <label>Substrat</label>
+            <Field 
+              onChange={(event) => this.onSelectedSubstrate(event)}
+              name="substrate_categories"
+              component={this.renderSubstrateSelector} />
+          </div>
+          {this.state.showSubstrateNote? <div className="Input">
+            <label>Napomena *</label>
+            <div>
+              <Field 
+                name="substrate_note" 
+                component="textarea" />
+            </div>
+              <Field 
+                name="habitat_note" 
+                component={renderError} />
           </div>: null}
           <div className="Input">
             <label>Opis nalaza *</label>
