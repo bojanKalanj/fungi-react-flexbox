@@ -13,8 +13,8 @@ const renderError = ({ meta: { touched, error } }) =>
 
 class ObservationFormSecondPage extends Component{
   state = {
-    showHabitatNote: false,
-    showSubstrateNote: false,
+    // showHabitatNote: false,
+    // showSubstrateNote: false,
     habitatSpeciesIds: {
         value: null,
         options: null,
@@ -52,35 +52,45 @@ class ObservationFormSecondPage extends Component{
       this.setState({ showHabitatNote: true });
     }else if(value !== "32"){
       this.setState({ showHabitatNote: false });
-      this.setFloralSpecies(value);
+      this.setFloralSpecies(value, "habitat");
     }
   }
 
   onSelectedSubstrate = (event) => {
-    console.log(event.target.value);
-    if(event.target.value === "22"){
+    const value = event.target.value;
+    if(value === "22"){
       this.setState({ showSubstrateNote: true });
     }else{
       this.setState({ showSubstrateNote: false });
+      this.setFloralSpecies(value, "substrate");
     }
   }
 
   includedFloralSpecies = null;
   showFloralSpecies = false;
-  setFloralSpecies = value => {
-    let allHabitats = this.props.habitatCategories.habitatCategories.data;
-    let selectedHabitat = null;
+  showSubstrateNote = false;
+  setFloralSpecies = (value, on) => {
+    let setOn = null;
+    if(on === "habitat"){
+      setOn = this.props.habitatCategories.habitatCategories.data;
+    }
+
+    if(on === "substrate"){
+      setOn = this.props.substrate.substrate.data;
+    }
+    // let allHabitats = this.props.habitatCategories.habitatCategories.data;
+    let selected = null;
     let allFloralSpecies = this.props.floralspecies.floralSpecies.data;
     let includedFloralSpecies = [];
-    for(let habitat in allHabitats){
-        if(allHabitats[habitat].id === value){
-            selectedHabitat = allHabitats[habitat];
+    for(let on in setOn){
+        if(setOn[on].id === value){
+            selected = setOn[on];
         }
     }
 
-    for(let floralSpecimen in selectedHabitat.attributes.floral_species_ids){
+    for(let floralSpecimen in selected.attributes.floral_species_ids){
         for(let id in allFloralSpecies){
-            if(selectedHabitat.attributes.floral_species_ids[floralSpecimen] === allFloralSpecies[id].id){
+            if(selected.attributes.floral_species_ids[floralSpecimen] === allFloralSpecies[id].id){
                 includedFloralSpecies.push(allFloralSpecies[id]);
             }
         }
@@ -94,14 +104,60 @@ class ObservationFormSecondPage extends Component{
         let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
         habitatSpeciesIds.options = includedFloralSpecies;
         this.setState({ habitatSpeciesIds: habitatSpeciesIds });
-        this.showFloralSpecies = true;
-        this.showHabitatNote = false;
+        // if(on === "habitat"){
+          this.showFloralSpecies = true;
+          this.showHabitatNote = false;
+        // }
+
+        // if(on === "substrate"){
+          // this.showSubstrateNote = true;
+          // this.showFloralSpecies = true;
+          // this.setState({ showSubstrateNote: false });
+          // console.log(includedFloralSpecies);
+          // console.log(setOn);
+        // }
     }
 
     if(this.includedFloralSpecies.length === 0){
         this.showFloralSpecies = false;
     }
   }
+
+  // setFloralSpecies = value => {
+  //   let allHabitats = this.props.habitatCategories.habitatCategories.data;
+  //   let selectedHabitat = null;
+  //   let allFloralSpecies = this.props.floralspecies.floralSpecies.data;
+  //   let includedFloralSpecies = [];
+  //   for(let habitat in allHabitats){
+  //       if(allHabitats[habitat].id === value){
+  //           selectedHabitat = allHabitats[habitat];
+  //       }
+  //   }
+
+  //   for(let floralSpecimen in selectedHabitat.attributes.floral_species_ids){
+  //       for(let id in allFloralSpecies){
+  //           if(selectedHabitat.attributes.floral_species_ids[floralSpecimen] === allFloralSpecies[id].id){
+  //               includedFloralSpecies.push(allFloralSpecies[id]);
+  //           }
+  //       }
+  //   }
+  //   this.includedFloralSpecies = includedFloralSpecies;
+
+  //   for(let includedSpecimen in this.includedFloralSpecies){
+  //       this.includedFloralSpecies[includedSpecimen]["selected"] = false
+  //   }
+  //   if(this.includedFloralSpecies.length > 0){
+  //       let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+  //       habitatSpeciesIds.options = includedFloralSpecies;
+  //       this.setState({ habitatSpeciesIds: habitatSpeciesIds });
+  //       this.showFloralSpecies = true;
+  //       this.showHabitatNote = false;
+  //   }
+
+  //   if(this.includedFloralSpecies.length === 0){
+  //       this.showFloralSpecies = false;
+  //   }
+  // }
 
   renderHabitatSelector = ({ input, meta: { touched, error } }) => (
     <div>
@@ -156,7 +212,7 @@ class ObservationFormSecondPage extends Component{
   }
 
   render(){
-    // console.log(this.state.showSubstrateNote)
+    console.log(this.showSubstrateNote)
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -225,6 +281,17 @@ class ObservationFormSecondPage extends Component{
               name="description" 
               component={renderError} />
           </div>
+          {this.showFloralSpecies? <div className="Input">
+            <label>Biljna vrsta</label>
+            <div>
+              <Field 
+                name="habitat_species_ids" 
+                component={this.renderFloralSpecies} />
+            </div>
+            {/* <Field 
+              name="description" 
+              component={renderError} /> */}
+          </div>: null}
           <div>
             <button 
               type="button" 
