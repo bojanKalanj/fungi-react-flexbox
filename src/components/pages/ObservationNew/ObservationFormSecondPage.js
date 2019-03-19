@@ -16,7 +16,7 @@ class ObservationFormSecondPage extends Component{
     // showHabitatNote: false,
     // showSubstrateNote: false,
     habitatSpeciesIds: {
-        value: null,
+        value: [],
         options: null,
         selected: false
     }
@@ -68,6 +68,7 @@ class ObservationFormSecondPage extends Component{
 
   includedFloralSpecies = null;
   showFloralSpecies = false;
+  showFloralSpeciesForSubstrates = false;
   showSubstrateNote = false;
   setFloralSpecies = (value, on) => {
     let setOn = null;
@@ -104,21 +105,21 @@ class ObservationFormSecondPage extends Component{
         let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
         habitatSpeciesIds.options = includedFloralSpecies;
         this.setState({ habitatSpeciesIds: habitatSpeciesIds });
-        // if(on === "habitat"){
+        if(on === "habitat"){
           this.showFloralSpecies = true;
           this.showHabitatNote = false;
-        // }
+        }
 
-        // if(on === "substrate"){
+        if(on === "substrate"){
           // this.showSubstrateNote = true;
-          // this.showFloralSpecies = true;
+          this.showFloralSpeciesForSubstrates = true;
           // this.setState({ showSubstrateNote: false });
-          // console.log(includedFloralSpecies);
-          // console.log(setOn);
-        // }
+          console.log(includedFloralSpecies);
+          console.log(setOn);
+        }
     }
 
-    if(this.includedFloralSpecies.length === 0){
+    if(this.includedFloralSpecies.length === 0 && on === "habitat"){
         this.showFloralSpecies = false;
     }
   }
@@ -204,10 +205,14 @@ class ObservationFormSecondPage extends Component{
   }
 
   toggleSelected = (selectedValues) => {
-      let selected = [];
+      let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+      let selected = [ ...this.state.habitatSpeciesIds.value ];
       for(let value in selectedValues){
         selected.push(selectedValues[value].id);
       }
+      habitatSpeciesIds.value = selected;
+      this.setState({ habitatSpeciesIds: habitatSpeciesIds });
+      console.log(selected);
       this.props.change("habitat_species_ids", selected)
   }
 
@@ -281,7 +286,7 @@ class ObservationFormSecondPage extends Component{
               name="description" 
               component={renderError} />
           </div>
-          {this.showFloralSpecies? <div className="Input">
+          {this.showFloralSpeciesForSubstrates? <div className="Input">
             <label>Biljna vrsta</label>
             <div>
               <Field 
