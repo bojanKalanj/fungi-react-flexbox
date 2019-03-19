@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './MultiSelectDropdown.css';
-import FontAwesome from 'react-fontawesome';
-import onClickOutside from "react-onclickoutside";
+// import FontAwesome from 'react-fontawesome';
+// import onClickOutside from "react-onclickoutside";
 
 // import { faHome } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,11 +23,16 @@ class MultiSelectDropdown extends Component{
         }
       }
 
-    handleClickOutside = () =>{
-        console.log("handleClickOutside")
-        this.setState({
-            listOpen: false
-        })
+    // onClickOutside = () =>{
+    //     console.log("handleClickOutside")
+    //     this.setState({
+    //         listOpen: false
+    //     })
+    // }
+    handleClick = (e) => {
+        if(this.node.contains(e.target)){
+            console.log("handleClick")
+        }
     }
     
     toggleList(){
@@ -36,14 +41,12 @@ class MultiSelectDropdown extends Component{
         }))
     }
 
-    toggleItem = (id, selectedItem) => {
+    toggleItem = (selectedItem) => {
+        this.props.toggleItem(selectedItem);
         let selectedValues = [...this.state.selectedValues];
-        // console.log(selectedItem)
-        // selectedItem.selected = true;
         selectedItem.selected = !selectedItem.selected;
         if(selectedItem.selected){
             selectedValues.push(selectedItem);
-            // this.props.toggleItem(id)
         }else{
             const index = selectedValues.indexOf(selectedItem);
 
@@ -51,15 +54,13 @@ class MultiSelectDropdown extends Component{
                 selectedValues.splice(index, 1);
             }
         }
+        console.log(selectedValues);
         this.setState({ selectedValues: selectedValues });
-        this.props.toggleItem(selectedValues);
     }
 
     render(){
         const list = this.props.list;
         const{listOpen, headerTitle} = this.state
-        console.log(this.props.list);
-        console.log("MultiSelectDropdown")
         return(
             <div className="dd-wrapper">
                 <div className="dd-header" onClick={() => this.toggleList()}>
@@ -69,7 +70,7 @@ class MultiSelectDropdown extends Component{
                     {list.map((item) => (
                     <li className="dd-list-item" 
                         key={item.id} 
-                        onClick={() => this.toggleItem(item.id, item)}>
+                        onClick={() => this.toggleItem(item)}>
                             {item.attributes.name} {item.selected? <FaCheck />: null}
                     </li>
                     ))}

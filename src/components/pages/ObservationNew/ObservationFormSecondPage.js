@@ -199,22 +199,43 @@ class ObservationFormSecondPage extends Component{
           title="Izaberi biljnu vrstu"
           list={list}
           toggleItem={this.toggleSelected}
+          removeValue={this.removeValue}
         />
       </div>
     )
   }
 
-  toggleSelected = (selectedValues) => {
-      let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
-      let selected = [ ...this.state.habitatSpeciesIds.value ];
-      for(let value in selectedValues){
-        selected.push(selectedValues[value].id);
+  toggleSelected = (selectedValue) => {
+    const value = selectedValue.id;
+    let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+    if(habitatSpeciesIds.value.includes(value)){
+      console.log("REMOVE");
+      const index = habitatSpeciesIds.value.indexOf(value);
+
+      if (index !== -1) {
+        habitatSpeciesIds.value.splice(index, 1);
       }
-      habitatSpeciesIds.value = selected;
-      this.setState({ habitatSpeciesIds: habitatSpeciesIds });
-      console.log(selected);
-      this.props.change("habitat_species_ids", selected)
+    }else{
+      habitatSpeciesIds.value.push(value);
+    }
+    this.setState({ habitatSpeciesIds: habitatSpeciesIds })
+    this.props.change("habitat_species_ids", this.state.habitatSpeciesIds.value);
   }
+
+  // removeValue = (selectedItem) => {
+  //   const habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
+  //   const selectedValues = [ ...this.state.habitatSpeciesIds.value ]
+  //   habitatSpeciesIds.value = selectedValues;
+  //   const index = selectedValues.indexOf(selectedItem);
+  //   console.log(index);
+
+  //   if (index !== -1) {
+  //       selectedValues.splice(index, 1);
+  //   }
+
+  //   this.setState({ habitatSpeciesIds: habitatSpeciesIds });
+  //   console.log(this.state.habitatSpeciesIds.value);
+  // }
 
   render(){
     console.log(this.showSubstrateNote)
