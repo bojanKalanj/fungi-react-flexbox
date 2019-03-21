@@ -15,10 +15,19 @@ class ObservationFormSecondPage extends Component{
   state = {
     // showHabitatNote: false,
     // showSubstrateNote: false,
-    habitatSpeciesIds: {
+    showFloralSpeciesForHabitats: false,
+    // includedFloralSpecies: null,
+    showFloralSpeciesForSubstrates: false,
+    showSubstrateNote: false,
+    habitatCategories: {
         value: [],
         options: null,
         selected: false
+    },
+    substrateCategories: {
+      value: [],
+      options: null,
+      selected: false
     }
   }
   componentDidMount = () => {
@@ -66,62 +75,61 @@ class ObservationFormSecondPage extends Component{
     }
   }
 
-  includedFloralSpecies = null;
-  showFloralSpecies = false;
-  showFloralSpeciesForSubstrates = false;
-  showSubstrateNote = false;
   setFloralSpecies = (value, on) => {
-    let setOn = null;
-    if(on === "habitat"){
-      setOn = this.props.habitatCategories.habitatCategories.data;
+    let allFloralSpecies = this.props.floralspecies.floralSpecies.data;
+    let includedFloralSpecies = [];
+
+    let allHabitats = this.habitats;
+
+    let allSubstrates = this.substrates;
+
+    let selected = null;
+
+    if(on === 'habitat'){
+      for(let habitat in allHabitats){
+        if(allHabitats[habitat].id === value){
+          selected = allHabitats[habitat];
+        }
+      }
     }
 
     if(on === "substrate"){
-      setOn = this.props.substrate.substrate.data;
-    }
-    // let allHabitats = this.props.habitatCategories.habitatCategories.data;
-    let selected = null;
-    let allFloralSpecies = this.props.floralspecies.floralSpecies.data;
-    let includedFloralSpecies = [];
-    for(let on in setOn){
-        if(setOn[on].id === value){
-            selected = setOn[on];
+      for(let substrate in allSubstrates){
+        if(allSubstrates[substrate].id === value){
+          selected = allSubstrates[substrate];
         }
+      }
     }
 
-    for(let floralSpecimen in selected.attributes.floral_species_ids){
+    for(let s in selected.attributes.floral_species_ids){
         for(let id in allFloralSpecies){
-            if(selected.attributes.floral_species_ids[floralSpecimen] === allFloralSpecies[id].id){
+            if(selected.attributes.floral_species_ids[s] === allFloralSpecies[id].id){
                 includedFloralSpecies.push(allFloralSpecies[id]);
             }
         }
     }
-    this.includedFloralSpecies = includedFloralSpecies;
-
-    for(let includedSpecimen in this.includedFloralSpecies){
-        this.includedFloralSpecies[includedSpecimen]["selected"] = false
-    }
-    if(this.includedFloralSpecies.length > 0){
-        let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
-        habitatSpeciesIds.options = includedFloralSpecies;
-        this.setState({ habitatSpeciesIds: habitatSpeciesIds });
-        if(on === "habitat"){
-          this.showFloralSpecies = true;
-          this.showHabitatNote = false;
-        }
-
-        if(on === "substrate"){
-          // this.showSubstrateNote = true;
-          this.showFloralSpeciesForSubstrates = true;
-          // this.setState({ showSubstrateNote: false });
-          console.log(includedFloralSpecies);
-          console.log(setOn);
-        }
+    
+    if(on === "habitat" && includedFloralSpecies.length > 0){
+      let habitatCategories = { ...this.state.habitatCategories };
+      habitatCategories.options = includedFloralSpecies;
+      this.setState({ habitatCategories: habitatCategories, showFloralSpeciesForHabitats: true })
+    }else if(on === "habitat" && includedFloralSpecies.length === 0){
+      let habitatCategories = { ...this.state.habitatCategories };
+      habitatCategories.options = null;
+      // console.log("habitatCategories: ", habitatCategories)
+      this.setState({ habitatCategories: habitatCategories, showFloralSpeciesForHabitats: false })
     }
 
-    if(this.includedFloralSpecies.length === 0 && on === "habitat"){
-        this.showFloralSpecies = false;
+    if(on === "substrate" && includedFloralSpecies.length > 0){
+      let substrateCategories = { ...this.state.substrateCategories };
+      substrateCategories.options = includedFloralSpecies;
+      this.setState({ substrateCategories: substrateCategories, showFloralSpeciesForSubstrates: true })
+    }else if(on === "substrate" && includedFloralSpecies.length === 0){
+      let substrateCategories = { ...this.state.substrateCategories };
+      substrateCategories.options = null;
+      this.setState({ substrateCategories: substrateCategories, showFloralSpeciesForSubstrates: false })
     }
+    
   }
 
   // setFloralSpecies = value => {
@@ -148,9 +156,9 @@ class ObservationFormSecondPage extends Component{
   //       this.includedFloralSpecies[includedSpecimen]["selected"] = false
   //   }
   //   if(this.includedFloralSpecies.length > 0){
-  //       let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
-  //       habitatSpeciesIds.options = includedFloralSpecies;
-  //       this.setState({ habitatSpeciesIds: habitatSpeciesIds });
+  //       let habitatCategories = { ...this.state.habitatCategories };
+  //       habitatCategories.options = includedFloralSpecies;
+  //       this.setState({ habitatCategories: habitatCategories });
   //       this.showFloralSpecies = true;
   //       this.showHabitatNote = false;
   //   }
@@ -188,57 +196,41 @@ class ObservationFormSecondPage extends Component{
     </div>
   );
 
-  renderFloralSpecies = () => {
-    let list;
-    if(this.state.habitatSpeciesIds.options){
-      list = this.state.habitatSpeciesIds.options;
-    }
-    return(
-      <div>
-        <MultiSelectDropdown
-          title="Izaberi biljnu vrstu"
-          list={list}
-          toggleItem={this.toggleSelected}
-          removeValue={this.removeValue}
-        />
-      </div>
-    )
-  }
-
-  toggleSelected = (selectedValue) => {
+  handleSelectionForHabitats = (selectedValue) => {
     const value = selectedValue.id;
-    let habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
-    if(habitatSpeciesIds.value.includes(value)){
+    let habitatCategories = { ...this.state.habitatCategories };
+    if(habitatCategories.value.includes(value)){
       console.log("REMOVE");
-      const index = habitatSpeciesIds.value.indexOf(value);
+      const index = habitatCategories.value.indexOf(value);
 
       if (index !== -1) {
-        habitatSpeciesIds.value.splice(index, 1);
+        habitatCategories.value.splice(index, 1);
       }
     }else{
-      habitatSpeciesIds.value.push(value);
+      habitatCategories.value.push(value);
     }
-    this.setState({ habitatSpeciesIds: habitatSpeciesIds })
-    this.props.change("habitat_species_ids", this.state.habitatSpeciesIds.value);
+    this.setState({ habitatCategories: habitatCategories })
+    this.props.change("habitat_species_ids", this.state.habitatCategories.value);
   }
 
-  // removeValue = (selectedItem) => {
-  //   const habitatSpeciesIds = { ...this.state.habitatSpeciesIds };
-  //   const selectedValues = [ ...this.state.habitatSpeciesIds.value ]
-  //   habitatSpeciesIds.value = selectedValues;
-  //   const index = selectedValues.indexOf(selectedItem);
-  //   console.log(index);
+  handleSelectionForSubstrates = (selectedValue) => {
+    const value = selectedValue.id;
+    let substrateCategories = { ...this.state.substrateCategories };
+    if(substrateCategories.value.includes(value)){
+      console.log("REMOVE");
+      const index = substrateCategories.value.indexOf(value);
 
-  //   if (index !== -1) {
-  //       selectedValues.splice(index, 1);
-  //   }
-
-  //   this.setState({ habitatSpeciesIds: habitatSpeciesIds });
-  //   console.log(this.state.habitatSpeciesIds.value);
-  // }
+      if (index !== -1) {
+        substrateCategories.value.splice(index, 1);
+      }
+    }else{
+      substrateCategories.value.push(value);
+    }
+    this.setState({ substrateCategories: substrateCategories })
+    this.props.change("substrates_species_ids", this.state.substrateCategories.value);
+  }
 
   render(){
-    console.log(this.showSubstrateNote)
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -267,34 +259,18 @@ class ObservationFormSecondPage extends Component{
                 name="habitat_note" 
                 component={renderError} />
           </div>: null}
-          {this.showFloralSpecies? <div className="Input">
+          {this.state.showFloralSpeciesForHabitats? <div className="Input">
             <label>Biljna vrsta</label>
             <div>
-              <Field 
-                name="habitat_species_ids" 
-                component={this.renderFloralSpecies} />
+              <MultiSelectDropdown
+                title="Izaberi biljnu vrstu"
+                list={this.state.habitatCategories.options}
+                toggleItem={this.handleSelectionForHabitats}
+              />
             </div>
             {/* <Field 
               name="description" 
               component={renderError} /> */}
-          </div>: null}
-          <div className="Input">
-            <label>Substrat</label>
-            <Field 
-              onChange={(event) => this.onSelectedSubstrate(event)}
-              name="substrate_categories"
-              component={this.renderSubstrateSelector} />
-          </div>
-          {this.state.showSubstrateNote? <div className="Input">
-            <label>Napomena *</label>
-            <div>
-              <Field 
-                name="substrate_note" 
-                component="textarea" />
-            </div>
-              <Field 
-                name="habitat_note" 
-                component={renderError} />
           </div>: null}
           <div className="Input">
             <label>Opis nalaza *</label>
@@ -307,16 +283,36 @@ class ObservationFormSecondPage extends Component{
               name="description" 
               component={renderError} />
           </div>
-          {this.showFloralSpeciesForSubstrates? <div className="Input">
+          <div className="Input">
+            <label>Substrat</label>
+            <Field 
+              onChange={(event) => this.onSelectedSubstrate(event)}
+              name="substrate_categories"
+              component={this.renderSubstrateSelector} />
+          </div>
+          {this.state.showFloralSpeciesForSubstrates? <div className="Input">
             <label>Biljna vrsta</label>
             <div>
-              <Field 
-                name="habitat_species_ids" 
-                component={this.renderFloralSpecies} />
+              <MultiSelectDropdown
+                title="Izaberi biljnu vrstu"
+                list={this.state.substrateCategories.options}
+                toggleItem={this.handleSelectionForSubstrates}
+              />
             </div>
             {/* <Field 
               name="description" 
               component={renderError} /> */}
+          </div>: null}
+          {this.state.showSubstrateNote? <div className="Input">
+            <label>Napomena *</label>
+            <div>
+              <Field 
+                name="substrate_note" 
+                component="textarea" />
+            </div>
+              <Field 
+                name="habitat_note" 
+                component={renderError} />
           </div>: null}
           <div>
             <button 

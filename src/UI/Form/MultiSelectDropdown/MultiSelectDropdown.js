@@ -10,25 +10,26 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaCheck from 'react-icons/lib/fa/check';
 
 class MultiSelectDropdown extends Component{
-    componentWillReceiveProps = newProps => {
-        console.log(newProps);
-    }
+    // componentWillReceiveProps = newProps => {
+    //     console.log(newProps);
+    // }
 
     constructor(props){
         super(props)
         this.state = {
           listOpen: false,
           headerTitle: this.props.title,
-          selectedValues: []
+          selectedValues: [],
+          list: []
         }
       }
 
-    // onClickOutside = () =>{
-    //     console.log("handleClickOutside")
-    //     this.setState({
-    //         listOpen: false
-    //     })
-    // }
+    componentDidMount = () => {
+        console.log(this.props.list);
+        const newList = this.props.list;
+        this.setState({ list: newList })
+    }
+
     handleClick = (e) => {
         if(this.node.contains(e.target)){
             console.log("handleClick")
@@ -59,8 +60,11 @@ class MultiSelectDropdown extends Component{
     }
 
     render(){
-        const list = this.props.list;
-        const{listOpen, headerTitle} = this.state
+        const list = this.state.list;
+        const {listOpen, headerTitle} = this.state;
+        console.log(list);
+        console.log("RENDER");
+
         return(
             <div className="dd-wrapper">
                 <div className="dd-header" onClick={() => this.toggleList()}>
