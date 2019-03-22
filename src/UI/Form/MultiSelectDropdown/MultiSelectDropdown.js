@@ -10,9 +10,6 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaCheck from 'react-icons/lib/fa/check';
 
 class MultiSelectDropdown extends Component{
-    // componentWillReceiveProps = newProps => {
-    //     console.log(newProps);
-    // }
 
     constructor(props){
         super(props)
@@ -20,15 +17,8 @@ class MultiSelectDropdown extends Component{
           listOpen: false,
           headerTitle: this.props.title,
           selectedValues: [],
-          list: []
         }
       }
-
-    componentDidMount = () => {
-        console.log(this.props.list);
-        const newList = this.props.list;
-        this.setState({ list: newList })
-    }
 
     handleClick = (e) => {
         if(this.node.contains(e.target)){
@@ -42,29 +32,41 @@ class MultiSelectDropdown extends Component{
         }))
     }
 
+    selectedValues = [];
     toggleItem = (selectedItem) => {
         this.props.toggleItem(selectedItem);
         let selectedValues = [...this.state.selectedValues];
-        selectedItem.selected = !selectedItem.selected;
-        if(selectedItem.selected){
-            selectedValues.push(selectedItem);
-        }else{
-            const index = selectedValues.indexOf(selectedItem);
+        // selectedValues.push(selectedItem.id);
+        if(!selectedValues.includes(selectedItem.id)){
+            selectedValues.push(selectedItem.id);
+        }
 
+        if(this.state.selectedValues.includes(selectedItem.id)){
+            const index = selectedValues.indexOf(selectedItem.id);
             if (index !== -1) {
                 selectedValues.splice(index, 1);
             }
         }
-        console.log(selectedValues);
+
+
+        // selectedItem.selected = !selectedItem.selected;
+        // if(selectedItem.selected){
+        //     selectedValues.push(selectedItem);
+        // }else{
+        //     const index = selectedValues.indexOf(selectedItem);
+
+        //     if (index !== -1) {
+        //         selectedValues.splice(index, 1);
+        //     }
+        // }
+        // console.log(selectedValues);
         this.setState({ selectedValues: selectedValues });
     }
 
     render(){
-        const list = this.state.list;
+        const list = this.props.list;
         const {listOpen, headerTitle} = this.state;
-        console.log(list);
-        console.log("RENDER");
-
+        console.log(this.props.selected);
         return(
             <div className="dd-wrapper">
                 <div className="dd-header" onClick={() => this.toggleList()}>
@@ -75,7 +77,7 @@ class MultiSelectDropdown extends Component{
                     <li className="dd-list-item" 
                         key={item.id} 
                         onClick={() => this.toggleItem(item)}>
-                            {item.attributes.name} {item.selected? <FaCheck />: null}
+                            {item.attributes.name} {this.state.selectedValues.includes(item.id)? <FaCheck />: null}
                     </li>
                     ))}
                 </ul>}

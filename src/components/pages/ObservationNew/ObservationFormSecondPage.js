@@ -7,6 +7,7 @@ import * as actions from '../../../actions';
 import MultiSelectDropdown from '../../../UI/Form/MultiSelectDropdown/MultiSelectDropdown';
 import '../../../UI/Form/Input/Input';
 import '../../../UI/Button/Button';
+import { formValueSelector } from 'redux-form';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <div className="input-error"><span>{error}</span></div> : false
@@ -22,18 +23,51 @@ class ObservationFormSecondPage extends Component{
     habitatCategories: {
         value: [],
         options: null,
-        selected: false
+        selected: null
     },
     substrateCategories: {
       value: [],
       options: null,
-      selected: false
+      selected: null
     }
   }
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.props.fetchHabitats();
     this.props.floralSpecies();
     this.props.fetchSubstrate();
+    
+    if(this.props.state.habitatCategories.habitatCategories && this.habitats.length === 0){
+      const habitatCategories = this.props.state.habitatCategories.habitatCategories.data;
+      for(let habitatCategorie in habitatCategories ){
+        this.habitats.push(habitatCategories[habitatCategorie]); 
+      }
+    }
+    if(this.props.state.substrate.substrate && this.substrates.length === 0){
+      const substrate = this.props.state.substrate.substrate.data;
+      for(let sub in substrate ){
+        this.substrates.push(substrate[sub]); 
+      }
+    }
+
+    const selector = formValueSelector('observationForm');
+    const habitatValue = selector(this.props.state, 'habitat_category_id');
+    const substrateValue = selector(this.props.state, 'substrate_category_id');
+    // const floralSpeciesForHabitatsIds = selector(this.props.state, 'habitat_species_ids');
+
+    // if(floralSpeciesForHabitatsIds){
+    //   console.log(floralSpeciesForHabitatsIds);
+    //   let habitatCategories = { ...this.state.habitatCategories };
+    //   habitatCategories.selected = floralSpeciesForHabitatsIds;
+    //   this.setState({ habitatCategories: habitatCategories }, () => { console.log(this.state.habitatCategories) });
+    // }
+
+    if(habitatValue){
+      this.setFloralSpecies(habitatValue, "habitat");
+    }
+
+    if(substrateValue){
+      this.setFloralSpecies(substrateValue, "substrate");
+    }
   }
 
   habitats = [];
@@ -86,7 +120,10 @@ class ObservationFormSecondPage extends Component{
     let selected = null;
 
     if(on === 'habitat'){
+      console.log("INSIDE IF");
+      console.log(allHabitats);
       for(let habitat in allHabitats){
+        console.log("INSIDE FOR LOOR");
         if(allHabitats[habitat].id === value){
           selected = allHabitats[habitat];
         }
@@ -101,6 +138,8 @@ class ObservationFormSecondPage extends Component{
       }
     }
 
+    console.log(selected)
+
     for(let s in selected.attributes.floral_species_ids){
         for(let id in allFloralSpecies){
             if(selected.attributes.floral_species_ids[s] === allFloralSpecies[id].id){
@@ -111,7 +150,7 @@ class ObservationFormSecondPage extends Component{
     
     if(on === "habitat" && includedFloralSpecies.length > 0){
       let habitatCategories = { ...this.state.habitatCategories };
-      habitatCategories.options = includedFloralSpecies;
+      habitatCategories.options = [...includedFloralSpecies];
       this.setState({ habitatCategories: habitatCategories, showFloralSpeciesForHabitats: true })
     }else if(on === "habitat" && includedFloralSpecies.length === 0){
       let habitatCategories = { ...this.state.habitatCategories };
@@ -122,7 +161,7 @@ class ObservationFormSecondPage extends Component{
 
     if(on === "substrate" && includedFloralSpecies.length > 0){
       let substrateCategories = { ...this.state.substrateCategories };
-      substrateCategories.options = includedFloralSpecies;
+      substrateCategories.options = [...includedFloralSpecies];
       this.setState({ substrateCategories: substrateCategories, showFloralSpeciesForSubstrates: true })
     }else if(on === "substrate" && includedFloralSpecies.length === 0){
       let substrateCategories = { ...this.state.substrateCategories };
@@ -197,6 +236,7 @@ class ObservationFormSecondPage extends Component{
   );
 
   handleSelectionForHabitats = (selectedValue) => {
+    console.log(selectedValue);
     const value = selectedValue.id;
     let habitatCategories = { ...this.state.habitatCategories };
     if(habitatCategories.value.includes(value)){
@@ -217,7 +257,6 @@ class ObservationFormSecondPage extends Component{
     const value = selectedValue.id;
     let substrateCategories = { ...this.state.substrateCategories };
     if(substrateCategories.value.includes(value)){
-      console.log("REMOVE");
       const index = substrateCategories.value.indexOf(value);
 
       if (index !== -1) {
@@ -231,6 +270,7 @@ class ObservationFormSecondPage extends Component{
   }
 
   render(){
+    console.log(this.state.showFloralSpeciesForHabitats);
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -266,6 +306,7 @@ class ObservationFormSecondPage extends Component{
                 title="Izaberi biljnu vrstu"
                 list={this.state.habitatCategories.options}
                 toggleItem={this.handleSelectionForHabitats}
+                selected={this.state.habitatCategories.selected}
               />
             </div>
             {/* <Field 
@@ -287,7 +328,7 @@ class ObservationFormSecondPage extends Component{
             <label>Substrat</label>
             <Field 
               onChange={(event) => this.onSelectedSubstrate(event)}
-              name="substrate_categories"
+              name="substrate_category_id"
               component={this.renderSubstrateSelector} />
           </div>
           {this.state.showFloralSpeciesForSubstrates? <div className="Input">
