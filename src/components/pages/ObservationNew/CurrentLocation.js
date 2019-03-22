@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { GoogleApiWrapper } from 'google-maps-react';
 
@@ -9,6 +10,14 @@ const mapStyles = {
     height: '400px'
   }
 };
+
+const evtNames = ['click', 'dragend'];
+
+const camelize = function(str) {
+    return str.split(' ').map(function(word){
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join('');
+}
 
 export class CurrentLocation extends Component {
     constructor(props) {
@@ -21,6 +30,23 @@ export class CurrentLocation extends Component {
                 lng: lng
             }
         };
+    }
+
+    handleEvent(evtName) {
+        let timeout;
+        const handlerName = `on${camelize(evtName)}`;
+
+        return (e) => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            timeout = setTimeout(() => {
+                if (this.props[handlerName]) {
+                this.props[handlerName](this.props, this.map, e);
+                }
+            }, 0);
+        }
     }
 
     loadMap() {
@@ -53,6 +79,10 @@ export class CurrentLocation extends Component {
         
             // maps.Map() is constructor that instantiates the map
             this.map = new maps.Map(node, mapConfig);
+
+            evtNames.forEach(e => {
+                this.map.addListener(e, this.handleEvent(e));
+            });
         }
     }
 
@@ -127,6 +157,15 @@ export class CurrentLocation extends Component {
 export default GoogleApiWrapper({
     apiKey: "AIzaSyA-6n8DEeL1ff9oPSbXS2GbyWsrri53Mo0"
 })(CurrentLocation);
+
+CurrentLocation.propTypes = {
+    google: PropTypes.object,
+    zoom: PropTypes.number,
+    initialCenter: PropTypes.object,
+    centerAroundCurrentLocation: PropTypes.bool
+}
+
+evtNames.forEach(e => CurrentLocation.propTypes[camelize(e)] = PropTypes.func);
 
 CurrentLocation.defaultProps = {
     zoom: 14,

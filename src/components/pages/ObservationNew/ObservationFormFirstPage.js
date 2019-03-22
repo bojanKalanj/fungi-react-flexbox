@@ -22,6 +22,24 @@ class ObservationFormFirstPage extends Component {
           showingInfoWindow: true
       });
 
+      // placeMarkerAndPanTo(latLng, map) {
+      //   var marker = new google.maps.Marker({
+      //     position: latLng,
+      //     map: map
+      //   });
+      //   map.panTo(latLng);
+      // }
+
+    onMapClicked = (props, map, e) => {
+      console.log(props);
+      console.log(map);
+      console.log(e);
+      // this.placeMarkerAndPanTo(e.latLng, map);
+      this.setState({
+        clickedLocation: props
+      });
+    }
+
     render() {
       const { handleSubmit } = this.props;
       return (
@@ -113,6 +131,7 @@ class ObservationFormFirstPage extends Component {
                       mapTypeControl={false}
                       streetViewControl={false}
                       fullscreenControl={false}
+                      onClick={this.onMapClicked}
                     >
                       <Marker onClick={this.onMarkerClick} name={'current location'} />
                       {/* <InfoWindow
@@ -144,7 +163,8 @@ const mapStateToProps = (state) => {
         // },
         showingInfoWindow: false,
         activeMarker: {},
-        selectedPlace: {}
+        selectedPlace: {},
+        clickedLocation: {}
     };
 };
 
