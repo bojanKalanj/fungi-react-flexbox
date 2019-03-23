@@ -32,7 +32,6 @@ class MultiSelectDropdown extends Component{
         }))
     }
 
-    selectedValues = [];
     toggleItem = (selectedItem) => {
         this.props.toggleItem(selectedItem);
         // let selectedValues = [...this.state.selectedValues];
@@ -67,20 +66,35 @@ class MultiSelectDropdown extends Component{
         const list = this.props.list;
         const {listOpen, headerTitle} = this.state;
         let selected = this.props.selected || [];
+        let valuesToDisplay = [];
+        for(let item in list){
+            for(let s in selected){
+                if(list[item].id === selected[s]){
+                    valuesToDisplay.push(list[item].attributes.name);
+                }
+            }
+        }
         return(
-            <div className="dd-wrapper">
-                <div className="dd-header" onClick={() => this.toggleList()}>
-                    <div className="dd-header-title">{headerTitle } <span className="pull-right">{listOpen? <FaAngleUp />: <FaAngleDown />}</span> </div>
+            <div>
+                <ul className="tags">
+                    {valuesToDisplay.map(s => {
+                        return <div className="tag">{s}</div>
+                    })}
+                </ul>
+                <div className="dd-wrapper">
+                    <div className="dd-header" onClick={() => this.toggleList()}>
+                        <div className="dd-header-title">{headerTitle } <span className="pull-right">{listOpen? <FaAngleUp />: <FaAngleDown />}</span> </div>
+                    </div>
+                    {listOpen && <ul className="dd-list">
+                        {list.map((item) => (
+                        <li className="dd-list-item" 
+                            key={item.id} 
+                            onClick={() => this.toggleItem(item)}>
+                                {item.attributes.name} {selected.includes(item.id)? <FaCheck />: null}
+                        </li>
+                        ))}
+                    </ul>}
                 </div>
-                {listOpen && <ul className="dd-list">
-                    {list.map((item) => (
-                    <li className="dd-list-item" 
-                        key={item.id} 
-                        onClick={() => this.toggleItem(item)}>
-                            {item.attributes.name} {selected.includes(item.id)? <FaCheck />: null}
-                    </li>
-                    ))}
-                </ul>}
             </div>
         )
     }

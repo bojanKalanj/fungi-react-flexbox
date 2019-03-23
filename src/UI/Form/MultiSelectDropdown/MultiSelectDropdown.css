@@ -5,13 +5,14 @@
     line-height: 1.57;
     letter-spacing: 0.2px;
     font-weight: lighter;
+    width: 230px;
 }
 
 .dd-header{
     /* border: 1px solid red; */
     background: #fff;
     padding: 15px;
-    width: 230px;
+    margin-top: 10px; 
 }
 
 
@@ -21,7 +22,7 @@
 
 .dd-list{
     position: absolute;
-    top: 70%;
+    top: 100%;
     left: 0;
     right: 0;
     max-height: 300px;
@@ -40,4 +41,24 @@
 .dd-list li:hover{
     cursor: pointer;
     background: #392b24;
+}
+
+.tags{
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.tag{
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(162, 43, 42);
+    color: rgb(162, 43, 42);
+    font-family: Helvetica, Arial;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    line-height: 2em;
+    text-transform: uppercase;
+    font-weight: 400;
 }

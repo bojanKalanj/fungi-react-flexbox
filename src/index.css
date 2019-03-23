@@ -42,3 +42,8 @@ hr {
 .input-error{
   color: rgb(162, 43, 42);
 }
+
+ul{
+  margin: 0;
+  padding: 0;
+}
