@@ -8,7 +8,7 @@ import { Container } from '../../../UI/Container/Container';
 import './Header.css';
 import Navlink from '../../../UI/Navlinks/Navlink';
 import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
-import Button from '../../../UI/Button/Button';
+import '../../../UI/Button/Button.css'
 
 class Header extends Component{
     componentDidMount = () => {
@@ -63,10 +63,10 @@ class Header extends Component{
                             Sve vrste
                         </Navlink>
                         {!this.props.isAuthenticated? <Navlink to="/login">
-                            Prijavi se
+                            <button className="DropdownMenuBtn">Prijavi se</button> 
                         </Navlink>: null}
                         {!this.props.isAuthenticated? <Navlink to="/register">
-                            Registruj se 
+                            <button className="DropdownMenuBtn">Registruj se</button> 
                         </Navlink>: null}
                         {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
                             <button className="DropdownMenuBtn">{ this.user } {this.state.dropDownOn? <FaAngleUp />: <FaAngleDown />  } </button>  
