@@ -8,16 +8,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f5f5f1;
+  color: #513629;
+
 }
 
 h1{
-  color: #24583c;
+    color: #513629;
 }
 
 hr {
   border: 0;
   width: 100%;               
-  background-color:rgba(81, 54, 41, .2);;
+  background-color:rgba(81, 54, 41, .2);
   height: 1px;
 }
 

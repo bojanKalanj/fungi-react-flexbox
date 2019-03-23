@@ -1,6 +1,6 @@
 .Td{
-    border-bottom: 1px solid #eee;
-    border-right: 1px solid #eee;
+    border-bottom: 1px solid rgba(81, 54, 41, .2);;
+    border-right: 1px solid rgba(81, 54, 41, .2);;
     padding: 10px;
 }
 

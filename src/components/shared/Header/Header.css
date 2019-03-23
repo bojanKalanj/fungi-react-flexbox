@@ -13,12 +13,18 @@
 }
 
 .DropdownBtn{
-    display: inline;
-    margin-left: 20px;
-    color: #f1f1f1;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    display: inline-block;
+    
+    /* padding: 10px;
+    font-family: Helvetica, Arial;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+    font-size: 18px;
+    border: 1px solid rgba(81, 54, 41, .2); */
+}
+
+.DropdownBtn:focus{
+    border: none;
 }
 
 .DropdownBtn:hover{

@@ -41,7 +41,7 @@ const List = (props) => {
         for(let li in props.toList){
             if(li !== 'description' && props.toList[li]){
                 list.push(
-                    <li>{translate(li)} :  <span className="pull-right">{props.toList[li]}</span> </li>
+                    <li key={li}>{translate(li)} :  <span className="pull-right">{props.toList[li]}</span> </li>
                 )
             }
         }

@@ -8,6 +8,7 @@ import { Container } from '../../../UI/Container/Container';
 import './Header.css';
 import Navlink from '../../../UI/Navlinks/Navlink';
 import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
+import Button from '../../../UI/Button/Button';
 
 class Header extends Component{
     componentDidMount = () => {
