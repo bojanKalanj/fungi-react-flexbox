@@ -1,12 +1,20 @@
 .List{
     margin: 0;
     padding: 0;
-    background: #3cc47c;
-    color: #fff;
+    font-family: Helvetica, Arial;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+    text-transform: capitalize;
+    color: #513629;
 }
 
 .List li{
     list-style: none;
     padding: 10px 5px;
-    border-top: 1px solid #fff;
+    border: 1px solid rgba(81, 54, 41, .2);
+    border-bottom: none;
+}
+
+.List li:last-child{
+    border-bottom: 1px solid rgba(81, 54, 41, .2);
 }

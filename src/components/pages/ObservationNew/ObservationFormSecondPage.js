@@ -241,7 +241,7 @@ class ObservationFormSecondPage extends Component{
     }else{
       habitatCategories.value.push(value);
     }
-    this.setState({ habitatCategories: habitatCategories })
+    this.setState({ habitatCategories: habitatCategories });
     this.props.sendDropdownDataToRedux(habitatCategories.value, "DROPRDOWN_DATA_FOR_HABITATS");
     console.log("INSIDE HANDLE: ", habitatCategories.value);
     this.props.change("habitat_species_ids", this.state.habitatCategories.value);

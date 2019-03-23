@@ -6,6 +6,7 @@ import { FlexContainer } from '../../../UI/Container/Container';
 import { Card, CardBody } from '../../../UI/Card/Card';
 import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
+import List from '../../../UI/List/List';
 import Comments from '../../shared/Comments/Comments';
 
 class Observation extends React.Component {
@@ -14,12 +15,13 @@ class Observation extends React.Component {
     }
 
     render(){
-        console.log(this.props.observation);
-
-        
+        // console.log(this.props.observation.observation);
+        if(this.props.observation){
+            // console.log(this.props.observation.data.attributes)
+        }
         const showObservation = () => {
             if(this.props.observation){
-                console.log(this.props.observation)
+                // console.log(this.props.observation)
             }
         }
 
@@ -32,12 +34,24 @@ class Observation extends React.Component {
                 }
             }
         }
+
+        const showDescription = () => {
+            if(this.props.observation){
+                return this.props.observation.data.attributes.description
+            }
+        }
+
+        const showList = () => {
+            if(this.props.observation){
+                return <List width="32%" toList={this.props.observation.data.attributes}/>
+            }
+        }
         return (
             <div>
                 <h1>{ showTitle() }</h1>
                 { showObservation() }
                 <FlexContainer>
-                    <div style={{width: '40%'}}>
+                    <div style={{width: '42%'}}>
                         <Card>
                             <CardBody>
 
@@ -45,12 +59,8 @@ class Observation extends React.Component {
                         </Card>
                         <Comments></Comments>
                     </div>
-                    <Card width="32%">
-                        <CardBody>
-                            
-                        </CardBody>
-                    </Card>
-                    <Card width="20%">
+                    { showList() }
+                    <Card width="22%">
                         <CardBody>
                             <UserAvatar 
                                 src={uerAvatarPlaceholderImg} 
@@ -58,7 +68,7 @@ class Observation extends React.Component {
                                 userName="Hari Kalanj"/>
                                 <hr />
                                 <p>
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                    { showDescription() }
                                 </p>
                         </CardBody>
                     </Card>
