@@ -43,3 +43,8 @@ export{
 export{
     fetchSubstrate
 } from './substrate/fetchSubstrate';
+// -----------------------------------------
+
+export{
+    dropData
+} from './dropdownData/dropdownData';

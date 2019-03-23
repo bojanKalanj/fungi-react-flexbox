@@ -52,15 +52,7 @@ class ObservationFormSecondPage extends Component{
     const selector = formValueSelector('observationForm');
     const habitatValue = selector(this.props.state, 'habitat_category_id');
     const substrateValue = selector(this.props.state, 'substrate_category_id');
-    // const floralSpeciesForHabitatsIds = selector(this.props.state, 'habitat_species_ids');
-
-    // if(floralSpeciesForHabitatsIds){
-    //   console.log(floralSpeciesForHabitatsIds);
-    //   let habitatCategories = { ...this.state.habitatCategories };
-    //   habitatCategories.selected = floralSpeciesForHabitatsIds;
-    //   this.setState({ habitatCategories: habitatCategories }, () => { console.log(this.state.habitatCategories) });
-    // }
-
+    
     if(habitatValue){
       this.setFloralSpecies(habitatValue, "habitat");
     }
@@ -250,6 +242,8 @@ class ObservationFormSecondPage extends Component{
       habitatCategories.value.push(value);
     }
     this.setState({ habitatCategories: habitatCategories })
+    this.props.sendDropdownDataToRedux(habitatCategories.value, "DROPRDOWN_DATA_FOR_HABITATS");
+    console.log("INSIDE HANDLE: ", habitatCategories.value);
     this.props.change("habitat_species_ids", this.state.habitatCategories.value);
   }
 
@@ -265,12 +259,13 @@ class ObservationFormSecondPage extends Component{
     }else{
       substrateCategories.value.push(value);
     }
-    this.setState({ substrateCategories: substrateCategories })
+    this.setState({ substrateCategories: substrateCategories });
+    this.props.sendDropdownDataToRedux(substrateCategories.value, "DROPRDOWN_DATA_FOR_SUBSTRATES");
     this.props.change("substrates_species_ids", this.state.substrateCategories.value);
   }
 
   render(){
-    console.log(this.state.showFloralSpeciesForHabitats);
+    console.log(this.props.state.dropdownData.dataForHabitat);
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -306,7 +301,7 @@ class ObservationFormSecondPage extends Component{
                 title="Izaberi biljnu vrstu"
                 list={this.state.habitatCategories.options}
                 toggleItem={this.handleSelectionForHabitats}
-                selected={this.state.habitatCategories.selected}
+                selected={this.props.state.dropdownData.dataForHabitat}
               />
             </div>
             {/* <Field 
@@ -338,6 +333,7 @@ class ObservationFormSecondPage extends Component{
                 title="Izaberi biljnu vrstu"
                 list={this.state.substrateCategories.options}
                 toggleItem={this.handleSelectionForSubstrates}
+                selected={this.props.state.dropdownData.dataForSubstrate}
               />
             </div>
             {/* <Field 
@@ -388,7 +384,8 @@ const mapDispatchToProps = dispatch => {
           // fetchSpecies: () => dispatch(actions.fetchSpecies()),
           fetchHabitats: () => dispatch(actions.fetchHabitats()),
           floralSpecies: () => dispatch(actions.floralSpecies()),
-          fetchSubstrate: () => dispatch(actions.fetchSubstrate())
+          fetchSubstrate: () => dispatch(actions.fetchSubstrate()),
+          sendDropdownDataToRedux: (data, type) => dispatch(actions.dropData(data, type))
       };
   };
   

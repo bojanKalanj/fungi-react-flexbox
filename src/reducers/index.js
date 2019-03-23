@@ -10,6 +10,7 @@ import registerUser from './registerReducer';
 import floralSpeciesReducer from './floralSpeciesReducer';
 import substrateReducer from './substrateReducer';
 import { reducer as formReducer } from 'redux-form';
+import dropdownDataReducer from './dropdownDataReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
     registeredUser: registerUser,
     floralspecies: floralSpeciesReducer,
     form: formReducer,
-    substrate: substrateReducer
+    substrate: substrateReducer,
+    dropdownData: dropdownDataReducer
 });

@@ -35,18 +35,18 @@ class MultiSelectDropdown extends Component{
     selectedValues = [];
     toggleItem = (selectedItem) => {
         this.props.toggleItem(selectedItem);
-        let selectedValues = [...this.state.selectedValues];
-        // selectedValues.push(selectedItem.id);
-        if(!selectedValues.includes(selectedItem.id)){
-            selectedValues.push(selectedItem.id);
-        }
+        // let selectedValues = [...this.state.selectedValues];
+        // // selectedValues.push(selectedItem.id);
+        // if(!selectedValues.includes(selectedItem.id)){
+        //     selectedValues.push(selectedItem.id);
+        // }
 
-        if(this.state.selectedValues.includes(selectedItem.id)){
-            const index = selectedValues.indexOf(selectedItem.id);
-            if (index !== -1) {
-                selectedValues.splice(index, 1);
-            }
-        }
+        // if(this.state.selectedValues.includes(selectedItem.id)){
+        //     const index = selectedValues.indexOf(selectedItem.id);
+        //     if (index !== -1) {
+        //         selectedValues.splice(index, 1);
+        //     }
+        // }
 
 
         // selectedItem.selected = !selectedItem.selected;
@@ -60,13 +60,13 @@ class MultiSelectDropdown extends Component{
         //     }
         // }
         // console.log(selectedValues);
-        this.setState({ selectedValues: selectedValues });
+        // this.setState({ selectedValues: selectedValues });
     }
 
     render(){
         const list = this.props.list;
         const {listOpen, headerTitle} = this.state;
-        console.log(this.props.selected);
+        let selected = this.props.selected || [];
         return(
             <div className="dd-wrapper">
                 <div className="dd-header" onClick={() => this.toggleList()}>
@@ -77,7 +77,7 @@ class MultiSelectDropdown extends Component{
                     <li className="dd-list-item" 
                         key={item.id} 
                         onClick={() => this.toggleItem(item)}>
-                            {item.attributes.name} {this.state.selectedValues.includes(item.id)? <FaCheck />: null}
+                            {item.attributes.name} {selected.includes(item.id)? <FaCheck />: null}
                     </li>
                     ))}
                 </ul>}
