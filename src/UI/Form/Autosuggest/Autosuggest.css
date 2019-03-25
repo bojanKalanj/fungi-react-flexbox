@@ -1,0 +1,54 @@
+.Autosuggest{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.Autosuggest input{
+    margin-top: 5px;
+    font-weight: lighter;
+    color: #645047;
+    border: 1px solid #ada197;
+    padding: 17px 25px;
+    font-family: Helvetica, Arial;
+    font-size: 14px;
+    line-height: 1.57;
+    letter-spacing: 0.2px;
+    transition: 0.3s;
+    background: none;
+    box-shadow: none;
+}
+
+.Autosuggest label{
+    color: #645047;
+    font-family: Helvetica, Arial;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    line-height: 2em;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.Autosuggest ul{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow: auto;
+    list-style: none;
+    background: #fff;
+}
+
+.Autosuggest li{
+    padding: 10px;
+    font-family: Helvetica, Arial;
+    font-size: 14px;
+    line-height: 1.57;
+    letter-spacing: 0.2px;
+}
+
+.Autosuggest li:hover{
+    cursor: pointer;
+    background: rgb(245, 239, 239);
+}

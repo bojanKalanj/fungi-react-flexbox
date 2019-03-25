@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import fetchHabitats from '../../../actions';
 import * as actions from '../../../actions';
 import MultiSelectDropdown from '../../../UI/Form/MultiSelectDropdown/MultiSelectDropdown';
+import Autosuggest from '../../../UI/Form/Autosuggest/Autosuggest';
 import '../../../UI/Form/Input/Input';
 import '../../../UI/Button/Button';
 import { formValueSelector } from 'redux-form';
@@ -35,6 +36,7 @@ class ObservationFormSecondPage extends Component{
     this.props.fetchHabitats();
     this.props.floralSpecies();
     this.props.fetchSubstrate();
+    this.props.fetchSpecies();
     
     if(this.props.state.habitatCategories.habitatCategories && this.habitats.length === 0){
       const habitatCategories = this.props.state.habitatCategories.habitatCategories.data;
@@ -264,8 +266,25 @@ class ObservationFormSecondPage extends Component{
     this.props.change("substrates_species_ids", this.state.substrateCategories.value);
   }
 
+  renderSpeciesAutosuggest = () => {
+    let suggestions = [];
+    if(this.props.state.species.data){
+      let species = this.props.state.species.data.data; 
+      for(let specimen in species){
+        suggestions.push(species[specimen].attributes.name);
+      }
+    }
+    return <Autosuggest label="Vrsta" suggestions={suggestions}/>
+  }
+
   render(){
-    console.log(this.props.state.dropdownData.dataForHabitat);
+    // if(this.props.state.species.data){
+    //   let species = this.props.state.species.data.data; 
+    //   let speciesNames = [];
+    //   for(let specimen in species){
+    //     speciesNames.push(species[specimen].attributes.name);
+    //   }
+    // }
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -273,9 +292,7 @@ class ObservationFormSecondPage extends Component{
             <h4>Dodaj Nalaz</h4>
             <hr />
           </div>
-          <div className="form-row">
-
-          </div>
+            { this.renderSpeciesAutosuggest() }
           <div className="Input">
             <label>Stanište</label>
             <Field 
@@ -381,7 +398,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
       return{
           onObservationSubmit: (observation, token) => dispatch(actions.newObservation(observation, token)),
-          // fetchSpecies: () => dispatch(actions.fetchSpecies()),
+          fetchSpecies: () => dispatch(actions.fetchSpecies()),
           fetchHabitats: () => dispatch(actions.fetchHabitats()),
           floralSpecies: () => dispatch(actions.floralSpecies()),
           fetchSubstrate: () => dispatch(actions.fetchSubstrate()),

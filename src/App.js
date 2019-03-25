@@ -11,6 +11,7 @@ import Header from './components/shared/Header/Header';
 import Observation from './components/pages/Observation/Observation';
 import Home from './components/pages/Home/Home';
 import Species from './components/pages/Species/Species';
+import Specimen from './components/pages/Specimen/Specimen';
 import User from './components/pages/User/User';
 import Login from './components/pages/Login/Login';
 import Logout from './components/pages/Logout/Logout';
@@ -49,7 +50,8 @@ class App extends Component {
             <div style={{marginTop: '30px', marginBottom: '30px'}}>
                 <Route path="/" exact component={Home} />
                 <Route path="/species" component={Species} />
-                <Route path="/users/:id" component={User} />
+                <Route path="/specimen/:id" component={Specimen} />
+                <Route path="/user/:id" component={User} />
                 <Route path="/observation/:id" component={Observation} />
                 { renderLinks }
             </div>
