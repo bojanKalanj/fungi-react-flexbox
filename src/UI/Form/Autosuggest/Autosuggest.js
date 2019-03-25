@@ -5,7 +5,8 @@ class Autosuggest extends Component{
     state = {
         showList: false,
         suggestions: [],
-        selectedSuggestion: ''
+        selectedSuggestion: '',
+        onKeyDown: 0
     }
     allSuggestions = this.props.suggestions;
 
@@ -51,6 +52,43 @@ class Autosuggest extends Component{
         )
     }
 
+    onKeyDown = e => {
+        // console.log(e.keyCode);
+        const suggestions = [ ...this.state.suggestions ];
+        let selectedSuggestion = this.state.selectedSuggestion;
+        let onKeyDown = this.state.onKeyDown;
+        if(e.keyCode === 40){
+            if(onKeyDown === suggestions.length -1){
+                onKeyDown = 0
+            }
+            this.setState((prevState, props) => {
+                return { onKeyDown: onKeyDown + 1 }
+            });
+            console.log(onKeyDown);
+            selectedSuggestion = suggestions[onKeyDown];
+        }
+
+        if(e.keyCode === 38){
+            if(onKeyDown === 0){
+                onKeyDown = suggestions.length -1;
+            }
+            this.setState((prevState, props) => {
+                return { onKeyDown: onKeyDown - 1 }
+            });
+            console.log(onKeyDown);
+            selectedSuggestion = suggestions[onKeyDown];
+        }
+
+        if (e.keyCode === 13) {
+            this.setState({
+                selectedSuggestion,
+                showList: false
+            });
+          }
+        this.setState({ selectedSuggestion })
+        console.log(selectedSuggestion);
+    }
+
     render(){
         console.log(this.state.selectedSuggestion);
         return(
@@ -58,7 +96,8 @@ class Autosuggest extends Component{
                 <label>{this.props.label}</label>
                 <input 
                     value={this.state.selectedSuggestion}
-                    onChange={(e) => this.getSuggestions(e)}>
+                    onChange={(e) => this.getSuggestions(e)}
+                    onKeyDown={(e) => this.onKeyDown(e)}>
                 </input>
                 { this.renderSuggestionsList(this.state.suggestions) }
             </div>
