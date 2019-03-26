@@ -8,6 +8,7 @@ import './MultiSelectDropdown.css';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaCheck from 'react-icons/lib/fa/check';
+import onClickOutside from "react-onclickoutside";
 
 class MultiSelectDropdown extends Component{
 
@@ -20,11 +21,9 @@ class MultiSelectDropdown extends Component{
         }
       }
 
-    handleClick = (e) => {
-        if(this.node.contains(e.target)){
-            console.log("handleClick")
-        }
-    }
+    handleClickOutside = evt => {
+        this.setState({ listOpen: false })
+    };
     
     toggleList(){
         this.setState(prevState => ({
@@ -74,4 +73,4 @@ class MultiSelectDropdown extends Component{
     }
 }
 
-export default MultiSelectDropdown;
+export default onClickOutside(MultiSelectDropdown);

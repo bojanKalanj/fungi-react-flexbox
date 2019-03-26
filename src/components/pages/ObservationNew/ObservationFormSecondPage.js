@@ -239,7 +239,10 @@ class ObservationFormSecondPage extends Component{
         suggestions.push(species[specimen].attributes.name);
       }
     }
-    return <Autosuggest label="Vrsta" suggestions={suggestions}/>
+    return <Autosuggest 
+              label="Vrsta" 
+              suggestions={suggestions}
+              placeholder="Počni da kucaš..."/>
   }
 
   render(){
@@ -265,22 +268,20 @@ class ObservationFormSecondPage extends Component{
               name="habitat_category_id"
               component={this.renderHabitatSelector} />
           </div>
-          {this.state.showHabitatNote? <div className="Input">
-            <label>Napomena *</label>
-            <div>
-              <Field 
-                name="habitat_note" 
-                component="textarea" />
-            </div>
-              <Field 
-                name="habitat_note" 
-                component={renderError} />
-          </div>: null}
+            {this.state.showHabitatNote? <div className="Input">
+              <label>Napomena *</label>
+                <Field 
+                  name="habitat_note" 
+                  component="input" />
+                <Field 
+                  name="habitat_note" 
+                  component={renderError} />
+            </div>: null}
           {this.state.showFloralSpeciesForHabitats? <div className="Input">
             <label>Biljne vrste za stanište</label>
             <div>
               <MultiSelectDropdown
-                title="Izaberi biljnu vrstu"
+                title="Izaberi biljne vrste"
                 list={this.state.habitatCategories.options}
                 toggleItem={this.handleSelectionForHabitats}
                 selected={this.props.state.dropdownData.dataForHabitat}
@@ -309,24 +310,22 @@ class ObservationFormSecondPage extends Component{
             <label>Biljne vrste za podlogu</label>
             <div>
               <MultiSelectDropdown
-                title="Izaberi biljnu vrstu"
+                title="Izaberi biljne vrste"
                 list={this.state.substrateCategories.options}
                 toggleItem={this.handleSelectionForSubstrates}
                 selected={this.props.state.dropdownData.dataForSubstrate}
               />
             </div>
           </div>: null}
-          {this.state.showSubstrateNote? <div className="Input">
-            <label>Specifična podloga *</label>
-            <div>
-              <Field 
-                name="substrate_note" 
-                component="textarea" />
-            </div>
-              <Field 
-                name="substrate_note" 
-                component={renderError} />
-          </div>: null}
+            {this.state.showSubstrateNote? <div className="Input">
+              <label>Specifična podloga *</label>
+                <Field 
+                  name="substrate_note" 
+                  component="input" />
+                <Field 
+                  name="substrate_note" 
+                  component={renderError} />
+            </div>: null}
           <div>
             <button 
               type="button" 
@@ -367,9 +366,9 @@ const mapDispatchToProps = dispatch => {
   
 
 const wrappedForm = reduxForm({
-  form: 'observationForm', //Form name is same
+  form: 'observationForm', 
   destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+  forceUnregisterOnUnmount: true, 
   validate
 })(ObservationFormSecondPage);
 

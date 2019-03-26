@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Autosuggest.css';
+import onClickOutside from "react-onclickoutside";
 
 class Autosuggest extends Component{
     state = {
@@ -28,6 +29,10 @@ class Autosuggest extends Component{
             selectedSuggestion,
             showList
         });
+    };
+
+    handleClickOutside = evt => {
+        this.setState({ showList: false })
     };
 
     selectValue = e => {
@@ -96,7 +101,8 @@ class Autosuggest extends Component{
                 <input 
                     value={this.state.selectedSuggestion}
                     onChange={(e) => this.getSuggestions(e)}
-                    onKeyDown={(e) => this.onKeyDown(e)}>
+                    onKeyDown={(e) => this.onKeyDown(e)}
+                    placeholder={this.props.placeholder}>
                 </input>
                 { this.renderSuggestionsList(this.state.suggestions) }
             </div>
@@ -104,4 +110,4 @@ class Autosuggest extends Component{
     }
 }
 
-export default Autosuggest;
+export default onClickOutside(Autosuggest);
