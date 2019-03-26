@@ -34,32 +34,6 @@ class MultiSelectDropdown extends Component{
 
     toggleItem = (selectedItem) => {
         this.props.toggleItem(selectedItem);
-        // let selectedValues = [...this.state.selectedValues];
-        // // selectedValues.push(selectedItem.id);
-        // if(!selectedValues.includes(selectedItem.id)){
-        //     selectedValues.push(selectedItem.id);
-        // }
-
-        // if(this.state.selectedValues.includes(selectedItem.id)){
-        //     const index = selectedValues.indexOf(selectedItem.id);
-        //     if (index !== -1) {
-        //         selectedValues.splice(index, 1);
-        //     }
-        // }
-
-
-        // selectedItem.selected = !selectedItem.selected;
-        // if(selectedItem.selected){
-        //     selectedValues.push(selectedItem);
-        // }else{
-        //     const index = selectedValues.indexOf(selectedItem);
-
-        //     if (index !== -1) {
-        //         selectedValues.splice(index, 1);
-        //     }
-        // }
-        // console.log(selectedValues);
-        // this.setState({ selectedValues: selectedValues });
     }
 
     render(){
@@ -78,7 +52,7 @@ class MultiSelectDropdown extends Component{
             <div>
                 <ul className="tags">
                     {valuesToDisplay.map(s => {
-                        return <div className="tag">{s}</div>
+                        return <div key={s} className="tag">{s}</div>
                     })}
                 </ul>
                 <div className="dd-wrapper">

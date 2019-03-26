@@ -11,26 +11,27 @@ class Autosuggest extends Component{
     allSuggestions = this.props.suggestions;
 
     getSuggestions = e => {
-        let showList = true;
         const value = e.target.value;
+        let showList = true;
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
         const selectedSuggestion = value;
+        let suggestions = [];
 
-        let suggestions = inputLength === 0 ? [] : this.props.suggestions.filter(s =>
-          s.toLowerCase().slice(0, inputLength) === inputValue
-        );
-        
-        this.setState({ 
+         if(value.length > 1){
+            suggestions = inputLength === 0 ? [] : this.props.suggestions.filter(s =>
+                s.toLowerCase().slice(0, inputLength) === inputValue || s.toLowerCase().split(/\s+/)[1].slice(0, inputLength) === inputValue
+            );
+         }
+         this.setState({ 
             suggestions,
             selectedSuggestion,
             showList
-         });
+        });
     };
 
     selectValue = e => {
         let showList = false;
-        console.log(e.currentTarget.innerText);
         const selectedSuggestion = e.currentTarget.innerText;
         this.setState({ 
             selectedSuggestion,
@@ -43,9 +44,10 @@ class Autosuggest extends Component{
             this.state.showList? <ul>
                 {suggestions.map(s => {
                         return (
-                                <li 
-                                    key={s}
-                                    onClick={(e) => this.selectValue(e)}>{s}</li>
+                            <li 
+                                key={s}
+                                onClick={(e) => this.selectValue(e)}>{s}
+                            </li>
                             )
                 })}
             </ul>: null
@@ -53,7 +55,6 @@ class Autosuggest extends Component{
     }
 
     onKeyDown = e => {
-        // console.log(e.keyCode);
         const suggestions = [ ...this.state.suggestions ];
         let selectedSuggestion = this.state.selectedSuggestion;
         let onKeyDown = this.state.onKeyDown;
@@ -86,11 +87,9 @@ class Autosuggest extends Component{
             });
           }
         this.setState({ selectedSuggestion })
-        console.log(selectedSuggestion);
     }
 
     render(){
-        console.log(this.state.selectedSuggestion);
         return(
             <div className="Autosuggest">
                 <label>{this.props.label}</label>

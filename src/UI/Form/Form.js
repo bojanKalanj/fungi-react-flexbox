@@ -8,13 +8,7 @@ class Form extends Component {
     isFormValid = false;
     
     render(){
-        console.log("FORM RENDER");
         let formElements = {...this.props.formElements};
-        console.log(formElements);
-        if(this.props.formElements.habitat_species_ids){
-            console.log(this.props.formElements.habitat_species_ids.options)
-        }
-        
         let invalid = false;
 
         const checkvalidity = input => {
