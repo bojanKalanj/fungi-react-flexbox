@@ -8,6 +8,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import * as actions from './actions';
 import Header from './components/shared/Header/Header';
+import Footer from './components/shared/Footer/Footer';
 import Observation from './components/pages/Observation/Observation';
 import Home from './components/pages/Home/Home';
 import Species from './components/pages/Species/Species';
@@ -56,6 +57,7 @@ class App extends Component {
                 { renderLinks }
             </div>
           </Container>
+          <Footer />
         </div>
       </BrowserRouter>
     );
