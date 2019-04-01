@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import MultiSelectDropdown from '../../../UI/Form/MultiSelectDropdown/MultiSelectDropdown';
 import Autosuggest from '../../../UI/Form/Autosuggest/Autosuggest';
+import RadioButtons from '../../../UI/Form/RadioButtons/ReduxFormRadioButtons';
 import '../../../UI/Form/Input/Input';
 import '../../../UI/Button/Button';
 import { formValueSelector } from 'redux-form';
@@ -28,6 +29,34 @@ class ObservationFormSecondPage extends Component{
       value: [],
       options: null,
       selected: null
+    },
+    quantity: {
+      label: "Količina",
+      param: 'quantity',
+      buttons: [
+        { label: '1-5', value: '1-5' },
+        { label: '6-10', value: '6-10' },
+        { label: '11-50', value: '11-50' },
+        { label: '51-100', value: '51-100' },
+        { label: '> 100', value: '> 100' }
+      ],
+    },
+    exploredSurface: {
+      label: "Istrazena površina",
+      param: 'explored_surface',
+      buttons: [
+        { label: '5x5m', value: '5x5m' },
+        { label: '10x10m', value: '10x10m' },
+        { label: '100x100m', value: '100x100m' },
+      ],
+    },
+    sample: {
+      label: "Istrazena površina",
+      param: 'sample',
+      buttons: [
+        { label: 'Da', value: 'true' },
+        { label: 'Ne', value: 'false' }
+      ],
     }
   }
   componentWillMount = () => {
@@ -327,6 +356,9 @@ class ObservationFormSecondPage extends Component{
                   component={renderError} />
             </div>: null}
           <div>
+            <RadioButtons radio={this.state.quantity}/>
+            <RadioButtons radio={this.state.exploredSurface}/>
+            <RadioButtons radio={this.state.sample}/>
             <button 
               type="button" 
               className="previous Button" 
