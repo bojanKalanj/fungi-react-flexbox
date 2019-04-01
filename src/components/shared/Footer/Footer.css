@@ -1,0 +1,33 @@
+.Footer{
+    padding: 30px;
+    margin: 80px auto 0;
+    background: #513629;
+    color: #fff;
+    line-height: 1.57;
+    font-size: 20px;
+}
+
+.footer-list{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .footer-list-left,
+.footer-list-right{
+    display: flex;
+    align-items: center;
+} */
+
+.footer-list ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.footer-list li{
+    margin-left: 30px;
+}
+
+.footer-list p{
+    font-size: 13px;
+}
