@@ -15,29 +15,26 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 class ObservationFormFirstPage extends Component {
-    onMarkerClick = (props, marker, e) =>
-      this.setState({
-          selectedPlace: props,
-          activeMarker: marker,
-          showingInfoWindow: true
-      });
+    markers = [];
 
-      // placeMarkerAndPanTo(latLng, map) {
-      //   var marker = new google.maps.Marker({
-      //     position: latLng,
-      //     map: map
-      //   });
-      //   map.panTo(latLng);
-      // }
+    placeMarkerAndPanTo(props, map, latLng) {
+      if (this.markers.length > 0) {
+        this.markers[0].setMap(null);
+        this.markers = [];
+      }
+
+      let marker = new props.google.maps.Marker({
+        position: latLng,
+        map: map
+      });
+      map.panTo(latLng);
+      this.markers.push(marker);
+    }
 
     onMapClicked = (props, map, e) => {
-      console.log(props);
-      console.log(map);
-      console.log(e);
-      // this.placeMarkerAndPanTo(e.latLng, map);
-      this.setState({
-        clickedLocation: props
-      });
+      this.props.change('latitude', e.latLng.lat().toFixed(4));
+      this.props.change('longitude', e.latLng.lng().toFixed(4));
+      this.placeMarkerAndPanTo(props, map, e.latLng);
     }
 
     render() {
@@ -49,7 +46,7 @@ class ObservationFormFirstPage extends Component {
               <hr />
           </div>
           <div className="form-row">
-            <div className="half-width" style={{ height: '446.6px' }}>
+            <div className="half-width" style={{ height: '589.2px' }}>
               <Field
                 name="area"
                 type="text"
@@ -93,36 +90,11 @@ class ObservationFormFirstPage extends Component {
                                 textTransform: 'uppercase',
                                 fontWeight: '400' }}>Označi lokaciju nalaza na mapi</label>
                 <div className="map-wrapper">
-                    {/* <Map
-                        google={this.props.google}
-                        zoom={10}
-                        style={{ width: '100%',
-                                height: '100%',
-                                position: 'relative'
-                        }}
-                        className={'map'}
-                        initialCenter={{
-                            lat: 45.2678024,
-                            lng: 19.7552953
-                        }}
-                        scrollwheel={false}
-                        keyboardShortcuts={false}
-                        mapTypeControl={false}
-                        streetViewControl={false}
-                        fullscreenControl={false}
-                    >
-                
-                        <Marker
-                            onClick={this.onMarkerClick}
-                            name={'Trenutna lokacija'}
-                        />
-                  
-                    </Map> */}
 
                     <CurrentLocation
                       centerAroundCurrentLocation
                       google={this.props.google}
-                      zoom={14}
+                      zoom={12}
                       style={{ width: '100%',
                               height: '400px',
                               position: 'relative'
@@ -133,17 +105,26 @@ class ObservationFormFirstPage extends Component {
                       fullscreenControl={false}
                       onClick={this.onMapClicked}
                     >
-                      <Marker onClick={this.onMarkerClick} name={'current location'} />
-                      {/* <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}
-                        onClose={this.onClose}
-                      >
-                        <div>
-                          <h4>{this.state.selectedPlace.name}</h4>
-                        </div>
-                      </InfoWindow> */}
+
                     </CurrentLocation>
+                </div>
+                <div className="form-row">
+                  <div className="half-width">
+                    <Field
+                      name="latitude"
+                      type="text"
+                      component={FormField}
+                      disabled={true}
+                    />
+                  </div>
+                  <div className="half-width">
+                    <Field
+                      name="longitude"
+                      type="text"
+                      component={FormField}
+                      disabled={true}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -161,10 +142,7 @@ const mapStateToProps = (state) => {
         // initialValues: {
         //   observed_at: moment("03-05-2019").format("dd-MMM-YYYY"),
         // },
-        showingInfoWindow: false,
-        activeMarker: {},
-        selectedPlace: {},
-        clickedLocation: {}
+        showingInfoWindow: false
     };
 };
 
