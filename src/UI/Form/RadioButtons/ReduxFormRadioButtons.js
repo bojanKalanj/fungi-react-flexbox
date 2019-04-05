@@ -3,7 +3,6 @@ import { Field } from 'redux-form';
 import '../Input/Input.css'
 
 const radioButtons = props => {
-    console.log(props.radio);
     const radio = props.radio;
     return(
         <div className="Input">

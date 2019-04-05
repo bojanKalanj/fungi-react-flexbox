@@ -2,23 +2,27 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import '../../../UI/Button/Button';
 import '../../../UI/Form/Input/Input';
-import FaFileImageO from 'react-icons/lib/fa/file-image-o';
+import FaUpload from 'react-icons/lib/fa/upload';
 
 class ObservationFormThirdPage extends Component{
   state = {
     selectedImages: [],
-    // imagesField: []
-  }
-
-  getNumberOfSelectedFiles() {
-    return this.state.selectedImages.filter(el => {
-      return el._destroy !== true;
-    }).length;
   }
 
   imagesField;
   renderUploadCoversButton = () => {
-    let numberOfSelectedImages = this.getNumberOfSelectedFiles();
+    let numberOfSelectedImages = this.state.selectedImages.length;
+    let uploadBtnError = numberOfSelectedImages > 7? 'upload-btn-error': '';
+    let wordToDisplay;
+    switch(numberOfSelectedImages){
+      case 1: wordToDisplay = "fotografiju"
+        break;
+      case 5: wordToDisplay = "fotografija"
+        break;
+      case 6: wordToDisplay = "fotografija"
+        break;
+      default: wordToDisplay = "fotografije"
+    }
     
     return (
       <div>
@@ -27,32 +31,27 @@ class ObservationFormThirdPage extends Component{
           name="covers[]"
           ref={field => { this.imagesField = field }}
           type="file"
-          disabled={this.state.isSubmittingForm}
           multiple={true}
-          // accept="image/*"
+          accept="image/*"
           style={{
             width: 0.1,
             height: 0.1,
             opacity: 0,
             overflow: 'hidden',
-            position: 'absolute',
+            marginTop: '50px',
             zIndex: -1
           }}
-          id="book_covers"
+          id="upload-images"
           onChange={e => this.handleImagesChange(e)}
-          className="form-control"
         />
         <label
           disabled={this.state.isSubmittingForm}
-          className="btn btn-success"
-          htmlFor="book_covers">
-          <span className="glyphicon glyphicon-cloud-upload" />
-          &nbsp; &nbsp;
-          {numberOfSelectedImages === 0
-            ? 'Dodaj fotografije'
-            : `${numberOfSelectedImages} fotografija${numberOfSelectedImages !== 1
-                ? 's'
-                : ''} selektovano`}
+          className={`upload-btn ${uploadBtnError}`}
+          htmlFor="upload-images">
+          <FaUpload  />
+          {numberOfSelectedImages > 6? "  Maksimalan broj fotogrfija je 6":  numberOfSelectedImages === 0
+            ? `  Dodaj fotografije` 
+            : `  ${numberOfSelectedImages} ${wordToDisplay}`}
         </label>
       </div>
     );
@@ -61,44 +60,39 @@ class ObservationFormThirdPage extends Component{
   image2base64 = require('image-to-base64');
   handleImagesChange() {
     let selectedFiles = this.imagesField.files;
-    let { selectedImages } = this.state;
+    let  selectedImages = [];
     for (let i = 0; i < selectedFiles.length; i++) {
       selectedImages.push(selectedFiles.item(i));
     } //end for
   
     this.setState(
       {
-        selectedImages: selectedImages
+        selectedImages
       },
       () => {
         this.imagesField.value = null;
       }
     );
-    // this.props.change('images', this.state.selectedImages);
-    console.log(this.state.selectedImages);
     let images = [];
-    for(let img in selectedImages){
-      console.log(selectedImages[img].name);
-      this.image2base64(selectedImages[img].name) // you can also to use url
-        .then(
-            (response) => {
-              images.push(response)
-              this.props.change('images', images);
-              console.log(images);
-            }
-        )
-        .catch(
-            (error) => {
-                console.log(error); //Exepection error....
-            }
-        )
+    if(this.state.selectedImages.length < 7){
+      for(let img in selectedImages){
+        this.image2base64(selectedImages[img].name) 
+          .then(
+              (response) => {
+                images.push(response)
+                this.props.change('images', images);
+              }
+          )
+          .catch(
+              (error) => {
+                  console.log(error); 
+              }
+          )
+      }
     }
-
-    // console.log(images);
   }
 
   render(){
-    console.log(this.imagesField);
     const { handleSubmit, pristine, previousPage, submitting } = this.props
     return (
       <form onSubmit={handleSubmit} className="ObservationNew">
@@ -122,7 +116,7 @@ class ObservationFormThirdPage extends Component{
           <button type="button" className="previous Button" onClick={previousPage}>
             Vrati se
           </button>
-          <button type="submit" className="Button Red" disabled={pristine || submitting}>
+          <button type="submit" className="Button Red" disabled={pristine || submitting || this.state.selectedImages.length > 7}>
             Kreiraj nalaz
           </button>
         </div>
