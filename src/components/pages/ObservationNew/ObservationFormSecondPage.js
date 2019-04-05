@@ -50,14 +50,14 @@ class ObservationFormSecondPage extends Component{
         { label: '100x100m', value: '100x100m' },
       ],
     },
-    sample: {
-      label: "Istrazena površina",
-      param: 'sample',
-      buttons: [
-        { label: 'Da', value: 'true' },
-        { label: 'Ne', value: 'false' }
-      ],
-    }
+    // sample: {
+    //   label: "Istrazena površina",
+    //   param: 'sample',
+    //   buttons: [
+    //     { label: 'Da', value: 'true' },
+    //     { label: 'Ne', value: 'false' }
+    //   ],
+    // }
   }
   componentWillMount = () => {
     this.props.fetchHabitats();
@@ -112,6 +112,16 @@ class ObservationFormSecondPage extends Component{
 
   onSelectedHabitat = (event) => {
     const value = event.target.value;
+    console.log(value);
+
+    if(value === ''){
+      this.props.change("habitat_species_ids", null);
+      this.setState({
+        showHabitatNote: false, 
+        showFloralSpeciesForHabitats: false 
+      });
+    }
+
     if(value === "32"){
       this.props.change("habitat_species_ids", null);
       this.setState({
@@ -166,12 +176,14 @@ class ObservationFormSecondPage extends Component{
 
     console.log(selected)
 
-    for(let s in selected.attributes.floral_species_ids){
+    if(selected){
+      for(let s in selected.attributes.floral_species_ids){
         for(let id in allFloralSpecies){
             if(selected.attributes.floral_species_ids[s] === allFloralSpecies[id].id){
                 includedFloralSpecies.push(allFloralSpecies[id]);
             }
         }
+      }
     }
     
     if(on === "habitat" && includedFloralSpecies.length > 0){
@@ -271,17 +283,22 @@ class ObservationFormSecondPage extends Component{
     return <Autosuggest 
               label="Vrsta" 
               suggestions={suggestions}
+              onSelectValue={(value) => this.onSelectAutosuggest(value)}
               placeholder="Počni da kucaš..."/>
   }
 
+  onSelectAutosuggest = (value) => {
+    if(this.props.state.species.data){
+      let species = this.props.state.species.data.data; 
+      for(let specimen in species){
+        if(species[specimen].attributes.name === value){
+          this.props.change("species_ids", species[specimen].id);
+        }
+      }
+    }
+  }
+
   render(){
-    // if(this.props.state.species.data){
-    //   let species = this.props.state.species.data.data; 
-    //   let speciesNames = [];
-    //   for(let specimen in species){
-    //     speciesNames.push(species[specimen].attributes.name);
-    //   }
-    // }
     const { handleSubmit, previousPage } = this.props;
       return (
         <form onSubmit={handleSubmit} className="ObservationNew form-small">
@@ -358,7 +375,13 @@ class ObservationFormSecondPage extends Component{
           <div>
             <RadioButtons radio={this.state.quantity}/>
             <RadioButtons radio={this.state.exploredSurface}/>
-            <RadioButtons radio={this.state.sample}/>
+            {/* <RadioButtons radio={this.state.sample}/> */}
+            <div className="Input">
+              <label htmlFor="sample">Uzorak</label>
+              <div>
+                <Field name="sample" id="employed" component="input" type="checkbox"/>
+              </div>
+            </div>
             <button 
               type="button" 
               className="previous Button" 

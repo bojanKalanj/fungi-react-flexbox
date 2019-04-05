@@ -24,11 +24,6 @@
     box-shadow: none;
 }
 
-
-.dd-header:hover{
-    cursor: pointer;
-}
-
 .dd-list{
     position: absolute;
     top: 100%;

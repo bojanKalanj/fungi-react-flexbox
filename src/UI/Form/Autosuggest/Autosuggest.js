@@ -42,18 +42,20 @@ class Autosuggest extends Component{
             selectedSuggestion,
             showList
         });
+        // console.log(this.props.suggestions);
+        this.props.onSelectValue(selectedSuggestion);
     }
 
     renderSuggestionsList = suggestions => {
         return(
             this.state.showList? <ul>
                 {suggestions.map(s => {
-                        return (
-                            <li 
-                                key={s}
-                                onClick={(e) => this.selectValue(e)}>{s}
-                            </li>
-                            )
+                    return (
+                        <li 
+                            key={s}
+                            onClick={(e) => this.selectValue(e)}>{s}
+                        </li>
+                        )
                 })}
             </ul>: null
         )
