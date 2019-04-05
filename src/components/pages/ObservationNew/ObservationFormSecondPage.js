@@ -292,7 +292,7 @@ class ObservationFormSecondPage extends Component{
       let species = this.props.state.species.data.data; 
       for(let specimen in species){
         if(species[specimen].attributes.name === value){
-          this.props.change("species_ids", species[specimen].id);
+          this.props.change("species_id", species[specimen].id);
         }
       }
     }
@@ -335,17 +335,6 @@ class ObservationFormSecondPage extends Component{
             </div>
           </div>: null}
           <div className="Input">
-            <label>Opis nalaza *</label>
-            <div>
-              <Field 
-                name="description" 
-                component="textarea" />
-            </div>
-            <Field 
-              name="description" 
-              component={renderError} />
-          </div>
-          <div className="Input">
             <label>Podloga</label>
             <Field 
               onChange={(event) => this.onSelectedSubstrate(event)}
@@ -363,15 +352,24 @@ class ObservationFormSecondPage extends Component{
               />
             </div>
           </div>: null}
-            {this.state.showSubstrateNote? <div className="Input">
-              <label>Specifična podloga *</label>
-                <Field 
-                  name="substrate_note" 
-                  component="input" />
-                <Field 
-                  name="substrate_note" 
-                  component={renderError} />
-            </div>: null}
+          {this.state.showSubstrateNote? <div className="Input">
+            <label>Specifična podloga *</label>
+              <Field 
+                name="substrate_note" 
+                component="input" />
+              <Field 
+                name="substrate_note" 
+                component={renderError} />
+          </div>: null}
+          <div className="Input">
+            <label>Opis nalaza *</label>
+              <Field 
+                name="description" 
+                component="textarea" />
+            <Field 
+              name="description" 
+              component={renderError} />
+          </div>
           <div>
             <RadioButtons radio={this.state.quantity}/>
             <RadioButtons radio={this.state.exploredSurface}/>

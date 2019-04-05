@@ -30,7 +30,7 @@ class Observation extends React.Component {
                 if(this.props.observation.data.relationships.species.data){
                     return this.props.observation.data.relationships.species.data;
                 }else{
-                    return `Observacija #${this.props.observation.data.attributes.number}`
+                    return `Nalaz #${this.props.observation.data.attributes.number}`
                 }
             }
         }
@@ -54,7 +54,7 @@ class Observation extends React.Component {
                     <div style={{width: '42%'}}>
                         <Card>
                             <CardBody>
-
+                                { showDescription() }
                             </CardBody>
                         </Card>
                         <Comments></Comments>
@@ -68,7 +68,7 @@ class Observation extends React.Component {
                                 userName="Hari Kalanj"/>
                                 <hr />
                                 <p>
-                                    { showDescription() }
+                                    
                                 </p>
                         </CardBody>
                     </Card>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardBody } from '../Card/Card';
+import moment from 'moment';
 
 import './List.css';
 
@@ -11,27 +12,23 @@ const List = (props) => {
             case "number":
                 return "broj nalaza"
             case "area":
-                return "prostor"
+                return "područje"
             case "location":
                 return "lokacija"
             case "longitude":
-                return "nadmorska sirina"
+                return "geografska dužina"
             case "latitude":
-                return "nadmorska duzina"
+                return "geografska širina"
             case "altitude":
-                return "nadmorska duzina"
+                return "nadmorska visina"
             case "quantity":
                 return "brojnost"
             case "explored_surface":
-                return "istrazena povrsina"
+                return "istražena površina"
             case "sample":
-                return "uzorak"
+                return "postoji uzorak"
             case "external_url":
                 return "spoljni link"
-            case "observed_at":
-                return "nalaz uocen"
-            case "created_at":
-                return "nalaz dodat"
             default: return word
         }
     }
@@ -39,12 +36,14 @@ const List = (props) => {
     const renderList = () => {
         let list =[];
         for(let li in props.toList){
-            if(li !== 'description' && props.toList[li]){
+            if(li !== 'description' && li !== 'observed_at' && li !== 'created_at' && props.toList[li]){
                 list.push(
                     <li key={li}>{translate(li)}:  <span className="pull-right">{props.toList[li]}</span> </li>
                 )
             }
         }
+        list.push(<li key="observed_at">nalaz uočen:  <span className="pull-right">{moment(props.toList['observed_at']).format("DD-MMM-YYYY")}</span> </li>);
+        list.push(<li key="observed_at">nalaz dodat:  <span className="pull-right">{moment(props.toList['created_at']).format("DD-MMM-YYYY")}</span> </li>);
         return list;    
     }
 

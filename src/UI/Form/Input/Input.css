@@ -40,11 +40,17 @@
     cursor: pointer;
 }
 
+.Input select{
+    width: 100%;
+}
+
 .Input textarea{
+    box-sizing: border-box;
     padding: 10px;
     border: 1px solid #ada197;
     background: none;
-    width: 90%;
+    width: 100%;
+    resize: vertical;
     height: 150px;
 }
 
