@@ -15,6 +15,21 @@ class Species extends Component {
         this.props.fetchSpecies();
     }
 
+    renderPagination = () => {
+        if(this.props.species){
+            return <Pagination 
+                    itemsPerPage={12} 
+                    numberOfAllItems={this.props.species.data.length}
+                    getPaginationPageIndex={this.getPaginationPageIndex}/>
+        }else{
+            return null
+        }
+    }
+    
+    getPaginationPageIndex = index => {
+        console.log(index);
+    }
+
     render(){
         console.log(this.props.species)
         let loading = this.props.loading;
@@ -46,7 +61,7 @@ class Species extends Component {
         const showSpecies = () => {
             if(!loading){
                 return <div>
-                    <Pagination />
+                    { this.renderPagination() }
                         <Table >
                             <Tr>
                                 <Th>

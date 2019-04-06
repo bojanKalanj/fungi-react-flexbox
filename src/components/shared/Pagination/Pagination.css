@@ -16,6 +16,7 @@
 
 .Pagination li:hover{
     cursor: pointer;
+    background: #ddd;
 }
 
 .current-page{
@@ -24,9 +25,14 @@
     border: 1px solid rgb(162, 43, 42);
 }
 
+.current-page:hover{
+    background: rgb(162, 43, 42) !important;
+}
+
 .dots{
     border: none !important;
     border-right: 1px solid #513629 !important;
+    background: none !important;
 }
 
 .dots:hover{

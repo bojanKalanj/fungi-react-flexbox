@@ -38,7 +38,7 @@ class Home extends React.Component{
                     numberOfAllItems={this.state.observations.length}
                     getPaginationPageIndex={this.getPaginationPageIndex}/>
         }else{
-            return "Loading paggination"
+            return null
         }
     }
 

@@ -20,17 +20,15 @@ export const fetchObservationsFails = (error) => {
     };
 };
 
-export const fetchObservations = (observationId) => {
+export const fetchObservations = () => {
     return dispatch =>{
         dispatch(fetchObservationsStart());
         
         fungi.get("/observations")
         .then(response => {
-            console.log(response.data);
             dispatch(fetchObservationSuccess(response.data));
         })
         .catch(error => {
-            console.log(error);
             dispatch(fetchObservationsFails(error));
         })
     };

@@ -18,13 +18,6 @@ class Pagination extends Component{
         numberOfAllItems: 0
     }
 
-    // // test state za slucaj kada imamo vise objekata za paginaciju
-    // state = {
-    //     currentPage: 1,
-    //     itemsPerPage: 10,
-    //     numberOfAllItems: 300
-    // }
-
     onClickHandler = (event) => {
         const currentPage = Number(event.target.innerText);
         this.setState({ currentPage })
@@ -51,10 +44,6 @@ class Pagination extends Component{
         this.setState({ currentPage });
     }
 
-    onClickFirstPage = () => {
-        this.setState({ currentPage: 1 })
-    }
-
     render(){
         const { currentPage, numberOfAllItems, itemsPerPage } = this.state;
         const indexOfLastPage = Math.ceil(numberOfAllItems / itemsPerPage);
@@ -65,9 +54,10 @@ class Pagination extends Component{
         return(
             <ul className="Pagination">
                 {/* moguce je da ovo brdo koda ima neku gresku */}
-                {currentPage > 3?<li onClick={this.onClickFirstPage}>Prva stranica</li>: null}
                 <li onClick={this.onClickLeftArrow}><FaAngleLeft /></li>
-                {currentPage > 2? <li onClick={(event) => this.onClickHandler(event)}>{currentPage - 2}</li>: null}
+                {currentPage > 3?<li onClick={(event) => this.onClickHandler(event)}>1</li>: null}
+                {currentPage > 3? <li className="dots">...</li>: null}
+                {/* {currentPage > 2? <li onClick={(event) => this.onClickHandler(event)}>{currentPage - 2}</li>: null} */}
                 {currentPage > 1? <li onClick={(event) => this.onClickHandler(event)}>{currentPage - 1}</li>: null}
                 <li className="current-page">{currentPage}</li>
                 {currentPage !== indexOfLastPage && currentPage + 1 !== indexOfLastPage? <li onClick={(event) => this.onClickHandler(event)}>{currentPage + 1}</li>: null}
