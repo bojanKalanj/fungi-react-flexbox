@@ -6,7 +6,12 @@
 
 .Pagination li{
     padding: 14px;
-    border: 1px solid #ddd;
+    border: 1px solid #513629;
+    border-left: none;
+}
+
+.Pagination li:first-child{
+    border-left: 1px solid #513629;
 }
 
 .Pagination li:hover{
@@ -21,6 +26,7 @@
 
 .dots{
     border: none !important;
+    border-right: 1px solid #513629 !important;
 }
 
 .dots:hover{
