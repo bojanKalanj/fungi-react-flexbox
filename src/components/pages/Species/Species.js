@@ -8,6 +8,7 @@ import Td from '../../../UI/Table/Td/Td';
 import Th from '../../../UI/Table/Th/Th';
 import {AnchorTag} from '../../../UI/AnchorTag/AnchorTag';
 import Spinner from '../../../UI/Spinner/Spinner';
+import Pagination from '../../shared/Pagination/Pagination';
 
 class Species extends Component {
     componentDidMount = () => {
@@ -44,7 +45,9 @@ class Species extends Component {
 
         const showSpecies = () => {
             if(!loading){
-                return <Table >
+                return <div>
+                    <Pagination />
+                        <Table >
                             <Tr>
                                 <Th>
                                     Vrsta
@@ -58,6 +61,7 @@ class Species extends Component {
                             </Tr>
                         { loadSpecies() }
                         </Table>
+                </div>
             }else{
                 return <Spinner />
             }

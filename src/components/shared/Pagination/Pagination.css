@@ -1,0 +1,28 @@
+.Pagination{
+    list-style: none;
+    display: flex;
+    margin-bottom: 20px; 
+}
+
+.Pagination li{
+    padding: 14px;
+    border: 1px solid #ddd;
+}
+
+.Pagination li:hover{
+    cursor: pointer;
+}
+
+.current-page{
+    background: rgb(162, 43, 42);
+    color: #fff;
+    border: 1px solid rgb(162, 43, 42);
+}
+
+.dots{
+    border: none !important;
+}
+
+.dots:hover{
+    cursor: default !important;
+}
