@@ -11,6 +11,7 @@ import floralSpeciesReducer from './floralSpeciesReducer';
 import substrateReducer from './substrateReducer';
 import { reducer as formReducer } from 'redux-form';
 import dropdownDataReducer from './dropdownDataReducer';
+import paginateObservationsReducer from './paginateObservationsReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
     floralspecies: floralSpeciesReducer,
     form: formReducer,
     substrate: substrateReducer,
-    dropdownData: dropdownDataReducer
+    dropdownData: dropdownDataReducer,
+    paginateObservations: paginateObservationsReducer
 });

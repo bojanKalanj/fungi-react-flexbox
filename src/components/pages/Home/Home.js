@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchObservations } from '../../../actions';
+import { fetchObservations, paginateObservations } from '../../../actions';
 import moment from 'moment';
 
 import HomeCard from './HomeCard/HomeCard';
@@ -12,30 +12,33 @@ import Pagination from '../../shared/Pagination/Pagination'
 class Home extends React.Component{
     componentDidMount(){
         this.props.fetchObservations();
+        this.props.paginateObservations(1);
         // if(this.props.state.observations){
         //     this.setState({ observations: this.props.state.observations.data });
         // }
     }
 
-    componentWillReceiveProps = newProps => {
-        if(newProps.state.observations){
-            this.setState({ observations: newProps.state.observations.data });
-        }
-    }
+    // componentWillReceiveProps = newProps => {
+    //     console.log(newProps)
+    //     if(newProps.state.paginateObser){
+    //         console.log(newProps.state.paginateObser.data);
+    //         this.setState({ observations: newProps.state.paginateObser.data });
+    //     }
+    // }
 
-    state = { 
-        observations: null
-    }
+    // state = { 
+    //     observations: null
+    // }
 
     getPaginationPageIndex = index => {
-        console.log(index);
+        this.props.paginateObservations(index);
     }
 
     renderPagination = () => {
         if(this.props.state.observations){
             return <Pagination 
-                    itemsPerPage={12} 
-                    numberOfAllItems={this.state.observations.length}
+                    itemsPerPage={20} 
+                    numberOfAllItems={this.props.state.observations.data.length}
                     getPaginationPageIndex={this.getPaginationPageIndex}/>
         }else{
             return null
@@ -43,10 +46,12 @@ class Home extends React.Component{
     }
 
     render(){
-        // console.log(this.state.observations);
+        if(this.props.paginateObser.paginateObservations.observations){
+            console.log(this.props.paginateObser.paginateObservations.observations.data);
+        }
          const showObservations = () => {
-            if(this.props.state.observations){
-                let observations = this.props.state.observations.data
+            if(this.props.paginateObser.paginateObservations.observations){
+                let observations = this.props.paginateObser.paginateObservations.observations.data;
                 return observations.map(obs => {
                     return <HomeCard 
                                 key={obs.id} 
@@ -82,13 +87,15 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
+        paginateObser: state,
         state: state.observations
     };
 };
 
 export default connect(
     mapStateToProps,
-    { fetchObservations }
+    { fetchObservations,
+      paginateObservations }
 )(Home);
 
 

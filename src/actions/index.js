@@ -24,6 +24,10 @@ export{
 export{
     fetchObservations
 } from './observation/fetchObservations';
+
+export{
+    paginateObservations
+}from './observation/paginateObservations';
 // -----------------------------------------
 
 export{
