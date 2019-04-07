@@ -14,8 +14,8 @@ class Pagination extends Component{
 
     state = {
         currentPage: 1,
-        itemsPerPage: 0,
-        numberOfAllItems: 0
+        itemsPerPage: 10,
+        numberOfAllItems: 333
     }
 
     onClickHandler = (event) => {
@@ -31,6 +31,7 @@ class Pagination extends Component{
             currentPage = 1
         }
         this.setState({ currentPage });
+        this.props.getPaginationPageIndex(currentPage);
     }
 
     onClickRightArrow = () => {
@@ -43,31 +44,29 @@ class Pagination extends Component{
             currentPage = indexOfLastPage
         }
         this.setState({ currentPage });
+        this.props.getPaginationPageIndex(currentPage);
     }
 
     render(){
         const { currentPage, numberOfAllItems, itemsPerPage } = this.state;
         const indexOfLastPage = Math.ceil(numberOfAllItems / itemsPerPage);
-        // nisam siguran za ovo pozivanje funkcije koju sam dobio kroz props u render-u
-        // this.props.getPaginationPageIndex(currentPage);
-        
-        console.log("numberOfAllItems", numberOfAllItems);
-        console.log("indexOfLastPage", indexOfLastPage);
 
         return(
             <ul className="Pagination">
-                {/* moguce je da ovo brdo koda ima neku gresku */}
                 <li onClick={this.onClickLeftArrow}><FaAngleLeft /></li>
                 {currentPage >= 3?<li onClick={(event) => this.onClickHandler(event)}>1</li>: null}
-                {currentPage > 3? <li className="dots">...</li>: null}
-                {/* {currentPage > 2? <li onClick={(event) => this.onClickHandler(event)}>{currentPage - 2}</li>: null} */}
-                {currentPage > 1? <li onClick={(event) => this.onClickHandler(event)}>{currentPage - 1}</li>: null}
+                {currentPage > 5? <li className="dots">...</li>: null}
+                {currentPage - 3 > 1 ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage - 3 }</li>: null}
+                {currentPage - 2 > 1 ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage - 2 }</li>: null}
+                {currentPage - 1 >= 1 ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage - 1 }</li>: null}
                 <li className="current-page">{currentPage}</li>
-                {currentPage !== indexOfLastPage && currentPage + 1 !== indexOfLastPage? <li onClick={(event) => this.onClickHandler(event)}>{currentPage + 1}</li>: null}
-                {currentPage === 1 && indexOfLastPage !== 2? <li  onClick={(event) => this.onClickHandler(event)}>3</li>: null}
-                {currentPage !== indexOfLastPage && currentPage !== indexOfLastPage - 1 && currentPage !== indexOfLastPage - 2? <li className="dots">...</li>: null}
-                {currentPage !== indexOfLastPage && currentPage !== indexOfLastPage - 2? <li onClick={(event) => this.onClickHandler(event)}>{indexOfLastPage}</li>: null}
+                {currentPage + 1 < indexOfLastPage ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage + 1 }</li>: null}
+                {currentPage + 2 < indexOfLastPage ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage + 2 }</li>: null}
+                {currentPage + 3 < indexOfLastPage ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage + 3 }</li>: null}
+                {indexOfLastPage - currentPage > 4? <li className="dots">...</li>: null}
+                {currentPage !== indexOfLastPage? <li onClick={(event) => this.onClickHandler(event)}>{indexOfLastPage}</li>: null}
                 <li onClick={this.onClickRightArrow}><FaAngleRight /></li>
+
             </ul>
         )
     }
