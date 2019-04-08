@@ -18,7 +18,7 @@ class Species extends Component {
     renderPagination = () => {
         if(this.props.species){
             return <Pagination 
-                    itemsPerPage={12} 
+                    itemsPerPage={40} 
                     numberOfAllItems={this.props.species.data.length}
                     getPaginationPageIndex={this.getPaginationPageIndex}/>
         }else{

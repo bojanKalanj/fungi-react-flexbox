@@ -53,7 +53,7 @@ class Pagination extends Component{
 
         return(
             <ul className="Pagination">
-                <li onClick={this.onClickLeftArrow}><FaAngleLeft /></li>
+                <li className={currentPage === 1? 'arrow-disabled': null} onClick={this.onClickLeftArrow}><FaAngleLeft /></li>
                 {currentPage >= 3?<li onClick={(event) => this.onClickHandler(event)}>1</li>: null}
                 {currentPage > 5? <li className="dots">...</li>: null}
                 {currentPage - 3 > 1 ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage - 3 }</li>: null}
@@ -65,7 +65,7 @@ class Pagination extends Component{
                 {currentPage + 3 < indexOfLastPage ?<li onClick={(event) => this.onClickHandler(event)}>{ currentPage + 3 }</li>: null}
                 {indexOfLastPage - currentPage > 4? <li className="dots">...</li>: null}
                 {currentPage !== indexOfLastPage? <li onClick={(event) => this.onClickHandler(event)}>{indexOfLastPage}</li>: null}
-                <li onClick={this.onClickRightArrow}><FaAngleRight /></li>
+                <li className={currentPage === indexOfLastPage? 'arrow-disabled': null} onClick={this.onClickRightArrow}><FaAngleRight /></li>
 
             </ul>
         )

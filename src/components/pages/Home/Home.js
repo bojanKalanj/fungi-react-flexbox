@@ -75,10 +75,10 @@ class Home extends React.Component{
                 </div>
                 <div style={{ width: '75%' }}>
                     { this.renderPagination() }
-                    {/* <Pagination itemsPerPage={12} numberOfAllItems={this.state.observations.length}/> */}
                     <FlexContainer>
                         { showObservations() }
                     </FlexContainer>
+                    {/* { this.renderPagination() } */}
                 </div>
             </FlexContainer>
         )

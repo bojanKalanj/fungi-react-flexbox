@@ -16,7 +16,7 @@
 
 .Pagination li:hover{
     cursor: pointer;
-    background: #ddd;
+    background: #ebe8e1;
 }
 
 .current-page{
@@ -37,4 +37,14 @@
 
 .dots:hover{
     cursor: default !important;
+}
+
+.arrow-disabled{
+    color: #828081;
+    border: 1px solid #ccc !important; 
+}
+
+.arrow-disabled:hover{
+    cursor: not-allowed !important;
+    background: none !important;
 }
