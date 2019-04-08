@@ -12,6 +12,7 @@ import substrateReducer from './substrateReducer';
 import { reducer as formReducer } from 'redux-form';
 import dropdownDataReducer from './dropdownDataReducer';
 import paginateObservationsReducer from './paginateObservationsReducer';
+import paginateSpeciesReducer from './paginateSpeciesReducer'
 
 export default combineReducers({
     observations: observationsReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
     form: formReducer,
     substrate: substrateReducer,
     dropdownData: dropdownDataReducer,
-    paginateObservations: paginateObservationsReducer
+    paginateObservations: paginateObservationsReducer,
+    paginateSpecies: paginateSpeciesReducer
 });

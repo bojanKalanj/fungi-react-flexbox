@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSpecies } from '../../../actions';
+import { fetchSpecies, paginateSpecies } from '../../../actions';
 
 import Table from '../../../UI/Table/Table';
 import Tr from '../../../UI/Table/Tr/Tr';
@@ -13,12 +13,13 @@ import Pagination from '../../shared/Pagination/Pagination';
 class Species extends Component {
     componentDidMount = () => {
         this.props.fetchSpecies();
+        this.props.paginateSpecies(1);
     }
 
     renderPagination = () => {
         if(this.props.species){
             return <Pagination 
-                    itemsPerPage={40} 
+                    itemsPerPage={50} 
                     numberOfAllItems={this.props.species.data.length}
                     getPaginationPageIndex={this.getPaginationPageIndex}/>
         }else{
@@ -27,16 +28,18 @@ class Species extends Component {
     }
     
     getPaginationPageIndex = index => {
-        console.log(index);
+        this.props.paginateSpecies(index);
     }
 
     render(){
-        console.log(this.props.species)
+        if(this.props.state.paginateSpecies.species){
+            console.log(this.props.state.paginateSpecies.species.data)
+        }
         let loading = this.props.loading;
 
         const loadSpecies = () => {
-            if(this.props.species){
-                return this.props.species.data.map(spcs => {
+            if(this.props.state.paginateSpecies.species){
+                return this.props.state.paginateSpecies.species.data.map(spcs => {
                     return <Tr key={spcs.id}>
                                 <Td>
                                     <AnchorTag to="">
@@ -91,12 +94,13 @@ class Species extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        state: state,
         species: state.species.data,
         loading: state.species.loading
     };
 };
 
-export default connect(mapStateToProps, { fetchSpecies })(Species);
+export default connect(mapStateToProps, { fetchSpecies, paginateSpecies })(Species);
 
 
 

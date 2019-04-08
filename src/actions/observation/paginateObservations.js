@@ -6,7 +6,7 @@ export const paginateObservationsStart = () => {
     }
 }
 
-export const paginateObservationSuccess = (observations) => {
+export const paginateObservationsSuccess = (observations) => {
     return{
         type: "PAGINATE_OBSERVATIONS_SUCCESS",
         observations: observations
@@ -27,7 +27,7 @@ export const paginateObservations = currentPage => {
         fungi.get(`/observations?page=${currentPage}`)
         .then(response => {
             console.log(response.data)
-            dispatch(paginateObservationSuccess(response.data));
+            dispatch(paginateObservationsSuccess(response.data));
         })
         .catch(error => {
             dispatch(paginateObservationsFails(error));

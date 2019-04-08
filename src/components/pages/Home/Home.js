@@ -46,6 +46,9 @@ class Home extends React.Component{
     }
 
     render(){
+        // if(this.props.paginateObser.paginateObservations.observations){
+        //     console.log(this.props.paginateObser.paginateObservations.observations.data);
+        // }
         if(this.props.paginateObser.paginateObservations.observations){
             console.log(this.props.paginateObser.paginateObservations.observations.data);
         }
@@ -57,7 +60,7 @@ class Home extends React.Component{
                                 key={obs.id} 
                                 id={obs.id}
                                 number={obs.attributes.number}
-                                speciesTitle={obs.relationships.species.data} 
+                                speciesTitle={obs.attributes.species_name} 
                                 determinator={obs.relationships.determinator.data}
                                 legator_id={obs.relationships.legator.data.id}
                                 addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}

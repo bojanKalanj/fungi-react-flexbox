@@ -37,6 +37,10 @@ export{
 export{
     floralSpecies
 } from './species/floralSpecies';
+
+export{
+    paginateSpecies
+}from './species/paginateSpecies';
 // -----------------------------------------
 
 export{
