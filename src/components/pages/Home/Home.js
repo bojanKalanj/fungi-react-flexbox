@@ -26,7 +26,7 @@ class Home extends React.Component{
     //     }
     // }
 
-    // state = { 
+    // state = {
     //     observations: null
     // }
 
@@ -36,8 +36,8 @@ class Home extends React.Component{
 
     renderPagination = () => {
         if(this.props.state.observations){
-            return <Pagination 
-                    itemsPerPage={20} 
+            return <Pagination
+                    itemsPerPage={20}
                     numberOfAllItems={this.props.state.observations.data.length}
                     getPaginationPageIndex={this.getPaginationPageIndex}/>
         }else{
@@ -56,13 +56,13 @@ class Home extends React.Component{
             if(this.props.paginateObser.paginateObservations.observations){
                 let observations = this.props.paginateObser.paginateObservations.observations.data;
                 return observations.map(obs => {
-                    return <HomeCard 
-                                key={obs.id} 
+                    return <HomeCard
+                                key={obs.id}
                                 id={obs.id}
                                 number={obs.attributes.number}
-                                speciesTitle={obs.attributes.species_name} 
+                                speciesTitle={obs.attributes.species_name}
                                 determinator={obs.relationships.determinator.data}
-                                legator_id={obs.relationships.legator.data.id}
+                                legator_username={obs.attributes.legator_username}
                                 addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}
                             />
                 })
@@ -100,6 +100,3 @@ export default connect(
     { fetchObservations,
       paginateObservations }
 )(Home);
-
-
-

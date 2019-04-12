@@ -59,7 +59,6 @@ class ObservationFormThirdPage extends Component{
 
   // image2base64 = require('image-to-base64');
   handleImagesChange() {
-    let reader = new FileReader();
     let selectedFiles = this.imagesField.files;
     let  selectedImages = [];
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -77,6 +76,7 @@ class ObservationFormThirdPage extends Component{
     let images = [];
     if(this.state.selectedImages.length < 7){
       for(let img in selectedImages){
+        let reader = new FileReader();
         console.log(selectedImages[img]);
         reader.readAsDataURL(selectedImages[img]);
         reader.onload = () => {

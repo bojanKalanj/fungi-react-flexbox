@@ -21,12 +21,12 @@ const HomeCard = (props) => {
         }
     }
 
-    // GET /api/v1/users/:id where id is id 
+    // GET /api/v1/users/:id where id is id
     const legator = () => {
-        if(props.legator_id){
-            return `Legator ID: ${props.legator_id}`
+        if(props.legator_username){
+            return props.legator_username
         }else{
-            return 'Korisnik'
+            return 'Anoniman'
         }
     }
 
@@ -37,7 +37,7 @@ const HomeCard = (props) => {
             <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>
             <CardBody >
                 <TitleLinks to={pathToObervation} >
-                    { title() } 
+                    { title() }
                 </TitleLinks>
                 <hr />
                 <AnchorTag to="/user">
