@@ -1,5 +1,5 @@
 .Modal{
-    /* display: none; */
+    display: none;
     position: fixed;
     z-index: 1; 
     left: 0;
@@ -12,7 +12,7 @@
 }
 
 .show{
-    display: block;
+    display: block !important;
 }
 
 .modal-content{
@@ -36,7 +36,8 @@
     font-size: 50px;
 }
 
-.arrow:hover{
+.arrow:hover,
+.icon-close:hover{
     cursor: pointer;
     color: rgb(196, 195, 195);
 }
@@ -60,6 +61,14 @@
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+.icon-close{
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 50px;
 }
 
 .image-list{

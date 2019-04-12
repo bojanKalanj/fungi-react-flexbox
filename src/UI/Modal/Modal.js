@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import FaAngleLeft from 'react-icons/lib/fa/angle-left';
 import FaAngleRight from 'react-icons/lib/fa/angle-right';
+import FaClose from 'react-icons/lib/fa/close';
 
 import mainImgPlaceholder from '../../assets/mushroom.jpg';
 import img1 from '../../assets/download (1) - Copy.jpg';
@@ -11,17 +12,24 @@ import img5 from '../../assets/download - Copy.jpg';
 
 import './Modal.css';
 
-const Modal = props => {
-    let cssClasses=["Modal", ];
-
-    if(props.showModal){
-        cssClasses.push("show");
+class Modal extends Component{
+    state = {
+        showModal: true
     }
 
-    
+    onClickClose = () => {
+        const showModal = false;
+        this.setState({
+            showModal
+        })
+    }
 
-    return <div className={cssClasses.join(' ')}>
+    render(){
+        return <div className={this.state.showModal? "Modal show": "Modal"}>
                 <div className="modal-content">
+                    <FaClose
+                        className="icon-close" 
+                        onClick={this.onClickClose}/>
                     <FaAngleLeft className="arrow arrow-left"/>
                     <img 
                         className="mainImage" 
@@ -70,6 +78,7 @@ const Modal = props => {
                     <FaAngleRight className="arrow arrow-right"/>
                 </div>
             </div>
+    }
 }
 
 export default Modal;
