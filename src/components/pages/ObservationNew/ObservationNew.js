@@ -6,9 +6,9 @@ import './ObservationNew.css';
 
 class ObservationNew extends Component {
 
-    onFormSubmit = (formValues) => { 
+    onFormSubmit = (formValues) => {
         console.log(formValues);
-        // this.props.newObservation(formValues, this.props.currentUserToken);
+        this.props.newObservation(formValues, this.props.currentUserToken);
         this.props.history.push('/');
     }
 
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
         currentUserToken: state.auth.token
     };
 };
-  
+
 export default connect(
     mapStateToProps,
     { newObservation: actions.newObservation }
