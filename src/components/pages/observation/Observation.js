@@ -5,6 +5,7 @@ import {fetchObservation} from '../../../actions';
 import { FlexContainer } from '../../../UI/Container/Container';
 import { Card, CardBody } from '../../../UI/Card/Card';
 import { TitleLinks } from '../../../UI/AnchorTag/AnchorTag';
+import Modal from '../../../UI/Modal/Modal';
 import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
 import List from '../../../UI/List/List';
@@ -77,6 +78,7 @@ class Observation extends React.Component {
                         </CardBody>
                     </Card>
                 </FlexContainer>
+                <Modal />
             </div>
         )
     }
