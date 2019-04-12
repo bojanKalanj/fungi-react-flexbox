@@ -1,0 +1,17 @@
+.CommentForm{
+    padding: 30px;
+    /* width: 100%; */
+}
+
+.CommentForm textarea{
+    box-sizing:border-box;
+    width: 100%;
+    padding: 10px;
+    resize: vertical;
+    border: 1px solid rgba(81, 54, 41, .2);
+}
+
+.CommentForm button{
+    margin-top: 30px;
+}
+

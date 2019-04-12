@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Card, CardBody } from '../../../UI/Card/Card';
 import Comment from './Comment/Comment';
+import CommentForm from './CommentForm/CommentForm';
 
 const Comments = () => {
     return(
@@ -13,6 +14,7 @@ const Comments = () => {
                 <Comment />
                 <Comment />
             </CardBody>
+            <CommentForm />
         </Card>
     )
 }

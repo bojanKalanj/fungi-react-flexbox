@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {fetchObservation} from '../../../actions';
 import { FlexContainer } from '../../../UI/Container/Container';
 import { Card, CardBody } from '../../../UI/Card/Card';
+import { TitleLinks } from '../../../UI/AnchorTag/AnchorTag';
 import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
 import List from '../../../UI/List/List';
@@ -15,9 +16,9 @@ class Observation extends React.Component {
     }
 
     render(){
-        // console.log(this.props.observation.observation);
         if(this.props.observation){
-            // console.log(this.props.observation.data.attributes)
+            // return this.props.observation.data.relationships.species.data;
+            console.log(this.props.observation.data.attributes.species_name);
         }
         const showObservation = () => {
             if(this.props.observation){
@@ -28,7 +29,8 @@ class Observation extends React.Component {
         const showTitle = () => {
             if(this.props.observation){
                 if(this.props.observation.data.relationships.species.data){
-                    return this.props.observation.data.relationships.species.data;
+                    // return this.props.observation.data.relationships.species.data;
+                    return this.props.observation.data.attributes.species_name;
                 }else{
                     return `Nalaz #${this.props.observation.data.attributes.number}`
                 }
@@ -48,7 +50,9 @@ class Observation extends React.Component {
         }
         return (
             <div>
-                <h1>{ showTitle() }</h1>
+                <TitleLinks to="">
+                    { showTitle() }
+                </TitleLinks>
                 { showObservation() }
                 <FlexContainer>
                     <div style={{width: '42%'}}>

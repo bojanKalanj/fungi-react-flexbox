@@ -47,15 +47,15 @@ class Species extends Component {
                                     </AnchorTag>
                                 </Td>
                                 <Td>
-                                    <AnchorTag to="">
-                                        Species
-                                    </AnchorTag>
+                                    <p>
+                                        { spcs.relationships.observations.data.length }
+                                    </p>
                                 </Td>
-                                <Td>
-                                    <AnchorTag to="">
-                                        Species
-                                    </AnchorTag>
-                                </Td>
+                                {/* <Td>
+                                    {spcs.relationships.observations.data? <AnchorTag to="">
+                                        {spcs.relationships.observations.data[0]}
+                                    </AnchorTag>: '-'}
+                                </Td> */}
                             </Tr>
                 })
             }
@@ -73,9 +73,9 @@ class Species extends Component {
                                 <Th>
                                     Broj nalaza
                                 </Th>
-                                <Th>
+                                {/* <Th>
                                     Poslednji nalaz
-                                </Th>
+                                </Th> */}
                             </Tr>
                         { loadSpecies() }
                         </Table>
