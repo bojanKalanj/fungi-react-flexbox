@@ -39,7 +39,14 @@ class CommentForm extends Component {
                     </div>
         }else{
             return <div className="CommentForm">
-                        <p>Morate biti prijavljeni da biste ostavili komentar. <span> <AnchorTag to="/login">Prijavi se.</AnchorTag> </span></p>
+                        <p>
+                            Morate biti prijavljeni da biste ostavili komentar. 
+                            <span> 
+                                <AnchorTag to="/login">
+                                    Prijavi se.
+                                </AnchorTag> 
+                            </span>
+                        </p>
                     </div>
         }
     }
