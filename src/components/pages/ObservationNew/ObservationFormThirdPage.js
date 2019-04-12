@@ -23,7 +23,7 @@ class ObservationFormThirdPage extends Component{
         break;
       default: wordToDisplay = "fotografije"
     }
-    
+
     return (
       <div>
         <input
@@ -50,21 +50,22 @@ class ObservationFormThirdPage extends Component{
           htmlFor="upload-images">
           <FaUpload  />
           {numberOfSelectedImages > 6? "  Maksimalan broj fotogrfija je 6":  numberOfSelectedImages === 0
-            ? `  Dodaj fotografije` 
+            ? `  Dodaj fotografije`
             : `  ${numberOfSelectedImages} ${wordToDisplay}`}
         </label>
       </div>
     );
   }
 
-  image2base64 = require('image-to-base64');
+  // image2base64 = require('image-to-base64');
   handleImagesChange() {
+    let reader = new FileReader();
     let selectedFiles = this.imagesField.files;
     let  selectedImages = [];
     for (let i = 0; i < selectedFiles.length; i++) {
       selectedImages.push(selectedFiles.item(i));
     } //end for
-  
+
     this.setState(
       {
         selectedImages
@@ -76,18 +77,16 @@ class ObservationFormThirdPage extends Component{
     let images = [];
     if(this.state.selectedImages.length < 7){
       for(let img in selectedImages){
-        this.image2base64(selectedImages[img].name) 
-          .then(
-              (response) => {
-                images.push(response)
-                this.props.change('images', images);
-              }
-          )
-          .catch(
-              (error) => {
-                  console.log(error); 
-              }
-          )
+        console.log(selectedImages[img]);
+        reader.readAsDataURL(selectedImages[img]);
+        reader.onload = () => {
+          console.log(reader.result);
+          images.push(reader.result);
+          this.props.change('images', images);
+        };
+        reader.onerror = (error) => {
+          console.log('Error: ', error);
+        };
       }
     }
   }
