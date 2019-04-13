@@ -18,7 +18,8 @@ class CommentForm extends Component {
 
     onSendComment = () => {
         console.log(this.state.fieldValue);
-        console.log(this.props.userID)
+        console.log(this.props.userID);
+        console.log(this.props.observationId);
     }
 
     renderForm = () => {
@@ -52,6 +53,7 @@ class CommentForm extends Component {
     }
 
     render(){
+        console.log(this.props);
         return(
             <div>
                 { this.renderForm() }

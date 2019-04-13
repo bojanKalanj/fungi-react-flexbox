@@ -13,22 +13,7 @@ class Home extends React.Component{
     componentDidMount(){
         this.props.fetchObservations();
         this.props.paginateObservations(1);
-        // if(this.props.state.observations){
-        //     this.setState({ observations: this.props.state.observations.data });
-        // }
     }
-
-    // componentWillReceiveProps = newProps => {
-    //     console.log(newProps)
-    //     if(newProps.state.paginateObser){
-    //         console.log(newProps.state.paginateObser.data);
-    //         this.setState({ observations: newProps.state.paginateObser.data });
-    //     }
-    // }
-
-    // state = { 
-    //     observations: null
-    // }
 
     getPaginationPageIndex = index => {
         this.props.paginateObservations(index);
@@ -46,12 +31,7 @@ class Home extends React.Component{
     }
 
     render(){
-        // if(this.props.paginateObser.paginateObservations.observations){
-        //     console.log(this.props.paginateObser.paginateObservations.observations.data);
-        // }
-        if(this.props.paginateObser.paginateObservations.observations){
-            console.log(this.props.paginateObser.paginateObservations.observations.data);
-        }
+        console.log(this.props.paginateObser)
          const showObservations = () => {
             if(this.props.paginateObser.paginateObservations.observations){
                 let observations = this.props.paginateObser.paginateObservations.observations.data;
@@ -60,6 +40,7 @@ class Home extends React.Component{
                                 key={obs.id} 
                                 id={obs.id}
                                 number={obs.attributes.number}
+                                thumbImg={obs.attributes.images[0]}
                                 speciesTitle={obs.attributes.species_name} 
                                 determinator={obs.relationships.determinator.data}
                                 legator_id={obs.relationships.legator.data.id}

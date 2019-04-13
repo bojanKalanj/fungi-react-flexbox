@@ -26,7 +26,6 @@ class Observation extends React.Component {
         this.setState({
             showModal
         })
-        console.log(this.state.showModal);
     }
 
     onClickCloseModal = () => {
@@ -52,7 +51,16 @@ class Observation extends React.Component {
         }
     }
 
+    renderComments = () => {
+        if(this.props.observation){
+            return <Comments observationId={this.props.observation.data.id}/>
+        }else{
+            return null;
+        }
+    }
+
     render(){
+        console.log(this.props.observation)
         const showObservation = () => {
             if(this.props.observation){
                 // console.log(this.props.observation)
@@ -95,7 +103,7 @@ class Observation extends React.Component {
                                 {/* { showDescription() } */}
                             </CardBody>
                         </Card>
-                        <Comments></Comments>
+                        { this.renderComments() }
                     </div>
                     { showList() }
                     <Card width="22%">

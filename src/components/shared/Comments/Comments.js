@@ -4,7 +4,7 @@ import { Card, CardBody } from '../../../UI/Card/Card';
 import Comment from './Comment/Comment';
 import CommentForm from './CommentForm/CommentForm';
 
-const Comments = () => {
+const Comments = props => {
     return(
         <Card>
             <CardBody>
@@ -14,7 +14,7 @@ const Comments = () => {
                 <Comment />
                 <Comment />
             </CardBody>
-            <CommentForm />
+            <CommentForm observationId={props.observationId}/>
         </Card>
     )
 }
