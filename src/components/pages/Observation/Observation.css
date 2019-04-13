@@ -1,0 +1,7 @@
+.observation-image{
+    width: 100%;
+}
+
+.observation-image:hover{
+    cursor: pointer;
+}

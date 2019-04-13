@@ -10,17 +10,49 @@ import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
 import List from '../../../UI/List/List';
 import Comments from '../../shared/Comments/Comments';
+import './Observation.css';
 
 class Observation extends React.Component {
     componentDidMount = () => {
         this.props.fetchObservation(this.props.match.params.id)
     }
 
-    render(){
+    state = {
+        showModal: false
+    }
+
+    onMainImageClick = () => {
+        let showModal = true;
+        this.setState({
+            showModal
+        })
+        console.log(this.state.showModal);
+    }
+
+    onClickCloseModal = () => {
+        let showModal = false;
+        this.setState({
+            showModal
+        })
+    }
+
+    renderImages = () => {
         if(this.props.observation){
-            // return this.props.observation.data.relationships.species.data;
-            console.log(this.props.observation.data.attributes.species_name);
+            if(this.props.observation.data.attributes.images.length > 0){
+                console.log(this.props.observation.data.attributes.images);
+                let image = this.props.observation.data.attributes.images[0];
+                return <img
+                        className="observation-image" 
+                        src={`http://35.164.224.228${image}`} 
+                        alt="img"
+                        onClick={this.onMainImageClick}/>
+            }else{
+                return <p>Ovaj nalaz nema fotografija</p>
+            }
         }
+    }
+
+    render(){
         const showObservation = () => {
             if(this.props.observation){
                 // console.log(this.props.observation)
@@ -46,7 +78,7 @@ class Observation extends React.Component {
 
         const showList = () => {
             if(this.props.observation){
-                return <List width="32%" toList={this.props.observation.data.attributes}/>
+                return <List width="26%" toList={this.props.observation.data.attributes}/>
             }
         }
         return (
@@ -56,10 +88,11 @@ class Observation extends React.Component {
                 </TitleLinks>
                 { showObservation() }
                 <FlexContainer>
-                    <div style={{width: '42%'}}>
+                    <div style={{width: '49%'}}>
                         <Card>
                             <CardBody>
-                                { showDescription() }
+                                { this.renderImages() }
+                                {/* { showDescription() } */}
                             </CardBody>
                         </Card>
                         <Comments></Comments>
@@ -73,12 +106,17 @@ class Observation extends React.Component {
                                 userName="Hari Kalanj"/>
                                 <hr />
                                 <p>
-                                    
+                                    { showDescription() }
                                 </p>
                         </CardBody>
                     </Card>
                 </FlexContainer>
-                <Modal />
+                {this.state.showModal? 
+                    <Modal 
+                        images={this.props.observation.data.attributes.images}
+                        showModal={this.state.showModal}
+                        onClickClose={this.onClickCloseModal}
+                        />: null}
             </div>
         )
     }

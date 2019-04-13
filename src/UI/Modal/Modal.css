@@ -1,5 +1,4 @@
 .Modal{
-    display: none;
     position: fixed;
     z-index: 1; 
     left: 0;
@@ -11,23 +10,18 @@
     background-color: rgba(0,0,0,0.9); 
 }
 
-.show{
-    display: block !important;
-}
-
 .modal-content{
     position: relative;
-    /* background: #fff; */
-    /* padding: 20px; */
     margin: 0% auto;
     max-width: 90%;
-    height: 90%;
+    height: 100%;
     text-align: center;
 }
 
 .modal-content .mainImage{
     width: auto;
-    max-height: 93%;
+    height: auto;
+    max-height: 85%;
 }
 
 .arrow{
@@ -72,22 +66,18 @@
 }
 
 .image-list{
+    position: absolute;
+    bottom: 0;
     width: 100%;
     overflow: hidden;
 }
 
 .image-list ul{
-    max-height: 6%;
     width: 100%;
     overflow: hidden;
     list-style: none;
     display: flex;
     /* justify-content: space-between; */
-}
-
-.image-list li{
-    max-height: 6%;
-    height: 100%;
 }
 
 .img-preview{
