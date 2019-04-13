@@ -6,7 +6,7 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import * as actions from '../../../actions'
 import { Container } from '../../../UI/Container/Container';
 import './Header.css';
-import Navlink from '../../../UI/Navlinks/Navlink';
+import { Link } from 'react-router-dom';
 import DropdownMenu from '../../../UI/DropdownMenu/DropdownMenu';
 import '../../../UI/Button/Button.css'
 
@@ -52,22 +52,22 @@ class Header extends Component{
         return (
             <div className="Header">
                 <Container>
-                    <Navlink to="/">
-                        Logo
-                    </Navlink>
+                    <Link className="logo" to="/">
+                        eFungi
+                    </Link>
                     <div className="pull-right">
-                        <Navlink to="/">
+                        <Link className="nav-links" to="/">
                             Početna 
-                        </Navlink>
-                        <Navlink to="/species">
+                        </Link>
+                        <Link className="nav-links" to="/species">
                             Sve vrste
-                        </Navlink>
-                        {!this.props.isAuthenticated? <Navlink to="/login">
+                        </Link>
+                        {!this.props.isAuthenticated? <Link className="nav-links" to="/login">
                             <button className="DropdownMenuBtn">Prijavi se</button> 
-                        </Navlink>: null}
-                        {!this.props.isAuthenticated? <Navlink to="/register">
+                        </Link>: null}
+                        {!this.props.isAuthenticated? <Link className="nav-links" to="/register">
                             <button className="DropdownMenuBtn">Registruj se</button> 
-                        </Navlink>: null}
+                        </Link>: null}
                         {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
                             <button className="DropdownMenuBtn">{ this.user } {this.state.dropDownOn? <FaAngleUp />: <FaAngleDown />  } </button>  
                         </div>: null}

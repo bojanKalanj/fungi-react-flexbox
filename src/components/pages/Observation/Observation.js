@@ -91,9 +91,11 @@ class Observation extends React.Component {
         }
         return (
             <div>
-                <TitleLinks to="">
-                    { showTitle() }
-                </TitleLinks>
+                <h1>
+                    <TitleLinks to="">
+                        { showTitle() }
+                    </TitleLinks>
+                </h1>
                 { showObservation() }
                 <FlexContainer>
                     <div style={{width: '49%'}}>

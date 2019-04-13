@@ -36,13 +36,12 @@ const HomeCard = (props) => {
     return(
         <Card width='23%'>
             <Link to={pathToObervation}>{props.thumbImg? <img src={`http://35.164.224.228${props.thumbImg}`}  alt="placeholderImg" style={{ width: '100%' }}/>: <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>}</Link>
-            {/* {props.thumbImg? <img src={`http://35.164.224.228${props.thumbImg}`}  alt="placeholderImg" style={{ width: '100%' }}/>: <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>} */}
             <CardBody >
                 <TitleLinks to={pathToObervation} >
                     { title() } 
                 </TitleLinks>
                 <hr />
-                <AnchorTag to="/user">
+                <AnchorTag to={`/user/${props.legator_id}`}>
                     { legator() }
                 </AnchorTag>
                 <span className="text-muted text-small margin-top-tiny">
