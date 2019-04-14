@@ -42,7 +42,7 @@ class Home extends React.Component{
                                 thumbImg={obs.attributes.images[0]}
                                 speciesTitle={obs.attributes.species_name} 
                                 determinator={obs.relationships.determinator.data}
-                                legator_id={obs.relationships.legator.data.id}
+                                legator_username={obs.attributes.legator_username}
                                 addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}
                             />
                 })
@@ -57,10 +57,10 @@ class Home extends React.Component{
                     <Filters />
                 </div>
                 <div style={{ width: '75%' }}>
-                    { this.renderPagination() }
                     <FlexContainer>
                         { showObservations() }
                     </FlexContainer>
+                    { this.renderPagination() }
                 </div>
             </FlexContainer>
         )

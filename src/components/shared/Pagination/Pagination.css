@@ -2,6 +2,7 @@
     list-style: none;
     display: flex;
     margin-bottom: 20px; 
+    float: right;
 }
 
 .Pagination li{

@@ -20,11 +20,12 @@
 
 .DropdownMenuBtn{
     border: none;
-    padding: 10px;
+    padding: 10px 15px 10px 15px;
     background: inherit;
     font-size: 16px;
     background: rgb(162, 43, 42);
     color: #fff;
+    margin-left: 15px;
 }
 
 .DropdownMenuBtn:hover{
