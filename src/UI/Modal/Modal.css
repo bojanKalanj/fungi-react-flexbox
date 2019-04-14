@@ -81,7 +81,7 @@
 }
 
 .img-preview{
-    opacity: .8;
+    opacity: .6;
     height: 100px;
     margin-right: 10px;
 }
@@ -89,4 +89,9 @@
 .img-preview:hover{
     cursor: pointer;
     opacity: 1;
+}
+
+.modal-image-active{
+    opacity: 1;
+    border: 3px solid rgb(162, 43, 42);
 }

@@ -32,7 +32,6 @@ const HomeCard = (props) => {
     }
 
     const pathToObervation =`/observation/${props.id}`
-    console.log(props.thumbImg)
     return(
         <Card width='23%'>
             <Link to={pathToObervation}>{props.thumbImg? <img src={`http://35.164.224.228${props.thumbImg}`}  alt="placeholderImg" style={{ width: '100%' }}/>: <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>}</Link>

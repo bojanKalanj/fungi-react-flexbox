@@ -54,9 +54,8 @@ class Form extends Component {
             }else{
                 invalid = !formElements[key].validation.valid;
             }
-            inputs.push(<div className={ formElements[key].size }>
+            inputs.push(<div className={ formElements[key].size } key={key}>
                             <Input 
-                                key={key}
                                 elementType={formElements[key].elementType}
                                 type={formElements[key].type}
                                 placeholder={formElements[key].placeholder}

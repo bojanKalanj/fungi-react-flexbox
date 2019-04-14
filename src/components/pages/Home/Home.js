@@ -31,7 +31,6 @@ class Home extends React.Component{
     }
 
     render(){
-        console.log(this.props.paginateObser)
          const showObservations = () => {
             if(this.props.paginateObser.paginateObservations.observations){
                 let observations = this.props.paginateObser.paginateObservations.observations.data;
@@ -55,14 +54,13 @@ class Home extends React.Component{
         return(
             <FlexContainer>
                 <div style={{width: "23%", color: "#3cc47c"}}>
-                        <Filters />
+                    <Filters />
                 </div>
                 <div style={{ width: '75%' }}>
                     { this.renderPagination() }
                     <FlexContainer>
                         { showObservations() }
                     </FlexContainer>
-                    {/* { this.renderPagination() } */}
                 </div>
             </FlexContainer>
         )

@@ -47,7 +47,7 @@ const List = (props) => {
             }
         }
         list.push(<li key="observed_at">nalaz uočen:  <span className="pull-right">{moment(props.toList['observed_at']).format("DD-MMM-YYYY")}</span> </li>);
-        list.push(<li key="observed_at">nalaz dodat:  <span className="pull-right">{moment(props.toList['created_at']).format("DD-MMM-YYYY")}</span> </li>);
+        list.push(<li key="created_at">nalaz dodat:  <span className="pull-right">{moment(props.toList['created_at']).format("DD-MMM-YYYY")}</span> </li>);
         return list;    
     }
 

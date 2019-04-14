@@ -10,9 +10,7 @@ class Modal extends Component{
         console.log(this.props.images);
         let images = [];
         if(this.props.images){
-            this.props.images.map(img => {
-                images.push(`http://35.164.224.228${img}`)
-            })
+            this.props.images.map(img => images.push(`http://35.164.224.228${img}`))
         }
         let mainImage = images[0];
         this.setState({
@@ -22,10 +20,26 @@ class Modal extends Component{
     }
 
     state = {
-        // showModal: true,
         images: [],
         mainImage: null
     }
+
+    componentDidMount(){
+        document.addEventListener("keydown", this.onKeyDown, false);
+      }
+    componentWillUnmount(){
+    document.removeEventListener("keydown", this.onKeyDown, false);
+    }
+
+    onKeyDown = e => {
+        if(e.keyCode === 37){
+            this.leftArrowClicked();
+        }else if(e.keyCode === 39){
+            this.rightArrowClicked();
+        }else if(e.keyCode === 27){
+            this.onClickClose();
+        }
+    }  
 
     onClickClose = () => {
         this.props.onClickClose();
@@ -84,9 +98,9 @@ class Modal extends Component{
                         <ul>
                             {
                                 this.state.images.map(img => {
-                                    return <li>
-                                                <img 
-                                                    className="img-preview" 
+                                    return <li key={img}>
+                                                <img
+                                                    className={img === this.state.mainImage? "img-preview modal-image-active": "img-preview"} 
                                                     src={img} 
                                                     alt={img}
                                                     onClick={(img) => this.onImgPreviewClick(img)}/>
