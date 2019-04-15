@@ -4,10 +4,12 @@ import { AnchorTag } from '../../../../UI/AnchorTag/AnchorTag';
 import './CommentForm.css';
 import '../../../../UI/Button/Button.css';
 import * as actions from '../../../../actions';
+// import { Redirect } from 'react-router-dom'
 
 class CommentForm extends Component {
     state = {
-        fieldValue: ''
+        fieldValue: '',
+        redirect: false
     }
     
     onChange = e => {
@@ -21,6 +23,10 @@ class CommentForm extends Component {
         const { observationId } = this.props;
         const { userID } = this.props;
         const body = this.state.fieldValue;
+        // const redirect = true;
+        // this.setState({
+        //     redirect
+        // })
 
         const comment = {
                  observation_id: observationId, 
@@ -28,9 +34,12 @@ class CommentForm extends Component {
                  body: body 
                 }
 
-        console.log(comment)        
-        this.props.newComment(comment, this.props.currentUserToken);
-        this.props.history.push('/');
+        this.props.newComment(comment, this.props.currentUserToken, observationId);
+        // window.location.reload();
+        const fieldValue = '';
+        this.setState({
+            fieldValue
+        })
     }
 
     renderForm = () => {
@@ -64,10 +73,11 @@ class CommentForm extends Component {
     }
 
     render(){
-        console.log(this.props.match.params);
+        console.log(this.props);
         return(
             <div>
                 { this.renderForm() }
+                {/* {this.state.redirect? <Redirect to={`/observation/${this.props.observationId}`} />: null} */}
             </div>
         )
     }
@@ -75,7 +85,7 @@ class CommentForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        state: state,
+        // state: state,
         // userID: state.auth.userID,
         userID: state.auth.userID,
         currentUserToken: state.auth.token,

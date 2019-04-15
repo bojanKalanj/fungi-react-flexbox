@@ -15,8 +15,8 @@ export const newCommentPostFail = () => {
     return { type: "NEW_COMMENT_POST_FAIL" }
 }
 
-export const newComment = (formValues, token) => async dispatch => {
-    fungi.post("/comments", formValues, { 
+export const newComment = (formValues, token, observation_id) => async dispatch => {
+    fungi.post(`/observations/${observation_id}/comments`, formValues, { 
         headers: { "AUTHORIZATION" : `Bearer ${token}`, 
                    "Accept" : 'application/json',
                    "Content-Type": 'application/json'}

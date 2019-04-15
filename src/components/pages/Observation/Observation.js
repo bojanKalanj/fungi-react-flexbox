@@ -60,7 +60,7 @@ class Observation extends React.Component {
     }
 
     render(){
-        console.log(this.props.observation)
+        console.log(this.props)
         const showObservation = () => {
             if(this.props.observation){
                 // console.log(this.props.observation)

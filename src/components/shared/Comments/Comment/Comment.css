@@ -1,0 +1,41 @@
+.comment-btns{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comment-btn{
+    border: none;
+    background: none;
+    margin-left: 20px;
+    padding: 5px 20px;
+    font-family: Helvetica, Arial;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    line-height: 2em;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.comment-btn:hover{
+    cursor: pointer;
+    color: #fff;
+}
+
+.comment-btn-green{
+    color: rgb(78, 82, 28);
+    border-bottom: 3px solid rgb(78, 82, 28);
+}
+
+.comment-btn-green:hover{
+    background: rgb(78, 82, 28);
+}
+
+.comment-btn-red{
+    color: #f24c4e;
+    border-bottom: 3px solid #f24c4e;
+}
+
+.comment-btn-red:hover{
+    background: #f24c4e;
+}

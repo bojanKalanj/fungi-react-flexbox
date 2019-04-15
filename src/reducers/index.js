@@ -14,6 +14,7 @@ import dropdownDataReducer from './dropdownDataReducer';
 import paginateObservationsReducer from './paginateObservationsReducer';
 import paginateSpeciesReducer from './paginateSpeciesReducer';
 import newCommentReducer from './newCommentReducer';
+import commentsReducer from './commentsReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
     dropdownData: dropdownDataReducer,
     paginateObservations: paginateObservationsReducer,
     paginateSpecies: paginateSpeciesReducer,
-    newComment: newCommentReducer
+    newComment: newCommentReducer,
+    fetchedComments: commentsReducer
 });

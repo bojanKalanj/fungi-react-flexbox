@@ -1,24 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import { FlexContainer } from '../../../../UI/Container/Container';
 import UserAvatar from '../../../pages/User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../../assets/hari.jpg';
+import './Comment.css';
 
-const Comment = () => {
-    return(
-        <div style={{padding: '10px'}}>
-            <FlexContainer>
-                <div style={{width: '20%'}}>
-                    <UserAvatar 
-                        src={uerAvatarPlaceholderImg} 
-                        alt="uerAvatarPlaceholderImg"
-                        userName="Hari Kalanj"/>
-                </div>
-                <div style={{width: '75%', border: '1px solid rgba(81, 54, 41, .2)', padding: '0 2%'}}>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                </div>
-            </FlexContainer>
-        </div>
-    )
+class Comment extends Component{
+    render(){
+        const { currentUserId } = this.props;
+        const { userId } = this.props;
+        const { username } = this.props;
+        // console.log("currentUserId ", currentUserId);
+        // console.log("userId ", userId);
+        // console.log(this.props.username)
+        return(
+            <div style={{padding: '10px'}}>
+                <FlexContainer>
+                    <div style={{width: '20%'}}>
+                        <UserAvatar 
+                            userId={userId}
+                            src={uerAvatarPlaceholderImg} 
+                            alt={username}
+                            userName={username}/>
+                    </div>
+                    <div style={{width: '75%', border: '1px solid rgba(81, 54, 41, .2)', padding: '0 2%'}}>
+                        <p>{ this.props.body }</p>
+                    </div>
+                    {currentUserId === userId? <div className="comment-btns">
+                        <button className="comment-btn comment-btn-green">izmeni</button>
+                        <button className="comment-btn comment-btn-red">obriši</button>
+                    </div>: null}
+                    
+                </FlexContainer>
+            </div>
+        )
+    }
 }
 
-export default Comment;
+const mapStateToProps = state => {
+    return {
+        currentUserId: state.auth.userID,
+        currentUserToken: state.auth.token,
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
+export default connect(mapStateToProps)(Comment);

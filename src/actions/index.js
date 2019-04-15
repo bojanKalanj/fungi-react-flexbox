@@ -61,3 +61,7 @@ export{
 export{
     newComment
 } from './comments/newComment';
+
+export{
+    fetchComments
+} from './comments/fetchComments';
