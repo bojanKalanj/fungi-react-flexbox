@@ -4,7 +4,7 @@ import observationReducer from './observationReducer';
 import speciesReducer from './speciesReducer';
 import userReducer from './userReducer';
 import authReducer from './authReducer';
-import newObservationReducer from './newObservationReducser';
+// import newObservationReducer from './newObservationReducser';
 import habitatsReducer from './habitatsReducer';
 import registerUser from './registerReducer';
 import floralSpeciesReducer from './floralSpeciesReducer';
@@ -12,7 +12,8 @@ import substrateReducer from './substrateReducer';
 import { reducer as formReducer } from 'redux-form';
 import dropdownDataReducer from './dropdownDataReducer';
 import paginateObservationsReducer from './paginateObservationsReducer';
-import paginateSpeciesReducer from './paginateSpeciesReducer'
+import paginateSpeciesReducer from './paginateSpeciesReducer';
+import newCommentReducer from './newCommentReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -20,7 +21,7 @@ export default combineReducers({
     species: speciesReducer,
     user: userReducer,
     auth: authReducer,
-    newObservation: newObservationReducer,
+    // newObservation: newObservationReducer,
     habitatCategories: habitatsReducer,
     registeredUser: registerUser,
     floralspecies: floralSpeciesReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
     substrate: substrateReducer,
     dropdownData: dropdownDataReducer,
     paginateObservations: paginateObservationsReducer,
-    paginateSpecies: paginateSpeciesReducer
+    paginateSpecies: paginateSpeciesReducer,
+    newComment: newCommentReducer
 });

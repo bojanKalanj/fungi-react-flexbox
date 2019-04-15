@@ -12,14 +12,14 @@ const reducer = (state = initialState, action) => {
                 error: null, 
                 loading: true
             }
-        case "AUTH_SUCCESS":
+        case "NEW_OBSERVATION_SUCCESS":
             return {
                 ...state,
                 token: action.token,
                 error: null, 
                 loading: false
             }
-        case "AUTH_FAIL":
+        case "NEW_OBSERVATION_FAIL":
             return {
                 ...state,
                 error: action.error, 

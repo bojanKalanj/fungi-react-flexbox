@@ -56,3 +56,8 @@ export{
 export{
     dropData
 } from './dropdownData/dropdownData';
+// -----------------------------------------
+
+export{
+    newComment
+} from './comments/newComment';

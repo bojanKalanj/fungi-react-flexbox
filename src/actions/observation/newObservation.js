@@ -6,5 +6,9 @@ export const newObservation = (formValues, token) => async dispatch => {
                    "Accept" : 'application/json',
                    "Content-Type": 'application/json'}
         }
-    )
+    ).then(response => {
+        console.log(response)
+    }).catch(error => {
+        console.log(error)
+    })
 };
