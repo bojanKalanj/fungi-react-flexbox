@@ -65,3 +65,7 @@ export{
 export{
     fetchComments
 } from './comments/fetchComments';
+
+export{
+    deleteComment
+} from './comments/deleteComent';
