@@ -1,0 +1,51 @@
+.edit-comment-form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.edit-comment-form textarea{
+    border: 1px solid rgba(81, 54, 41, .2);
+    padding:  2%;
+}
+
+.edit-comments-btns{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.edit-btn{
+    margin-left: 10px;
+    font-family: Helvetica, Arial;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    line-height: 2em;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: none;
+}
+
+.edit-btn:hover{
+    cursor: pointer;
+}
+
+.edit-btn-red{
+    color: #f24c4e;
+    border: 3px solid #f24c4e;
+}
+
+.edit-btn-red:hover{
+    color: #fff;
+    background: #f24c4e;
+}
+
+.edit-btn-green{
+    color: rgb(78, 82, 28);
+    border: 3px solid rgb(78, 82, 28);
+}
+
+.edit-btn-green:hover{
+    color: #fff;
+    background: rgb(78, 82, 28);
+}

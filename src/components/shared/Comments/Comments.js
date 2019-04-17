@@ -5,6 +5,7 @@ import { fetchComments, deleteComment, editComment } from '../../../actions';
 import { Card, CardBody } from '../../../UI/Card/Card';
 import Comment from './Comment/Comment';
 import CommentForm from './CommentForm/CommentForm';
+import './Comments.css';
 
 class Comments extends Component{
     state = {
@@ -56,7 +57,6 @@ class Comments extends Component{
 
     renderComments = () => {
         if(this.props.fetchedComments){
-            console.log(this.props.fetchedComments.data)
             const comments = this.props.fetchedComments.data;
             return(
                 comments.map(comment => {
@@ -70,7 +70,7 @@ class Comments extends Component{
                         editComment={() => this.editComment(comment.attributes.body, comment.id)}/>
                         
                         if(comment.id === this.state.commentToEditId){
-                            cmnt = <div>
+                            cmnt = <div className="edit-comment-form">
                                         <textarea 
                                             rows="7" 
                                             type="textarea"
@@ -78,8 +78,10 @@ class Comments extends Component{
                                             placeholder="Izmenite vaš komentar..."
                                             onChange={(e) => this.onEdit(e)}
                                         />
-                                        <button onClick={() => this.sendEditedComment(comment.id)}>Izmeni</button>
-                                        <button onClick={this.cancelEdit}>Odustani</button>
+                                        <div className="edit-comments-btns">
+                                            <button className="edit-btn edit-btn-red" onClick={() => this.sendEditedComment(comment.id)}>Izmeni</button>
+                                            <button className="edit-btn edit-btn-green" onClick={this.cancelEdit}>Odustani</button>
+                                        </div>
                                     </div>
                         }
                     return cmnt 
