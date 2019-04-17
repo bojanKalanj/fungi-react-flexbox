@@ -11,9 +11,9 @@ export const editCommentFail = () => {
     return { type: "EDIT_COMMENT_FAIL" }
 }
 
-export const editComment = (formValues, token, observationID, commentID) => async dispatch => {
+export const editComment = (comment, token, observationID, commentID) => async dispatch => {
     console.log("FROM editComment----", "TOKEN:", token)
-    fungi.put(`/observations/${observationID}/comments/${commentID}`, formValues, { 
+    fungi.put(`/observations/${observationID}/comments/${commentID}`, comment, { 
         headers: { "AUTHORIZATION" : `Bearer ${token}`, 
                    "Accept" : 'application/json',
                    "Content-Type": 'application/json'}

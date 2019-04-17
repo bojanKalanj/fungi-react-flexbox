@@ -4,22 +4,12 @@ import { AnchorTag } from '../../../../UI/AnchorTag/AnchorTag';
 import './CommentForm.css';
 import '../../../../UI/Button/Button.css';
 import * as actions from '../../../../actions';
-// import { Redirect } from 'react-router-dom'
 
 class CommentForm extends Component {
     state = {
         fieldValue: '',
-        // redirect: false
     }
     
-    // componentDidUpdate = newProps => {
-    //     const fieldValue = newProps.newCommentFormValue;
-    //     this.setState({
-    //         fieldValue
-    //     })
-    //     console.log(this.state.fieldValue);
-    // }
-
     onChange = e => {
         let fieldValue = e.target.value;
         this.setState({
@@ -31,10 +21,6 @@ class CommentForm extends Component {
         const { observationId } = this.props;
         const { userID } = this.props;
         const body = this.state.fieldValue;
-        // const redirect = true;
-        // this.setState({
-        //     redirect
-        // })
 
         const comment = {
                  observation_id: observationId, 
@@ -43,7 +29,6 @@ class CommentForm extends Component {
                 }
 
         this.props.newComment(comment, this.props.currentUserToken, observationId);
-        // window.location.reload();
         const fieldValue = '';
         this.setState({
             fieldValue
@@ -56,7 +41,7 @@ class CommentForm extends Component {
                         <textarea 
                             rows="7" 
                             type="textarea"
-                            value={this.fieldValue}
+                            value={this.state.fieldValue}
                             placeholder="Unesite vaš komentar..."
                             onChange={(e) => this.onChange(e)}
                         />
