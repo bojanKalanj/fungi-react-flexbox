@@ -16,6 +16,7 @@ import paginateSpeciesReducer from './paginateSpeciesReducer';
 import newCommentReducer from './newCommentReducer';
 import commentsReducer from './commentsReducer';
 import deleteCommentReducer from './deleteCommentReducer';
+import editCommentReducer from './editCommentReducer';
 
 export default combineReducers({
     observations: observationsReducer,
@@ -34,5 +35,6 @@ export default combineReducers({
     paginateSpecies: paginateSpeciesReducer,
     newComment: newCommentReducer,
     fetchedComments: commentsReducer,
-    deletedComment: deleteCommentReducer
+    deletedComment: deleteCommentReducer,
+    editedComment: editCommentReducer
 });

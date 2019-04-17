@@ -9,9 +9,17 @@ import * as actions from '../../../../actions';
 class CommentForm extends Component {
     state = {
         fieldValue: '',
-        redirect: false
+        // redirect: false
     }
     
+    // componentDidUpdate = newProps => {
+    //     const fieldValue = newProps.newCommentFormValue;
+    //     this.setState({
+    //         fieldValue
+    //     })
+    //     console.log(this.state.fieldValue);
+    // }
+
     onChange = e => {
         let fieldValue = e.target.value;
         this.setState({
@@ -48,7 +56,7 @@ class CommentForm extends Component {
                         <textarea 
                             rows="7" 
                             type="textarea"
-                            value={this.state.fieldValue}
+                            value={this.fieldValue}
                             placeholder="Unesite vaš komentar..."
                             onChange={(e) => this.onChange(e)}
                         />
@@ -73,7 +81,7 @@ class CommentForm extends Component {
     }
 
     render(){
-        console.log(this.props);
+        console.log(this.props.newCommentFormValue);
         return(
             <div>
                 { this.renderForm() }

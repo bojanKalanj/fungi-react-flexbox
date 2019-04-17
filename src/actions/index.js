@@ -69,3 +69,7 @@ export{
 export{
     deleteComment
 } from './comments/deleteComent';
+
+export{
+    editComment
+} from './comments/editComment';

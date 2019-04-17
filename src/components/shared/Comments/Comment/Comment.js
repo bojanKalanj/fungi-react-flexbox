@@ -37,7 +37,7 @@ class Comment extends Component{
                     {currentUserId === userId? <div className="comment-btns">
                         <button 
                             className="comment-btn comment-btn-green"
-                            onClick={this.deleteComment}>
+                            onClick={this.props.editComment}>
                                 izmeni
                         </button>
                         <button 
