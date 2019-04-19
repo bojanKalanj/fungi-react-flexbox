@@ -23,14 +23,13 @@ export const fetchSpeciessFails = (error) => {
 export const fetchSpecies = () => {
     return dispatch =>{
         dispatch(fetchSpeciesStart());
-        
+
         fungi.get("/species")
         .then(response => {
-            dispatch(fetchSpeciesSuccess(response.data));
+            dispatch(fetchSpeciesSuccess(response.data.data));
         })
         .catch(error => {
             dispatch(fetchSpeciessFails(error));
         })
     };
 };
-

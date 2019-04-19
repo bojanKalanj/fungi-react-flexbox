@@ -79,13 +79,15 @@ const mapStateToProps = (state) => {
     return {
         observations: state.observations,
         observationsCount: state.observationsCount,
-        currentPage: state.currentPage
-        // filters: state.filters
+        currentPage: state.currentPage,
+        activeFilters: state.filters
     };
 };
 
 export default connect(
     mapStateToProps,
-    { fetchObservationsCount,
-      fetchObservations }
+    {
+      fetchObservationsCount,
+      fetchObservations
+    }
 )(Home);

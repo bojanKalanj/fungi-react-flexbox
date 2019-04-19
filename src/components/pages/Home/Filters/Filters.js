@@ -6,12 +6,13 @@ import Form from '../../../../UI/Form/Form';
 
 class Filters extends Component {
 
-    componentDidMount() {
+    componentWillMount = () => {
       this.props.fetchSpecies();
     }
 
     onFormSubmit = (event) => {
         event.preventDefault();
+        console.log(this.props.species.data);
     }
 
     render(){
@@ -22,8 +23,12 @@ class Filters extends Component {
                     <div className="Input">
                       <select>
                         <option value="0">Izaberi vrstu</option>
+                        {this.props.species.data.map(species => {
+                          return <option value="0">{ species.attributes.name }</option>
+                        })}
                       </select>
                     </div>
+                    <button>Filtriraj</button>
                 </form>
             </div>
         );

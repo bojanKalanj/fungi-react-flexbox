@@ -14,11 +14,13 @@ import dropdownDataReducer from './dropdownDataReducer';
 import observationsReducer from './observationsReducer';
 import paginateSpeciesReducer from './paginateSpeciesReducer'
 import paginationReducer from './paginationReducer';
+import filtersReducer from './filtersReducer';
 
 export default combineReducers({
     observations: observationsReducer,
     observationsCount: countObservationsReducer,
     currentPage: paginationReducer,
+    filters: filtersReducer,
 
     observation: observationReducer,
     species: speciesReducer,
