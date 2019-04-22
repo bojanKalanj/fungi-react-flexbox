@@ -43,6 +43,7 @@ class Home extends React.Component{
                                 speciesTitle={obs.attributes.species_name} 
                                 determinator={obs.relationships.determinator.data}
                                 legator_username={obs.attributes.legator_username}
+                                legator_id={obs.relationships.legator.data.id}
                                 addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}
                             />
                 })

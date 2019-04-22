@@ -59,6 +59,15 @@ class Header extends Component{
                         <Link className="nav-links" to="/">
                             Početna 
                         </Link>
+                        <Link className="nav-links" to="/">
+                            O nama 
+                        </Link>
+                        <Link className="nav-links" to="/">
+                            O gljivama 
+                        </Link>
+                        <Link className="nav-links" to="/">
+                            Uputstvo
+                        </Link>
                         <Link className="nav-links" to="/species">
                             Sve vrste
                         </Link>

@@ -1,7 +1,31 @@
+.observation-img-wrap{
+    position: relative;
+}
+
 .observation-image{
     width: 100%;
 }
 
 .observation-image:hover{
+    cursor: pointer;
+}
+
+.img-hover-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    color: #513629;
+    border: 3px solid #513629;
+    padding: 10px 20px;
+    font-family: Helvetica, Arial;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    line-height: 2em;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.img-hover-btn:hover{
     cursor: pointer;
 }
