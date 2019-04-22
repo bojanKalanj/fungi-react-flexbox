@@ -22,7 +22,7 @@ class Comment extends Component{
         // console.log("userId ", userId);
         console.log(this.props.id)
         return(
-            <div style={{padding: '10px'}}>
+            <div style={{padding: '10px', borderBottom: '1px solid rgba(81, 54, 41, .2)'}}>
                 <FlexContainer>
                     <div style={{width: '20%'}}>
                         <UserAvatar 
@@ -31,7 +31,7 @@ class Comment extends Component{
                             alt={username}
                             userName={username}/>
                     </div>
-                    <div style={{width: '75%', border: '1px solid rgba(81, 54, 41, .2)', padding: '0 2%'}}>
+                    <div style={{width: '75%'}}>
                         <p>{ this.props.body }</p>
                     </div>
                     {currentUserId === userId? <div className="comment-btns">

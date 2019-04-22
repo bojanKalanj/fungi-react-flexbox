@@ -61,13 +61,13 @@ class Comments extends Component{
             return(
                 comments.map(comment => {
                     let cmnt = <Comment 
-                        key={comment.id}
-                        id={comment.id}
-                        body={comment.attributes.body}
-                        userId={comment.relationships.user.data.id}
-                        username={comment.attributes.username}
-                        deleteComment={this.deleteComment}
-                        editComment={() => this.editComment(comment.attributes.body, comment.id)}/>
+                                key={comment.id}
+                                id={comment.id}
+                                body={comment.attributes.body}
+                                userId={comment.relationships.user.data.id}
+                                username={comment.attributes.username}
+                                deleteComment={this.deleteComment}
+                                editComment={() => this.editComment(comment.attributes.body, comment.id)}/>
                         
                         if(comment.id === this.state.commentToEditId){
                             cmnt = <div className="edit-comment-form">
@@ -97,7 +97,9 @@ class Comments extends Component{
                 <CardBody>
                     { this.renderComments() }
                 </CardBody>
-                <CommentForm newCommentFormValue={this.state.newCommentFormValue} observationId={this.props.observationId}/>
+                <CommentForm 
+                    newCommentFormValue={this.state.newCommentFormValue} 
+                    observationId={this.props.observationId}/>
             </Card>
         )
     }
