@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
+import imgPlaceholder from '../../../assets/hari.jpg';
 
 import * as actions from '../../../actions'
 import { Container } from '../../../UI/Container/Container';
@@ -55,7 +56,7 @@ class Header extends Component{
                     <Link className="logo" to="/">
                         eFungi
                     </Link>
-                    <div className="pull-right">
+                    <div className="pull-right nav-right">
                         <Link className="nav-links" to="/">
                             Početna 
                         </Link>
@@ -77,9 +78,12 @@ class Header extends Component{
                         {!this.props.isAuthenticated? <Link className="nav-links" to="/register">
                             <button className="DropdownMenuBtn">Registruj se</button> 
                         </Link>: null}
-                        {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
+                        {/* {this.props.isAuthenticated? <div className="DropdownBtn" onClick={this.onDropdownClicked}>
                             <button className="DropdownMenuBtn">{ this.user } {this.state.dropDownOn? <FaAngleUp />: <FaAngleDown />  } </button>  
-                        </div>: null}
+                        </div>: null} */}
+                        <div onClick={this.onDropdownClicked} className="user-avatar-header">
+                            <img className="user-avatar-header" src={imgPlaceholder} alt={imgPlaceholder} />
+                        </div>
                         <DropdownMenu userID={this.userID} show={this.state.dropDownOn}/>
                     </div>
                 </Container>

@@ -1,5 +1,4 @@
 .Header{
-    width: 90%;
     margin: 0 auto;
     position: relative;
     display: flex;
@@ -59,4 +58,25 @@
     font-weight: 400;
     line-height: 1.4;
     color: #000;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-header{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.user-avatar-header:hover{
+    cursor: pointer;
+}
+
+.user-avatar-header img{ 
+    width: 100%;
 }
