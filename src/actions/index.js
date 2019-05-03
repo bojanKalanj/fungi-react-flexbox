@@ -59,6 +59,24 @@ export{
 
 // -----------------------------------------
 
+export{
+    newComment
+} from './comments/newComment';
+
+export{
+    fetchComments
+} from './comments/fetchComments';
+
+export{
+    deleteComment
+} from './comments/deleteComent';
+
+export{
+    editComment
+} from './comments/editComment';
+
+// ------------------------------------------
+
 export {
     selectPaginationPage
 } from './pagination/selectPaginationPage';

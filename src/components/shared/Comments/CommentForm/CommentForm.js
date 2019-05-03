@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnchorTag } from '../../../../UI/AnchorTag/AnchorTag';
 import './CommentForm.css';
-import '../../../../UI/Button/Button.css'
+import '../../../../UI/Button/Button.css';
+import * as actions from '../../../../actions';
 
 class CommentForm extends Component {
     state = {
-        fieldValue: ''
+        fieldValue: '',
     }
     
     onChange = e => {
@@ -17,9 +18,21 @@ class CommentForm extends Component {
     }
 
     onSendComment = () => {
-        console.log(this.state.fieldValue);
-        console.log(this.props.userID);
-        console.log(this.props.observationId);
+        const { observationId } = this.props;
+        const { userID } = this.props;
+        const body = this.state.fieldValue;
+
+        const comment = {
+                 observation_id: observationId, 
+                 user_id: userID, 
+                 body: body 
+                }
+
+        this.props.newComment(comment, this.props.currentUserToken, observationId);
+        const fieldValue = '';
+        this.setState({
+            fieldValue
+        })
     }
 
     renderForm = () => {
@@ -53,10 +66,11 @@ class CommentForm extends Component {
     }
 
     render(){
-        console.log(this.props);
+        console.log(this.props.newCommentFormValue);
         return(
             <div>
                 { this.renderForm() }
+                {/* {this.state.redirect? <Redirect to={`/observation/${this.props.observationId}`} />: null} */}
             </div>
         )
     }
@@ -64,11 +78,12 @@ class CommentForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        state: state,
+        // state: state,
         // userID: state.auth.userID,
         userID: state.auth.userID,
+        currentUserToken: state.auth.token,
         isAuthenticated: state.auth.token !== null
     };
 };
 
-export default connect(mapStateToProps)(CommentForm);
+export default connect(mapStateToProps, { newComment: actions.newComment })(CommentForm);

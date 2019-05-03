@@ -10,6 +10,7 @@ import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
 import List from '../../../UI/List/List';
 import Comments from '../../shared/Comments/Comments';
+import FaSearch from 'react-icons/lib/fa/search';
 import './Observation.css';
 
 class Observation extends React.Component {
@@ -38,13 +39,21 @@ class Observation extends React.Component {
     renderImages = () => {
         if(this.props.observation){
             if(this.props.observation.data.attributes.images.length > 0){
-                console.log(this.props.observation.data.attributes.images);
                 let image = this.props.observation.data.attributes.images[0];
-                return <img
-                        className="observation-image" 
-                        src={`http://35.164.224.228${image}`} 
-                        alt="img"
-                        onClick={this.onMainImageClick}/>
+                let imgLength = this.props.observation.data.attributes.images.length;
+                let btnTitle = imgLength === 1 || imgLength === 5 || imgLength === 6? 'fotografija': 'fotografije'; 
+                return <div className="observation-img-wrap">
+                            <img
+                                className="observation-image" 
+                                src={`http://35.164.224.228${image}`} 
+                                alt="img"
+                                onClick={this.onMainImageClick}/>
+                            <button 
+                                onClick={this.onMainImageClick} 
+                                className="img-hover-btn">
+                                    {<FaSearch />} {imgLength} {btnTitle}
+                            </button>
+                        </div>
             }else{
                 return <p>Ovaj nalaz nema fotografija</p>
             }
@@ -60,7 +69,7 @@ class Observation extends React.Component {
     }
 
     render(){
-        console.log(this.props.observation)
+        console.log(this.props)
         const showObservation = () => {
             if(this.props.observation){
                 // console.log(this.props.observation)

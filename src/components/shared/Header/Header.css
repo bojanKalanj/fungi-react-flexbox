@@ -1,5 +1,4 @@
 .Header{
-    width: 90%;
     margin: 0 auto;
     position: relative;
     display: flex;
@@ -10,14 +9,27 @@
 }
 
 .nav-links{
-    font-family: Serif,serif;
-    color: #1a3c34;
-    font-size: 20px;
-    text-decoration: none;
-    line-height: 1.5;
+    /* font-family: Serif,serif; */
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ada197;
     letter-spacing: .2px;
     margin-left: 15px;
     margin-right: 15px;
+    text-decoration: none;
+    font-family: Helvetica, Arial;
+    font-size: 13px;
+    line-height: 2em;
+    text-transform: uppercase;
+}
+
+.nav-links:hover{
+    color: #513629;
+}
+
+.selected{
+    color: #513629; 
 }
 
 .DropdownBtn{
@@ -41,4 +53,30 @@
     line-height: 1.86;
     letter-spacing: .3px;
     font-weight: 400;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #000;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-header{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.user-avatar-header:hover{
+    cursor: pointer;
+}
+
+.user-avatar-header img{ 
+    width: 100%;
 }

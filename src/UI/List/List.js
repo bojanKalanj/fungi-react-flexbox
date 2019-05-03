@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, CardBody } from '../Card/Card';
 import moment from 'moment';
 
 import './List.css';
@@ -52,13 +51,13 @@ const List = (props) => {
     }
 
     return(
-        <Card width={props.width}>
-            <CardBody>
-                <ul className="List">
+        // <Card width={props.width}>
+            // <CardBody>
+                <ul style={{width: `${props.width}`}} className="List">
                     {renderList()}
                 </ul>
-            </CardBody>
-        </Card>
+            // </CardBody>
+        // </Card>
     )
 }
 
