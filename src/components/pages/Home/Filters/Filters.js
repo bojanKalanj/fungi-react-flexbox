@@ -23,9 +23,7 @@ class Filters extends Component {
                     <div className="Input">
                       <select>
                         <option value="0">Izaberi vrstu</option>
-                        {this.props.species.data.map(species => {
-                          return <option value="0">{ species.attributes.name }</option>
-                        })}
+                        
                       </select>
                     </div>
                     <button>Filtriraj</button>
