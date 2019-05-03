@@ -22,12 +22,12 @@ export{
 } from './observation/fetchObservation';
 
 export{
-    fetchObservations
-} from './observation/fetchObservations';
+    fetchObservationsCount
+} from './observation/fetchObservationsCount';
 
 export{
-    paginateObservations
-}from './observation/paginateObservations';
+    fetchObservations
+}from './observation/fetchObservations';
 // -----------------------------------------
 
 export{
@@ -56,3 +56,27 @@ export{
 export{
     dropData
 } from './dropdownData/dropdownData';
+
+// -----------------------------------------
+
+export{
+    newComment
+} from './comments/newComment';
+
+export{
+    fetchComments
+} from './comments/fetchComments';
+
+export{
+    deleteComment
+} from './comments/deleteComent';
+
+export{
+    editComment
+} from './comments/editComment';
+
+// ------------------------------------------
+
+export {
+    selectPaginationPage
+} from './pagination/selectPaginationPage';

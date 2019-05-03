@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchObservations, paginateObservations } from '../../../actions';
+import { fetchObservationsCount, fetchObservations } from '../../../actions';
 import moment from 'moment';
 
 import HomeCard from './HomeCard/HomeCard';
@@ -11,77 +11,64 @@ import Pagination from '../../shared/Pagination/Pagination'
 
 class Home extends React.Component{
     componentDidMount(){
-        this.props.fetchObservations();
-        this.props.paginateObservations(1);
-        // if(this.props.state.observations){
-        //     this.setState({ observations: this.props.state.observations.data });
-        // }
+        this.props.fetchObservationsCount();
+        this.props.fetchObservations(1);
     }
 
-    // componentWillReceiveProps = newProps => {
-    //     console.log(newProps)
-    //     if(newProps.state.paginateObser){
-    //         console.log(newProps.state.paginateObser.data);
-    //         this.setState({ observations: newProps.state.paginateObser.data });
-    //     }
-    // }
-
-    // state = { 
-    //     observations: null
-    // }
+    renderGrid() {
+        if(this.props.observations.observationsArray) {
+            return this.props.observations.observationsArray.map(observation => {
+                return (
+                    <HomeCard
+                        key={observation.id}
+                        id={observation.id}
+                        number={observation.attributes.number}
+                        thumbImg={observation.attributes.images[0]}
+                        speciesTitle={observation.attributes.species_name}
+                        determinator={observation.relationships.determinator.data}
+                        legator_username={observation.attributes.legator_username}
+                        addedAt={moment(observation.attributes.observed_at).format("DD-MMM-YYYY")}
+                    />
+                );
+            });
+        } else {
+            return <Spinner />
+        }
+    }
 
     getPaginationPageIndex = index => {
-        this.props.paginateObservations(index);
+        this.props.fetchObservations(index);
     }
 
-    renderPagination = () => {
-        if(this.props.state.observations){
-            return <Pagination 
-                    itemsPerPage={20} 
-                    numberOfAllItems={this.props.state.observations.data.length}
-                    getPaginationPageIndex={this.getPaginationPageIndex}/>
+    renderPagination() {
+        if(this.props.observations.observationsArray){
+            return (
+                <Pagination
+                    itemsPerPage={20}
+                    numberOfAllItems={this.props.observationsCount.count}
+                    getPaginationPageIndex={this.getPaginationPageIndex}
+                />
+            )
         }else{
             return null
         }
     }
 
-    render(){
-        // if(this.props.paginateObser.paginateObservations.observations){
-        //     console.log(this.props.paginateObser.paginateObservations.observations.data);
-        // }
-        if(this.props.paginateObser.paginateObservations.observations){
-            console.log(this.props.paginateObser.paginateObservations.observations.data);
-        }
-         const showObservations = () => {
-            if(this.props.paginateObser.paginateObservations.observations){
-                let observations = this.props.paginateObser.paginateObservations.observations.data;
-                return observations.map(obs => {
-                    return <HomeCard 
-                                key={obs.id} 
-                                id={obs.id}
-                                number={obs.attributes.number}
-                                speciesTitle={obs.attributes.species_name} 
-                                determinator={obs.relationships.determinator.data}
-                                legator_id={obs.relationships.legator.data.id}
-                                addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}
-                            />
-                })
-            }else{
-                return <Spinner />
-            }
-        }
+    toggleFilter(filterName) {
+      this.props.fetchObservations(1);
+    }
 
-        return(
+    render() {
+        return (
             <FlexContainer>
                 <div style={{width: "23%", color: "#3cc47c"}}>
-                        <Filters />
+                    <Filters />
                 </div>
                 <div style={{ width: '75%' }}>
-                    { this.renderPagination() }
                     <FlexContainer>
-                        { showObservations() }
+                        { this.renderGrid() }
                     </FlexContainer>
-                    {/* { this.renderPagination() } */}
+                    { this.renderPagination() }
                 </div>
             </FlexContainer>
         )
@@ -90,16 +77,17 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        paginateObser: state,
-        state: state.observations
+        observations: state.observations,
+        observationsCount: state.observationsCount,
+        currentPage: state.currentPage,
+        activeFilters: state.filters
     };
 };
 
 export default connect(
     mapStateToProps,
-    { fetchObservations,
-      paginateObservations }
+    {
+      fetchObservationsCount,
+      fetchObservations
+    }
 )(Home);
-
-
-

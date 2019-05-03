@@ -1,31 +1,33 @@
 const initialState = {
-    observations: null,
+    count: 0,
     error: null,
     loading: false
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
-        case "PAGINATE_OBSERVATIONS_START":
+        case "FETCH_OBSERVATIONS_COUNT_START":
             return {
                 ...state,
-                error: null, 
+                error: null,
                 loading: true
             }
-        case "PAGINATE_OBSERVATIONS_SUCCESS":
+        case "FETCH_OBSERVATIONS_COUNT_SUCCESS":
             return {
                 ...state,
-                observations: action.observations,
-                error: null, 
+                count: action.payload,
+                error: null,
                 loading: false
             }
-        case "PAGINATE_OBSERVATIONS_FAIL":
+        case "FETCH_OBSERVATIONS_COUNT_FAIL":
             return {
                 ...state,
-                error: action.error, 
+                count: 0,
+                error: action.error,
                 loading: false
-            }         
-        default: return state
+            }
+        default:
+            return state
     }
 }
 

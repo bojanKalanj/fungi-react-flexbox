@@ -1,5 +1,5 @@
 const initialState = {
-    observations: null,
+    observationsArray: null,
     error: null,
     loading: false
 }
@@ -9,23 +9,24 @@ const reducer = (state = initialState, action) => {
         case "FETCH_OBSERVATIONS_START":
             return {
                 ...state,
-                error: null, 
+                error: null,
                 loading: true
             }
         case "FETCH_OBSERVATIONS_SUCCESS":
             return {
                 ...state,
-                observations: action.observations,
-                error: null, 
+                observationsArray: action.payload,
+                error: null,
                 loading: false
             }
         case "FETCH_OBSERVATIONS_FAIL":
             return {
                 ...state,
-                error: action.error, 
+                error: action.error,
                 loading: false
-            }         
-        default: return state
+            }
+        default:
+            return state
     }
 }
 

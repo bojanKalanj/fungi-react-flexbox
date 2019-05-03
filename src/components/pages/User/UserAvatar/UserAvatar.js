@@ -9,7 +9,7 @@ const UserAvatar = (props) => {
             <div>
                 <img src={props.src} alt={props.alt} />
             </div>
-            <AnchorTag to="/user">
+            <AnchorTag to={`/user/${props.userId}`}>
                 { props.userName }
             </AnchorTag>
         </div>

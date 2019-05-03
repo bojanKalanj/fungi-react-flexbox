@@ -1,26 +1,39 @@
 .Header{
+    margin: 0 auto;
     position: relative;
     display: flex;
     align-items: center;
-    height: 70px;
+    height: 100px;
     background: #fff;
     box-shadow: 0 0.25rem 0.125rem 0 rgba(0,0,0,0.05);
 }
 
-.Header a{
-    margin-left: 10px;
-    margin-right: 10px;
+.nav-links{
+    /* font-family: Serif,serif; */
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ada197;
+    letter-spacing: .2px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-decoration: none;
+    font-family: Helvetica, Arial;
+    font-size: 13px;
+    line-height: 2em;
+    text-transform: uppercase;
+}
+
+.nav-links:hover{
+    color: #513629;
+}
+
+.selected{
+    color: #513629; 
 }
 
 .DropdownBtn{
     display: inline-block;
-    
-    /* padding: 10px;
-    font-family: Helvetica, Arial;
-    letter-spacing: 0.2px;
-    line-height: 1.5;
-    font-size: 18px;
-    border: 1px solid rgba(81, 54, 41, .2); */
 }
 
 .DropdownBtn:focus{
@@ -29,4 +42,41 @@
 
 .DropdownBtn:hover{
     cursor: pointer;
+}
+
+.logo{
+    /* display: block; */
+    text-decoration: none;
+    font-family: serif;
+    color: #1a3c34;
+    font-size: 30px;
+    line-height: 1.86;
+    letter-spacing: .3px;
+    font-weight: 400;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #000;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-header{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.user-avatar-header:hover{
+    cursor: pointer;
+}
+
+.user-avatar-header img{ 
+    width: 100%;
 }

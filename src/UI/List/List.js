@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, CardBody } from '../Card/Card';
 import moment from 'moment';
 
 import './List.css';
@@ -29,6 +28,10 @@ const List = (props) => {
                 return "postoji uzorak"
             case "external_url":
                 return "spoljni link"
+            case "species_name":
+                return "vrsta"
+            case "legator_username":
+                return "legator"
             default: return word
         }
     }
@@ -36,25 +39,25 @@ const List = (props) => {
     const renderList = () => {
         let list =[];
         for(let li in props.toList){
-            if(li !== 'description' && li !== 'observed_at' && li !== 'created_at' && props.toList[li]){
+            if(li !== 'description' && li !== 'observed_at' && li !== 'created_at' && li !== 'images' && props.toList[li]){
                 list.push(
                     <li key={li}>{translate(li)}:  <span className="pull-right">{props.toList[li]}</span> </li>
                 )
             }
         }
         list.push(<li key="observed_at">nalaz uočen:  <span className="pull-right">{moment(props.toList['observed_at']).format("DD-MMM-YYYY")}</span> </li>);
-        list.push(<li key="observed_at">nalaz dodat:  <span className="pull-right">{moment(props.toList['created_at']).format("DD-MMM-YYYY")}</span> </li>);
+        list.push(<li key="created_at">nalaz dodat:  <span className="pull-right">{moment(props.toList['created_at']).format("DD-MMM-YYYY")}</span> </li>);
         return list;    
     }
 
     return(
-        <Card width={props.width}>
-            <CardBody>
-                <ul className="List">
+        // <Card width={props.width}>
+            // <CardBody>
+                <ul style={{width: `${props.width}`}} className="List">
                     {renderList()}
                 </ul>
-            </CardBody>
-        </Card>
+            // </CardBody>
+        // </Card>
     )
 }
 

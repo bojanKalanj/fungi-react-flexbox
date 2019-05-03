@@ -1,0 +1,97 @@
+.Modal{
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9); 
+}
+
+.modal-content{
+    position: relative;
+    margin: 0% auto;
+    max-width: 90%;
+    height: 100%;
+    text-align: center;
+}
+
+.modal-content .mainImage{
+    width: auto;
+    height: auto;
+    max-height: 85%;
+}
+
+.arrow{
+    color: #fff;
+    position: absolute;
+    font-size: 50px;
+}
+
+.arrow:hover,
+.icon-close:hover{
+    cursor: pointer;
+    color: rgb(196, 195, 195);
+}
+
+.arrow-left{
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.arrow-left{
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.arrow-right{
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.icon-close{
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 50px;
+}
+
+.image-list{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-list ul{
+    width: 100%;
+    overflow: hidden;
+    list-style: none;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.img-preview{
+    opacity: .6;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.img-preview:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+
+.modal-image-active{
+    opacity: 1;
+    border: 3px solid rgb(162, 43, 42);
+}

@@ -5,21 +5,71 @@ import {fetchObservation} from '../../../actions';
 import { FlexContainer } from '../../../UI/Container/Container';
 import { Card, CardBody } from '../../../UI/Card/Card';
 import { TitleLinks } from '../../../UI/AnchorTag/AnchorTag';
+import Modal from '../../../UI/Modal/Modal';
 import UserAvatar from '../User/UserAvatar/UserAvatar';
 import uerAvatarPlaceholderImg from '../../../assets/hari.jpg';
 import List from '../../../UI/List/List';
 import Comments from '../../shared/Comments/Comments';
+import FaSearch from 'react-icons/lib/fa/search';
+import './Observation.css';
 
 class Observation extends React.Component {
     componentDidMount = () => {
         this.props.fetchObservation(this.props.match.params.id)
     }
 
-    render(){
+    state = {
+        showModal: false
+    }
+
+    onMainImageClick = () => {
+        let showModal = true;
+        this.setState({
+            showModal
+        })
+    }
+
+    onClickCloseModal = () => {
+        let showModal = false;
+        this.setState({
+            showModal
+        })
+    }
+
+    renderImages = () => {
         if(this.props.observation){
-            // return this.props.observation.data.relationships.species.data;
-            console.log(this.props.observation.data.attributes.species_name);
+            if(this.props.observation.data.attributes.images.length > 0){
+                let image = this.props.observation.data.attributes.images[0];
+                let imgLength = this.props.observation.data.attributes.images.length;
+                let btnTitle = imgLength === 1 || imgLength === 5 || imgLength === 6? 'fotografija': 'fotografije'; 
+                return <div className="observation-img-wrap">
+                            <img
+                                className="observation-image" 
+                                src={`http://35.164.224.228${image}`} 
+                                alt="img"
+                                onClick={this.onMainImageClick}/>
+                            <button 
+                                onClick={this.onMainImageClick} 
+                                className="img-hover-btn">
+                                    {<FaSearch />} {imgLength} {btnTitle}
+                            </button>
+                        </div>
+            }else{
+                return <p>Ovaj nalaz nema fotografija</p>
+            }
         }
+    }
+
+    renderComments = () => {
+        if(this.props.observation){
+            return <Comments observationId={this.props.observation.data.id}/>
+        }else{
+            return null;
+        }
+    }
+
+    render(){
+        console.log(this.props)
         const showObservation = () => {
             if(this.props.observation){
                 // console.log(this.props.observation)
@@ -45,23 +95,26 @@ class Observation extends React.Component {
 
         const showList = () => {
             if(this.props.observation){
-                return <List width="32%" toList={this.props.observation.data.attributes}/>
+                return <List width="26%" toList={this.props.observation.data.attributes}/>
             }
         }
         return (
             <div>
-                <TitleLinks to="">
-                    { showTitle() }
-                </TitleLinks>
+                <h1>
+                    <TitleLinks to="">
+                        { showTitle() }
+                    </TitleLinks>
+                </h1>
                 { showObservation() }
                 <FlexContainer>
-                    <div style={{width: '42%'}}>
+                    <div style={{width: '49%'}}>
                         <Card>
                             <CardBody>
-                                { showDescription() }
+                                { this.renderImages() }
+                                {/* { showDescription() } */}
                             </CardBody>
                         </Card>
-                        <Comments></Comments>
+                        { this.renderComments() }
                     </div>
                     { showList() }
                     <Card width="22%">
@@ -72,11 +125,17 @@ class Observation extends React.Component {
                                 userName="Hari Kalanj"/>
                                 <hr />
                                 <p>
-                                    
+                                    { showDescription() }
                                 </p>
                         </CardBody>
                     </Card>
                 </FlexContainer>
+                {this.state.showModal? 
+                    <Modal 
+                        images={this.props.observation.data.attributes.images}
+                        showModal={this.state.showModal}
+                        onClickClose={this.onClickCloseModal}
+                        />: null}
             </div>
         )
     }

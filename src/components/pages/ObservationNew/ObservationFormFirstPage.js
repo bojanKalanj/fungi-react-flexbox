@@ -75,7 +75,7 @@ class ObservationFormFirstPage extends Component {
                   dateFormat="dd-MMM-YYYY"
                   inputValueFormat="dd-MMM-YYYY"
                   dropdownMode="select"
-                  normalize={value => (value ? moment(value).format("dd-MMM-YYYY") : null)}
+                  normalize={value => (value ? moment(value).format("DD-MMM-YYYY") : null)}
                   component={renderDatePicker}
                 />
               </div>

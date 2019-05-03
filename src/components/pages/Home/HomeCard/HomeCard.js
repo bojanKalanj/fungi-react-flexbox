@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { Card, CardBody } from '../../../../UI/Card/Card';
-import placeholderImg from '../../../../assets/mushroom.jpg';
+import placeholderImg from '../../../../assets/mushroom_placeholder.jpg';
 import { AnchorTag, TitleLinks } from '../../../../UI/AnchorTag/AnchorTag';
+import { Link } from 'react-router-dom';
 
 const HomeCard = (props) => {
     const title = () => {
@@ -23,26 +24,28 @@ const HomeCard = (props) => {
 
     // GET /api/v1/users/:id where id is id 
     const legator = () => {
-        if(props.legator_id){
-            return `Legator ID: ${props.legator_id}`
+        if(props.legator_username){
+            return props.legator_username;
         }else{
-            return 'Korisnik'
+            return 'Anoniman'
         }
     }
 
     const pathToObervation =`/observation/${props.id}`
-
     return(
         <Card width='23%'>
-            <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>
+            <Link to={pathToObervation}>{props.thumbImg? <img src={`http://35.164.224.228${props.thumbImg}`}  alt="placeholderImg" style={{ width: '100%' }}/>: <img src={placeholderImg} alt="placeholderImg" style={{ width: '100%' }}/>}</Link>
             <CardBody >
                 <TitleLinks to={pathToObervation} >
                     { title() } 
                 </TitleLinks>
                 <hr />
-                <AnchorTag to="/user">
-                    { legator() }
-                </AnchorTag>
+                <span className="text-small margin-top-tiny">
+                    <AnchorTag to={`/user/${props.legator_id}`}>
+                        { legator() }
+                    </AnchorTag>
+                </span>
+                
                 <span className="text-muted text-small margin-top-tiny">
                     { props.addedAt }
                 </span>
