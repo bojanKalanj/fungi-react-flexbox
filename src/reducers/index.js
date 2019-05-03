@@ -1,40 +1,38 @@
 import { combineReducers } from 'redux';
-import observationsReducer from './observationsReducer';
-import observationReducer from './observationReducer';
-import speciesReducer from './speciesReducer';
-import userReducer from './userReducer';
-import authReducer from './authReducer';
-// import newObservationReducer from './newObservationReducser';
-import habitatsReducer from './habitatsReducer';
-import registerUser from './registerReducer';
-import floralSpeciesReducer from './floralSpeciesReducer';
-import substrateReducer from './substrateReducer';
+import observations from './observations/observationsReducer';
+import observation from './observations/observationReducer';
+import species from './species/speciesReducer';
+import user from './authentication/userReducer';
+import auth from './authentication/authReducer';
+import habitats from './habitats/habitatsReducer';
+import registerUser from './authentication/registerReducer';
+import floralSpecies from './species/floralSpeciesReducer';
+import substrate from './substrates/substrateReducer';
 import { reducer as formReducer } from 'redux-form';
-import dropdownDataReducer from './dropdownDataReducer';
-import paginateObservationsReducer from './paginateObservationsReducer';
-import paginateSpeciesReducer from './paginateSpeciesReducer';
-import newCommentReducer from './newCommentReducer';
-import commentsReducer from './commentsReducer';
-import deleteCommentReducer from './deleteCommentReducer';
-import editCommentReducer from './editCommentReducer';
+import dropdownData from './dropdown/dropdownDataReducer';
+import paginateObservations from './observations/paginateObservationsReducer';
+import paginateSpecies from './species/paginateSpeciesReducer';
+import newComment from './comments/newCommentReducer';
+import comments from './comments/commentsReducer';
+import deleteComment from './comments/deleteCommentReducer';
+import editComment from './comments/editCommentReducer';
 
 export default combineReducers({
-    observations: observationsReducer,
-    observation: observationReducer,
-    species: speciesReducer,
-    user: userReducer,
-    auth: authReducer,
-    // newObservation: newObservationReducer,
-    habitatCategories: habitatsReducer,
+    observations: observations,
+    observation: observation,
+    species: species,
+    user: user,
+    auth: auth,
+    habitatCategories: habitats,
     registeredUser: registerUser,
-    floralspecies: floralSpeciesReducer,
+    floralspecies: floralSpecies,
     form: formReducer,
-    substrate: substrateReducer,
-    dropdownData: dropdownDataReducer,
-    paginateObservations: paginateObservationsReducer,
-    paginateSpecies: paginateSpeciesReducer,
-    newComment: newCommentReducer,
-    fetchedComments: commentsReducer,
-    deletedComment: deleteCommentReducer,
-    editedComment: editCommentReducer
+    substrate: substrate,
+    dropdownData: dropdownData,
+    paginateObservations: paginateObservations,
+    paginateSpecies: paginateSpecies,
+    newComment: newComment,
+    fetchedComments: comments,
+    deletedComment: deleteComment,
+    editedComment: editComment
 });
