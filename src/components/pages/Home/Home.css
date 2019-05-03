@@ -1,0 +1,12 @@
+.search-tags{
+    display: flex;
+    list-style: none;
+}
+
+.search-tags li{
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: #828081;
+    background: #fff;
+}
