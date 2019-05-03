@@ -1,36 +1,35 @@
 import fungi from '../../apis/fungi';
 
-export const fetchObservationsStart = () => {
+const fetchObservationsStart = () => {
     return{
         type: "FETCH_OBSERVATIONS_START"
     }
 }
 
-export const fetchObservationSuccess = (observations) => {
-    return{
+const fetchObservationsSuccess = (array) => {
+    return {
         type: "FETCH_OBSERVATIONS_SUCCESS",
-        observations: observations
+        payload: array
     };
 };
 
-export const fetchObservationsFails = (error) => {
+const fetchObservationsFails = (error) => {
     return{
         type: "FETCH_OBSERVATIONS_FAIL",
         error: error
     };
 };
 
-export const fetchObservations = () => {
+export const fetchObservations = (currentPage) => {
     return dispatch =>{
         dispatch(fetchObservationsStart());
-        
-        fungi.get("/observations")
+
+        fungi.get(`/observations?page=${currentPage}`)
         .then(response => {
-            dispatch(fetchObservationSuccess(response.data));
+            dispatch(fetchObservationsSuccess(response.data.data));
         })
         .catch(error => {
             dispatch(fetchObservationsFails(error));
         })
     };
 };
-

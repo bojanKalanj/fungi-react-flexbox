@@ -1,56 +1,45 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { fetchSpecies } from '../../../../actions';
 
 import Form from '../../../../UI/Form/Form';
 
-class Filters extends Component{
-    state = {
-        formFields: {
-            formFiledOne: {
-                elementType: 'input',
-                type: 'text',
-                placeholder: 'location',
-                value: '',
-                label: 'Lokacija na kojoj je pronadjena obzervacija'
-            },
-            formFiledTwo: {
-                elementType: 'input',
-                type: 'text',
-                placeholder: 'location',
-                value: '',
-                label: 'Lokacija na kojoj je pronadjena obzervacija'
-            },
-            formFiledThree: {
-                elementType: 'input',
-                type: 'text',
-                placeholder: 'location',
-                value: '',
-                label: 'Lokacija na kojoj je pronadjena obzervacija'
-            },
-        }
-    }
+class Filters extends Component {
 
-    onInputChanged = data => {
-        this.setState({ formFields: data })
+    componentWillMount = () => {
+      this.props.fetchSpecies();
     }
 
     onFormSubmit = (event) => {
-        event.preventDefault()
-        console.log(this.state.formFields);
+        event.preventDefault();
+        console.log(this.props.species.data);
     }
 
     render(){
-        let formElements = {...this.state.formFields};
-
         return (
-            <Form 
-                formElements={formElements} 
-                title="Filteri" 
-                onSubmit={(event) => this.onFormSubmit(event)}
-                inputChangedHandler={(data) => this.onInputChanged(data)}
-                btnTitle="Filter">
-            </Form>
-        )
+            <div>
+                <form className="Form" onSubmit={this.onFormSubmit}>
+                    <h4>Filteri</h4>
+                    <div className="Input">
+                      <select>
+                        <option value="0">Izaberi vrstu</option>
+                        
+                      </select>
+                    </div>
+                    <button>Filtriraj</button>
+                </form>
+            </div>
+        );
     }
 }
 
-export default Filters;
+const mapStateToProps = (state) => {
+    return {
+        species: state.species
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    { fetchSpecies }
+)(Filters);
