@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import observations from './observations/observationsReducer';
 import observation from './observations/observationReducer';
+import observationCount from './observations/observationsCountReducer';
 import species from './species/speciesReducer';
 import user from './authentication/userReducer';
 import auth from './authentication/authReducer';
@@ -34,5 +35,6 @@ export default combineReducers({
     newComment: newComment,
     fetchedComments: comments,
     deletedComment: deleteComment,
-    editedComment: editComment
+    editedComment: editComment,
+    observationCount: observationCount
 });

@@ -20,7 +20,7 @@ class Species extends Component {
         if(this.props.species){
             return <Pagination 
                     itemsPerPage={50} 
-                    numberOfAllItems={this.props.species.data.length}
+                    numberOfAllItems={this.props.species.length}
                     getPaginationPageIndex={this.getPaginationPageIndex}/>
         }else{
             return null
@@ -32,9 +32,6 @@ class Species extends Component {
     }
 
     render(){
-        if(this.props.state.paginateSpecies.species){
-            console.log(this.props.state.paginateSpecies.species.data)
-        }
         let loading = this.props.loading;
 
         const loadSpecies = () => {

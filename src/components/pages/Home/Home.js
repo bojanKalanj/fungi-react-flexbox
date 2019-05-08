@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchObservations, paginateObservations } from '../../../actions';
+import { fetchObservationsCount, fetchObservations } from '../../../actions';
 import moment from 'moment';
 
 import HomeCard from './HomeCard/HomeCard';
@@ -11,55 +11,80 @@ import Pagination from '../../shared/Pagination/Pagination'
 
 class Home extends React.Component{
     componentDidMount(){
-        this.props.fetchObservations();
-        this.props.paginateObservations(1);
+        this.props.fetchObservationsCount();
+        this.props.fetchObservations(1);
+    }
+
+    componentWillReceiveProps = newProps => {
+        if(newProps.observations.observationsArray){
+            this.setState({ observations: newProps.observations.observationsArray });
+        }
+    }
+
+    state = {
+        observations: null,
+        currentPage: 1
+    }
+
+    renderGrid() {
+        const {observations} = this.state; 
+        if(observations) {
+            return observations.map(observation => {
+                return (
+                    <HomeCard
+                        key={observation.id}
+                        id={observation.id}
+                        number={observation.attributes.number}
+                        thumbImg={observation.attributes.images[0]}
+                        speciesTitle={observation.attributes.species_name}
+                        determinator={observation.relationships.determinator.data}
+                        legator_username={observation.attributes.legator_username}
+                        addedAt={moment(observation.attributes.observed_at).format("DD-MMM-YYYY")}
+                    />
+                );
+            });
+        } else {
+            return <Spinner />
+        }
     }
 
     getPaginationPageIndex = index => {
-        this.props.paginateObservations(index);
+        this.props.fetchObservations(index);
     }
 
-    renderPagination = () => {
-        if(this.props.state.observations){
-            return <Pagination 
-                    itemsPerPage={20} 
-                    numberOfAllItems={this.props.state.observations.data.length}
-                    getPaginationPageIndex={this.getPaginationPageIndex}/>
+    changeCurrentPage = currentPage => {
+        this.setState({ currentPage: currentPage })
+    }
+
+    renderPagination() {
+        if(this.props.observations.observationsArray){
+            return (
+                <Pagination
+                    itemsPerPage={20}
+                    numberOfAllItems={this.props.state.observationCount.count}
+                    getPaginationPageIndex={this.getPaginationPageIndex}
+                    changeCurrentPage={this.changeCurrentPage}
+                    currentPage={this.state.currentPage}
+                />
+            )
         }else{
             return null
         }
     }
 
-    render(){
-         const showObservations = () => {
-            if(this.props.paginateObser.paginateObservations.observations){
-                let observations = this.props.paginateObser.paginateObservations.observations.data;
-                return observations.map(obs => {
-                    return <HomeCard 
-                                key={obs.id} 
-                                id={obs.id}
-                                number={obs.attributes.number}
-                                thumbImg={obs.attributes.images[0]}
-                                speciesTitle={obs.attributes.species_name} 
-                                determinator={obs.relationships.determinator.data}
-                                legator_username={obs.attributes.legator_username}
-                                legator_id={obs.relationships.legator.data.id}
-                                addedAt={moment(obs.attributes.observed_at).format("DD-MMM-YYYY")}
-                            />
-                })
-            }else{
-                return <Spinner />
-            }
-        }
+    toggleFilter(filterName) {
+      this.props.fetchObservations(1);
+    }
 
-        return(
+    render() {
+        return (
             <FlexContainer>
                 <div style={{width: "23%", color: "#3cc47c"}}>
                     <Filters />
                 </div>
                 <div style={{ width: '75%' }}>
                     <FlexContainer>
-                        { showObservations() }
+                        { this.renderGrid() }
                     </FlexContainer>
                     { this.renderPagination() }
                 </div>
@@ -70,16 +95,18 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        paginateObser: state,
-        state: state.observations
+        state: state,
+        observations: state.observations,
+        observationsCount: state.observationsCount,
+        currentPage: state.currentPage,
+        activeFilters: state.filters
     };
 };
 
 export default connect(
     mapStateToProps,
-    { fetchObservations,
-      paginateObservations }
+    {
+      fetchObservationsCount,
+      fetchObservations
+    }
 )(Home);
-
-
-
